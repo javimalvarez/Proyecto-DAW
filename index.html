@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Act3</title>
+</head>
+<body>
+    <button onclick="texto()">Introducir cadena</button>
+
+
+    <script>
+
+        function texto(){
+
+            var frase=prompt("Introduce una frase:");
+
+            var longitud=frase.length;
+            var primeraPosicion=frase[0];
+            var mayusculas=frase.toUpperCase();
+            var minusculas=frase.toLowerCase();
+            var posiciones=frase.substring(0,3);
+
+            document.write("La frase introducida es: "+frase+"<br>");
+            document.write("El tamaño de la frase es: "+longitud+" caracteres <br>");
+            document.write("El primer caracter de la frase es: "+primeraPosicion+"<br>");
+            document.write("La frase en minúsculas: "+minusculas+"<br>");
+            document.write("La frase en mayúsculas: "+mayusculas+"<br>");
+            document.write("Los 3 primeros caracteres son:" +posiciones);
+
+        }
+
+
+
+    </script>
+
+</body>
+</html>
