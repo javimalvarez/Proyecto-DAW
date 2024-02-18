@@ -1,0 +1,20 @@
+.divRegistro{
+    text-align: center;
+    background-color: aqua;
+    width: 25%;
+    align-self: center;
+}
+.formRegistro{
+    margin-top: 7%;
+    display: flex;
+    justify-content: center;
+}
+input{
+    border: none;
+    border-bottom: 1px grey solid;
+}
+.botonRegistro{
+    margin-top: 7%;
+    margin-bottom: 7%;
+
+}
