@@ -1,0 +1,29 @@
+body{
+    background: rgb(34,193,195);
+    background: linear-gradient(135deg, rgba(34,193,195,1) 23%, rgba(253,247,45,1) 100%); 
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+  .divLogin{
+    text-align: center;
+    background-color: white;
+    width: 25%;    
+    align-self: center;
+    border-radius: 5%;
+}
+.formLogin{
+    margin-top: 7%;
+    display: flex;
+    justify-content: center;
+}
+input{
+    border: none;
+    border-bottom: 1px grey solid;
+}
+.botonLogin{
+    margin-top: 7%;
+    margin-bottom: 7%;
+
+}
