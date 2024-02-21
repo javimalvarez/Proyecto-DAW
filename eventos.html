@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="eventos.js" defer></script>
+</head>
+<body>
+    <form id="formulario_eventos">
+        <fieldset id="evento" style="border:0">
+            <label for="nombre_evento" required>Evento:</label>
+            <input type="text" id="name" name="nombre_evento">
+            <select name="tipo_evento" id="tipo_evento" autofocus>
+                <option value="">Indica tipo de evento</option>
+                <option value="concierto">Concierto</option>
+                <option value="festival">Festival</option>
+                <option value="teatro">Teatro</option>
+                <option value="Cine">Cine</option>
+                <option value="ferias">Ferias</option>
+                <option value="otros">Otros</option>
+            </select>
+        </fieldset>
+        <fieldset id="festival" style="border:0; visibility: hidden;">
+            <h3>Festivales:</h3>
+            <label for="ini_festival" required>Fecha comienzo:</label>
+            <input type="date" name="ini_festival">
+            <label for="fin_festival">Fecha fin:</label>
+            <input type="date" name="fin_festival" required><br/>
+            <label for="url_festival">Web:</label>
+            <input type="url" name="url_festival" placeholder="URL festival"><br/>
+            <input type="file" name="file_festival"><br/>
+            <label for="info_festival">Otra información:</label><br/>
+            <textarea name="info_festival" id="info_festival" cols="30" rows="3"></textarea>
+        </fieldset>
+        <fieldset id="concierto" style="border:0; visibility: hidden;">
+            <h3>Conciertos:</h3>
+            <label for="grupo">Grupo:</label>
+            <!--El grupo se muestra en base a la información que hay en la base de datos (se recupera con php)-->
+            <select name="grupo">
+                <option value="">Indica el grupo</option>
+            </select><br/>
+            <!--El botón para dar de alta un grupo llevará al formulario correspondiente-->
+            Si el grupo no aparece en la lista pulsa aquí <button>
+                <?php
+                echo"<a href='grupos.html' style='text-decoration:none; color:black;'>Nuevo grupo</a>"
+                ?>
+            </button><br/>
+            <select name="provincia_concierto" style="max-height: 5%;">
+                <?php
+                require_once("datos.php");
+                echo"<option value=''>Provincia</option>";
+                $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                $query="SELECT * FROM provincias";
+                $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                while($row = mysqli_fetch_array($result)){
+                    extract($row);
+                    echo "<option value='$id_provincia'>$provincia</option>";
+                }
+                ?>
+            </select><br/>
+            <label for="ubicacion_concierto" title="Indica coordenadas">Ubicación:</label>
+            <input type="text" name="ubicacion_concierto" placeholder="ejemplo: {lat:42.54992, lng:-6.59791}"><br/>
+            <label for="ini_concierto">Fecha:</label>
+            <input type="date" name="ini_concierto">
+            <label for="hora_concierto">Hora:</label>
+            <input type="time" name="hora_concierto"><br/>
+            <label for="url_concierto">Web:</label>
+            <input type="url" name="url_concierto" placeholder="URL concierto"><br/>
+            <input type="file" name="file_concierto"><br/>
+            <label for="info_concierto">Otra información:</label><br/>
+            <textarea name="info_concierto" id="info_concierto" cols="30" rows="3"></textarea>
+        </fieldset>
+        <fieldset id="otro" style="border:0; visibility: hidden;">
+            <h3>Otros:</h3>
+            <select name="provincia_concierto" size="1">
+                <?php
+                require_once("datos.php");
+                echo"<option value=''>Provincia</option>";
+                $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                $query="SELECT * FROM provincias";
+                $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                while($row = mysqli_fetch_array($result)){
+                    extract($row);
+                    echo "<option value='$id_provincia'>$provincia</option>";
+                }
+                ?>
+            </select><br/>
+            <label for="ubicacion_otro" title="Indica coordenadas">Ubicación:</label>
+            <input type="text" name="ubicacion_otro" placeholder="ejemplo: {lat:42.54992, lng:-6.59791}"><br/>
+            <label for="ini_otro">Fecha inicio:</label>
+            <input type="date" name="ini_otro">
+            <label for="fin_otro">Fecha fin:</label>
+            <input type="date" name="fin_otro">
+            <label for="hora_otro">Hora:</label>
+            <input type="time" name="otro"><br/>
+            <label for="url_otro">Web:</label>
+            <input type="url" name="url_otro" placeholder="URL evento"><br/>
+            <input type="file" name="file_otro"><br/>
+            <label for="info_otro">Otra información:</label><br/>
+            <textarea name="info_otro" id="info_otro" cols="30" rows="3"></textarea>
+        </fieldset>  
+    </form>
+</body>
+</html>
