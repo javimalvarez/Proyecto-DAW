@@ -6,6 +6,8 @@ body{
     background-position: center center;
     background-attachment: fixed;
   }
+  .bi-person{
+    background-color: black;}
   .divLogin{
     text-align: center;
     background-color: white;
@@ -29,7 +31,12 @@ input{
     margin-top: 7%;
     margin-bottom: 7%;
 
-}
+
+  }
+  .bi{
+color: black !important;    
+  }
+ 
 
 /* 8 */
 .btn-8 {
@@ -81,3 +88,11 @@ input{
     width: 100%;
   }
     
+
+
+
+
+
+
+
+  
