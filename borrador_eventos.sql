@@ -5,21 +5,21 @@ USE events_db;
 
 -- DROP TABLE IF EXISTS usuarios;
 CREATE TABLE usuarios (
-	id_usuario INT NOT NULL AUTO_INCREMENT,
+    id_usuario INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(150) NOT NULL,
     apellidos VARCHAR(200) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
-   -- contrasenya VARCHAR(40) NOT NULL,
+    contrasenya VARCHAR(40) NOT NULL,
     tipo INT DEFAULT 1,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (id_usuario)
 );
-INSERT INTO usuarios (nombre, apellidos, email)
+INSERT INTO usuarios (nombre, apellidos, email, contrasenya)
 VALUES
-('Aranzazu', 'Ordoyo', 'aordoyo@msn.com'),
-('Itizar', 'Esteban', 'iesteban@yahoo.com'),
-('Javier', 'Martinez', 'jmartinez@mediavida.com'),
-('David', 'Rodriguez', 'drgz@hotmail.com');
+('Aranzazu', 'Ordoyo', 'aordoyo@msn.com', '1234'),
+('Itizar', 'Esteban', 'iesteban@yahoo.com', '1234'),
+('Javier', 'Martinez', 'jmartinez@mediavida.com', '1234'),
+('David', 'Rodriguez', 'drgz@hotmail.com', '1234');
 SELECT * FROM usuarios;
 
 -- DROP TABLE IF EXISTS tipo_eventos;
@@ -100,10 +100,9 @@ VALUES
 CREATE TABLE eventos (
     id_evento INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(200) NOT NULL,
-    id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros
+    id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros, ...
     ubicacion VARCHAR(200) NOT NULL,
     id_provincia INT NOT NULL,
-	-- provincia VARCHAR(80) NOT NULL,
     fecha_comienzo DATETIME NOT NULL,
     fecha_fin DATE NULL,
     info VARCHAR(400),
