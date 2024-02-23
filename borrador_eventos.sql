@@ -35,29 +35,6 @@ VALUES
 ('Otros');
 SELECT * FROM tipo_eventos;
 
--- DROP TABLE IF EXISTS eventos;
-CREATE TABLE eventos (
-    id_evento INT NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(200) NOT NULL,
-    id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros
-    ubicacion VARCHAR(200) NOT NULL,
-    provincia VARCHAR(80) NOT NULL,
-    fecha_comienzo DATETIME NOT NULL,
-    fecha_fin DATE NULL,
-    info VARCHAR(400),
-    link VARCHAR(100) NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    FOREIGN KEY (id_tipo) REFERENCES tipo_eventos (id_tipo),
-    PRIMARY KEY (id_evento)
-);
-INSERT INTO eventos (nombre, id_tipo, ubicacion, provincia, fecha_comienzo, fecha_fin, info, link)
-VALUES
-('Al aire', 3, '{"lat": ﻿41.4114, "lng": 2.225}', 'Barcelona', '2024-07-04 19:00:00', '', 'Cine de verano(al aire libre) todos los Jueves de Julio a Agosto. Entradas limitadas', 'https://cinedeverano.es/entrada'),
-('Vermut', 3, '{"lat": 43.32554, "lng": -1.98662}', 'Gipuzkoa', '2024-05-26 11:30:00', '', 'Quedada para tomar unos Vermuts.', ''),
-('Concierto - Depeche Mode', 2, '{"lat": 40.42406, "lng": -3.67176}', 'Madrid', '2024-03-12 21:00:00', '', 'Concierto Depeche Mode en el WizInk Arena', 'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505'),
-('Sonar Festival', 1, '{"lat": ﻿41.4114, "lng": 2.225}', 'Barcelona', '2024-06-13', '2024-06-15', 'Festival Internacional de música(electrónica)', 'https://sonar.es/es/tickets');
-SELECT * FROM eventos;
-
 -- DROP TABLE IF EXISTS provincia;
 CREATE TABLE provincia (
     id_provincia INT NOT NULL,
@@ -118,5 +95,34 @@ VALUES
 (47, 'Valladolid'),
 (49, 'Zamora'),
 (50, 'Zaragoza');
+
+-- DROP TABLE IF EXISTS eventos;
+CREATE TABLE eventos (
+    id_evento INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(200) NOT NULL,
+    id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros
+    ubicacion VARCHAR(200) NOT NULL,
+    id_provincia INT NOT NULL,
+	-- provincia VARCHAR(80) NOT NULL,
+    fecha_comienzo DATETIME NOT NULL,
+    fecha_fin DATE NULL,
+    info VARCHAR(400),
+    link VARCHAR(100) NULL,
+    id_usuario_creador INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (id_tipo) REFERENCES tipo_eventos (id_tipo),
+    FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia),
+    FOREIGN KEY (id_usuario_creador) REFERENCES usuarios (id_usuario),
+    PRIMARY KEY (id_evento)
+);
+INSERT INTO eventos (nombre, id_tipo, ubicacion, id_provincia, fecha_comienzo, fecha_fin, info, link, id_usuario_creador)
+VALUES
+('Al aire', 3, '{"lat": 41.4114, "lng": 2.225}', 8, '2024-07-04 19:00:00', NULL, 'Cine de verano (al aire libre) todos los Jueves de Julio a Agosto. Entradas limitadas', 'https://cinedeverano.es/entrada', 1),
+('Vermut', 3, '{"lat": 43.32554, "lng": -1.98662}', 20, '2024-05-26 11:30:00', NULL, 'Quedada para tomar unos Vermuts.', NULL, 2),
+('Concierto - Depeche Mode', 2, '{"lat": 40.42406, "lng": -3.67176}', 28, '2024-03-12 21:00:00', NULL, 'Concierto Depeche Mode en el WizInk Arena', 'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505', 3),
+('Sonar Festival', 1, '{"lat": 41.4114, "lng": 2.225}', 8, '2024-06-13', '2024-06-15', 'Festival Internacional de música (electrónica)', 'https://sonar.es/es/tickets', 4);
+
 SELECT * FROM provincia;
 SELECT * FROM eventos;
+
+SELECT * FROM eventos WHERE id_usuario_creador = 4;
