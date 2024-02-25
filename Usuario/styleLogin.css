@@ -1,98 +1,180 @@
-body{
-    background: rgb(34,193,195);
-    background: linear-gradient(135deg, rgba(34,193,195,1) 23%, rgba(253,247,45,1) 100%); 
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-position: center center;
-    background-attachment: fixed;
-  }
-  .bi-person{
-    background-color: black;}
-  .divLogin{
-    text-align: center;
-    background-color: white;
-    width: 30%;    
-    align-self: center;
-    border-radius: 5%;
-    padding: 2%;
-
+body {
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 193, 195, 1) 23%,
+    rgba(253, 247, 45, 1) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+  background-color: aquamarine;
 }
-.formLogin{
-    margin-top: 7%;
-    display: flex;
-    justify-content: center;
-    padding: 2%;
+.bi-person {
+  background-color: black;
 }
-input{
-    border: none;
-    border-bottom: 1px grey solid;
+.divLogin {
+  text-align: center;
+  background-color: white;
+  width: 30%;
+  align-self: center;
+  border-radius: 5%;
+  padding: 2%;
 }
-.botonLogin{
-    margin-top: 7%;
-    margin-bottom: 7%;
-
-
-  }
-  .bi{
-color: black !important;    
-  }
- 
+.formLogin {
+  margin-top: 7%;
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+}
+input {
+  border: none;
+  border-bottom: 1px grey solid;
+}
+.botonLogin {
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+.bi {
+  color: black !important;
+}
 
 /* 8 */
 .btn-8 {
-    background-color: #f0ecfc;
-  background-image: linear-gradient(135deg, rgba(34,193,195,1) 23%, rgba(253,247,45,1) 100%); 
-    line-height: 50px;
-    width: 30%;
-    margin: 2%;
-    border: none;
-  }
-  .btn-8 span {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+  background-color: #f0ecfc;
+  background-image: linear-gradient(
+    135deg,
+    rgba(34, 193, 195, 1) 23%,
+    rgba(253, 247, 45, 1) 100%
+  );
+  line-height: 50px;
+  width: 30%;
+  margin: 2%;
+  border: none;
+}
+.btn-8 span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
-  .btn-8:hover{
-    background: transparent;
-  }
-  .btn-8 span:hover{
-    color: rgba(34,193,195,1)
-  }
-  .btn-8 span:before,
-  .btn-8 span:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    top: 0;
-    background: rgba(34,193,195,1);
-    /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+.btn-8:hover {
+  background: transparent;
+}
+.btn-8 span:hover {
+  color: rgba(34, 193, 195, 1);
+}
+.btn-8 span:before,
+.btn-8 span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  background: rgba(34, 193, 195, 1);
+  /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
                 -4px -4px 6px 0 rgba(116, 125, 136, .2), 
       inset -4px -4px 6px 0 rgba(255,255,255,.5),
       inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
-    transition: all 0.3s ease;
-  }
-  .btn-8 span:before {
-    width: 2px;
-    height: 0%;
-  }
-  .btn-8 span:after {
-    height: 2px;
-    width: 0%;
-  }
-  .btn-8 span:hover:before {
-    height: 100%;
-  }
-  .btn-8 span:hover:after {
-    width: 100%;
-  }
-    
+  transition: all 0.3s ease;
+}
+.btn-8 span:before {
+  width: 2px;
+  height: 0%;
+}
+.btn-8 span:after {
+  height: 2px;
+  width: 0%;
+}
+.btn-8 span:hover:before {
+  height: 100%;
+}
+.btn-8 span:hover:after {
+  width: 100%;
+}
 
+#profile-icon {
+  position: fixed;
 
+  top: 10px;
 
+  right: 10px;
 
+  font-size: 2rem;
 
+  cursor: pointer;
+}
 
+.login-popup {
+  position: fixed;
 
-  
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  visibility: hidden;
+}
+
+.login-content {
+  background-color: #fff;
+
+  padding: 20px;
+
+  border-radius: 5px;
+}
+
+.close-button {
+  position: absolute;
+
+  top: 10px;
+
+  right: 15px;
+
+  font-size: 1.5rem;
+
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  list-style-type: none;
+
+  padding: 0;
+
+  margin: 0;
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.form-control {
+  width: 300px;
+}
+
+.centered-nav {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}

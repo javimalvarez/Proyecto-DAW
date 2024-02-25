@@ -1,21 +1,40 @@
 .divRegistro{
     text-align: center;
-    background-color: aqua;
+    background-color: white;
     width: 25%;
     align-self: center;
+    padding: 20px;
+
 }
 .formRegistro{
     margin-top: 7%;
-    
     display: flex;
     justify-content: center;
+
 }
 input{
-    border: none;
-    border-bottom: 1px grey solid;
+
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    outline: 0;
+    font-family: inherit;
+    font-size: 0.95em;
 }
 .botonRegistro{
     margin-top: 7%;
     margin-bottom: 7%;
+    background: #28d;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
 
 }
+.botonRegistro:hover {
+    background:red;
+  }
+  

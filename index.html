@@ -1,45 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="styleNavbar.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8QDRAPDRARDw8OEBMSDQ8OEBIQEQ0QFRIXFhkRGBUYHiggGB4lGxUYIjEhJykrOi4uGSszODMsNykuMS0BCgoKDg0OGxAQGjAdHSYwLy4rLy4tMSstKystKysrLTArKy0tMC0tLS01Ny0uLS8rLS0rLS0tLS0rLSs3Ky0tLf/AABEIAMgA+wMBIgACEQEDEQH/xAAcAAEAAgIDAQAAAAAAAAAAAAAAAQcFCAIEBgP/xABKEAACAgACBQYICAsIAwAAAAAAAQIDBBEFBhIhMQdBUWGBkRMiVHF0obGzFiMyNUJystEUFzNSYnOCksHC0iQlQ1NjlKKjNJPw/8QAGwEAAgMBAQEAAAAAAAAAAAAAAAEEBQYDAgf/xAA4EQACAQMABQkHAgcBAAAAAAAAAQIDBBEFITFRcRIyQWGBkaGxwQYTFDNS0fAV4SI0QlOSsvEj/9oADAMBAAIRAxEAPwC8QAAAAxuntKQwmFtxE96rj4seG3N7ox7W0eoRlOSjFZb1LixpNvCMZrXrZTgI7L+Mvms66ovm/Pn+bH283PlVWl9ctIYqT2rpVwfCqhuqKXRuecu1sxGkcbZfdZddLbnZJylLrfMuhJZJLmSOubix0XStorKUp9Lazr6s7PN9uFc0bWFNa1l/mwmc23nJtt8W2232s4gFmSASCBiABAgAAGIHEkgBEkEkAAAJAQOIACABACB38BprFUZfg991SXBQsls9seD7UdAkUoqSw1nxE0ntLR1T5SduUadI7MXLJRxMVsxz/wBRcI/WW7pSW8szPoNYWWzyUaxytrlgrpZypjtYdvi6U0nH9ltZdT6jMaX0TCnB16KxjaujG9eq8iDcW6S5Ue0sYAGZIQAAAAAAArnlixbjRhqVwssnZL9iKil/2PuLGKu5Zl4+D+rb7YFpoWKd7DPW+6LJFos1o9vkytyADcl0CSANCABAgAAGIEEnEABIIAQAACJOIACAAAAQCQECCSAEDN6kYx1aUwk4/SujXL6tvxb+1n2GDMhq4s8fhF04ij3sTnWipU5RfSn4pnmfNfBmyAAPmpTAAAAAAACruWd+Ng/q3fyFolU8sdnx+Fj0VyffNL+UttCfzsOEv9WSbP5y7fJldgEm3LgEAABAAGIA50UysnGuuLlOySjCK4ylJ5JLtMx8DtJeR3dy+85zrU4PEpJcWl5s8ynGO147TBEmc+B2kvI7u5fePgdpLyO7uX3nn4mj9cf8l9zz72H1LvRggZ34HaS8ju7l95HwO0l5Hd3L7w+Jo/XH/JfcXvIb13owZJmpan6SXHB3dkc/YzHY3ReJpWeIouqXTZVOC75I9QrU582SfBp+Q1OL1JrvR1ARmSdBggABAkEAIEEkAAMlqy/7wwnpNHvYmNO3oazZxeHl+bdU+6yLPM+a+B5lzX+dBsqAD5mUwAAAAAAAp3lctUtIwivoYetNdDc7JexouIoXX7Eq3SuJaeajZ4NdXg4xg1+9Fl7oCDdy5bovxaRMso5qZ6v2MAQAbAtQQANCABAAZTVP5ywfpNHvoGxBrvqr85YL0mj3sTYcyftF8ynwfmVl9z1w9WSQSV5fyqYWE5weHubhKUW068m4vLp6iloWtWvn3cc42kWFOU+aslhZkZlefjYwvk1/71f3kfjYwvk1/wC9X95I/S7v+2/A9+4qfSWHmcXv3Pg+K6Tw+F5UsBNpThfV+lKEJRX7sm/Ues0ZpTD4mvwmFthdDg3B57LyzykuMX1PI4VrWtR+ZBpcNXfsPEqco85YMHp/UXA4pNxrWHtfCyiMYpvplD5MvU+sqPWTV/EYC/wd8fFlm67Y5+DtiudPma509682TewZjNYdDVY3DTw9iXjb655ZuqxLKM1/9vTa5ywsNK1aElGo+VDr1tcOpbtmOs7UbiUHh61+bDXkk+mKw0qrZ1WLZnXOUZrolF5P2HyNqnnWiyABAAAAAgcU+DXFNNdTJIR6TwwybO0XKcIzXCcVJeZrM+pg9SsUrdF4OaeeVEIN/pVrwb9cWZw+ZVabp1JQfQ2u5lM1h4AAPAgAAA62NxMaarLZ/IqhKcvNGLb9hrlib5WWTslvnZOU5/Wk2362W5yqaYVWDjhov4zEy3pcVTF5t9r2V1rMp813s/buFCVV/wBT1cF++e4s7GGIOW/0BABfk0AAYA4gAIymqnzng/SqPexNiMzXfVT5ywfpVHvYmwzZlPaL5kOD8ytveeuHqyczWrSK+Pu/XWfbZsnE1t0j+Xu/XWfbZ69nedU7PUdltkdbIZEg1OCccdkyWr+mrsFiIXUt5J5WQzyjdDnjL+D5nvMeQzxOnGcXGSyntW8TSawzZPCYmFtVdtbzhbCM4PpjJJp9zPpmYbU7NaLwe1x/Bq+7Ld6sjMHzqpBQnKK6G14lPjDKX5VMIq9KSlHd4emux/W31v3Z5E9pyt3qWk4xXGvD1xl1NynP2SR4s3mj23a08/SvIs6Hy0QACYdQAcQEAAAi4uR7SKngraG/Got2kuiuyOa/5KZYBQvJvplYXSVe28qr14CzPgtprYl2SSWfMmy+jEabt3SunLolr7enx19qK24jyZ8dYABUHAHR0rpKrDUzvxElCuC3vnk+aKXO3zI8fpLlPwkE1h67bpczklXX375eornWDWLE42zaxE/Fj8iqHi11+Zc763my6tNCV6ss1VyI9e19SX3x6EqlaTk/4lheJw1k0zZjcVZfZuT3VwzzVVaz2YevN9LbMYCDYwhGEVGKwlqRbJJLC2AAHsAQCAECQQAGU1U+c8H6Vh/exNhTXrVX5zwXpNHvYGwZlPaH5kOD8ytveeuHqyU95rdpH8vd+us+2zZDMrq/krrlZOf4XNbc5Sy8BHdtNvL5XWcdDXdG2c3VeM4xqb37keLapGDfKKsBZ/4p6vLJ/wDoj/UTDkpq58ZY11UwX8zL79Zs/r8H9iX8TS3+BVzMxqtq9djsRGuCaqi08Rdl4tUOffzyfMv4Zll4Hk10fW87Hbf+jZKMYd0En6z1mEwtVNarorhVXH5MK4qMV15IgXWnqai1QTb3vUl6vw7TlO7WMQOdFMYQjCC2YQiowiuEYxWSXcj5aQxtdFNl90tmuqLlOXQl0dLfBLnbOvpfTGGwkNvFXQqX0U3nOfVGC3y7EVBrprlZj5KutOrDQecYN+NbJcJzy3eaPN1lNY6PqXUt0el/be3/ANwRqVKU31bzB6Y0jPFYq7E2bpXTcsuOxHPKMOyKS7DqEEm5hFRSiti1dxZpY1AAg9ACAAEAAAh1l2cnWtixlCoul/aqVk83vvguFi6XzS7+cpM+mHvnXONlUpQnF5wnBuMovpTRCv7KF3S5D1Na09z+z6TnVpqawbPAqfQPKrKMVDH1OzLd4ajZUpdcq3ks+tNeY9LHlL0Y1nt2rqdLz9Rj6mibyEse7cuuOteHrhkB0Zp7CmAW5pLkvwk03h7LaZcyk1ZX3bpesrnWDV3E4KeziIeLL5FsM5V2eZ8z6nkzXWukbe5fJpy17nqf2fY2WtO4p1NUXr3GIABPOwAOIACQQAgASAjJaqfOWC9Ko99A2DNfNVPnLBelUe9gbBZmV9oPmQ4PzK68564eoBEeJQOP1gx8b7IxxmJSVtiSWJuSSUnuy2iusLCV25JSxjHicadJ1NhfxBr58I9IeW4r/c3f1EfCPH+W4r/c3f1Fj+gVPrXcdPhZ70bCZkFA0616SreccZiH9e2di7pZnodD8p2KraWMhDEQ+lKKVdi693ivzZLznKroO4iswal4Px1eIpW00t577Sup+j8Tm7cPGM5cZ051Sz6fF3PtTK/1m5ObqFK3ByeIqjvlXl8fBdOS3WdmT6iz9EaVoxdEb8NPbrlufNKElxhJczXR/A7uZFt9IXNtLGW8bVLX5612YPEKs4PU+w1t84LB5T9WY1/27Dx2YylliYRW6M5PdalzZvc+tp87K+Nja3MLmkqkP+PpX50ayxhNTWUQQASBgAAIAAABAPphsPOyca6oynOTyhCCcpSfQkgEfMgszQPJVKUVPH2uvPf4CjZco9UrGms+pJ+c9LHkz0YllsWvrdrzKmrpuzpy5OXLgsrveM9mo4SuIJ7z2Z0tK6NqxVE6MRFTrsW9c6fNJPma5md0GIjJxeU8Mr9hrvrLoazB4qyizelvrnlkrKnnsz9WT6GmYwuDlX0OrcFHExXxmFl4zXF0yeUl2PZfUkynjf6Nu/irdVHt2PivusPyLqhV95DL29JBJBJOOpAAAQJBxADKaqfOWC9Ko97A2ANf9VPnLB+lUe+gbAZmV9oPmQ4PzK67564epyjxNcNIfl7v11n22bGria5aQ/L3frrPts9+z3OqdnqO02s65IINQTQQ0SQID1/JbpSVOkFRm/BYmMouPMrIrbjPz5KUf2i4ijNQa3LS+FS5pyk+pRrk37C8szI6cgo3Ka2uKz3teWor7lYmdXS2CjiMNdh5cLq5Q8za3S7Hk+w13S458c966GbJw4rzmuOLkndY1wdk2vNtMl+z8nipHo1PzPdr0rgfIAGjJYAACABACHmLt5OdU1g6FfdFfhV0c3mt+Hg+Fa6Hzy693MV1yb6GWK0lXtrOqheHsz4PZa2I9smnlzqLL7M1p+9aSt4Pbrlw6F6vsIlzU/pXaAAZYhgAAB1sbhY3U2VT+TbCUJeaUWn7TXDFUSrsnXPdOucozXRKLafrRswUHr/hVVpXFRSyUrPCLr8JGM2/3pM0fs7VxOpT6k+549UTrGWG4nnyADVliCSCAEAAAjJ6qfOeC9Ko99A2ANf9VPnPBelUe+gX9mZbT/zIcH5lfd89cPU5Lia56Q/8i79dZ9tmxOZ4a/kzws5zm7705ylJpeDyTk8/zes4aIvKVtKTqPGcHi3qRg22VOC1fxX4T/Pv7q/6R+LDCf59/dV/SXn6zafU+5kn4mHX3FUkLq4vgul9BbdfJngU/HsxMupSrin3QzM9onVnA4R7WHoirFwtl8ZYvNKTez2ZHKrpy3iv4E5Phjxf2YndR6E/I85ybarWYZSxWJi43Ww2aq5LKVVbabclzSlkt3Ml1tL3QBmLi4nXqOpPa/Dq/O0hTm5PLOhp3HrD4PEYh/4VUnDPdnY1lCPbJpdpr5Hdn5z3nKdrNG6SwWHltVVS2r5xe6y1blBdKjv878x4Q1GhbV0aPKlqctfZ0er7SZbw5McvpAALg7gAgBAAIYFxcjmjlDBW3teNfdsp9NdayX/JzLBMFqThFVovBwSyzohNr9KxeEfrkzOnzzSFX3t1Un1vHBal4YKupLlSbAAIZ4AAAAU3yvVqOkq5L6eHrb62p2R9iRchU/LNX8fhZdNU13TT/mLjQUsXiW9Pyz6Em0f/AKrt8iugCTbFqcQAAgAQAjKaqfOeC9Ko99AvzM1ypulXONlcnGdclKElxjKLzTXaZZ64aT8su719xTaT0fUupRcWlhdOd/UmRa9GU2mi9yCiPhhpPyu7vX3D4YaT8ru719xWfoNb6o+P2OPws96L2zIKK+GGk/K7u9fcR8MNJ+WXd6+4f6FW+peP2D4aW9F7HJIoZ636T8su7JJexHTxOmcXamrsViLE+MZ32Si+xvI9R0DV6Zruf7AraW8vDSusOCwqfh8RXCS/w09u1/sRzfqK21p5QrcRGVODjKimW6U214a2PRu3QXUm318x4rZ6yciytdD0aL5Uv4317O775OsKEY63rIisiQC3O4AACIAAAAlnklxbyS6WQdvQ0NrF4eP519S77IoM8nXuE3jWbKYelQhGC4QiorzJZH1APmJUgAAAAAACrOWleNg/Nd7ay0yrOWh+Pg1+jb7YFroT+dhwl/qyRa/NXb5MrY4gG5LUAEAIAEgAIAAQIAAAAQAgQAAgAAEAAAAgABAgEABJkdWV/eGE9Jp97ExxkNXHlj8I+jE0e9ieZ818H5HifNZsoAD5mVYAAAAAAArfllwblRhb1wrsnXL9uKkn/wBb7yyDGaf0XDF4W3Dz3eEj4suOxNb4y7GkS7C4VvcwqvYnr4PU/A6Up8iaka6A7GkcFPD3WUXR2LK5bMovp6V0prJp86Z1z6EmmsrWi4yCASMAQSQAgQAAAAAIHEABAAAAAACBAACBBJAAQASMQM5qPg3dpXCQX0bo2S+rU/CP7OXaYEt7kl1bdNcsddHKd0dnDxfGNLebn+00supdZB0jcq3tpTe3GFxawu7b2HOtNRiyyAAfPitAAAAAAAAAAPM626o0aQhnL4q+Cyruilw/MmvpR9nNz51PpjUvH4aTUqJ2QXC2hO2DXTuWce1IAudF6SrU5Ro7Yvf0cNf7HancTp6lrXWefnBp5STi1xUk012MAG0i8rJakAAYEAABAgAAIAACAAAQAACIAAAQQAAiTvYDQmLxGX4Ph7rU+EoVz2e2XBdrJBwuqzpU3NLOF0nOrNwWUWLqjyZ7Eo36S2ZSi044aD2o5/6kuEvqrd0trcWf5gDAXN7Vupcuo+C6FwX495Xym5PLJABHPIAAAf/Z" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-            Navbar</a>
-               <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-              </ul>
-          
+    <!-- Popup de inicio de sesión -->
+    <nav class=" nav navbar navbar-expand-lg navbar-light bg-light " id="main-navbar">
+      <a class="navbar-brand">
+        <img
+          src="img/LogoSinFondo.png"
+          alt="Logo"
+          width="30"
+          height="24"
+          class="d-inline-block align-text-top"
+        />
+        Navbar</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-               <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-          <button class="btn" onclick="location.href='Usuario/login.html'">
-            <img src="img/person.svg" >
-        </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarEventos"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Eventos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarEventos">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#" id="navbarLugar"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                Lugar
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarLugar">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+            </div>
+        </li>
         
-        </div>
-      </nav>
-      <!-- <section>
+          </li>
+        
+          <li>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </li>
+        </ul>
+      </div>
+   
+
+        <div class="navbar-nav ml-auto">
+          <div class="nav-item">
+              <img id="profile-icon" src="img/person.svg" />
+              <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
+          </div>
+    
+    </nav>
+    <div class="login" id="login-form">
+      <div class="login-triangle"></div>
+      <form class="login-container">
+        <h2 class="login-header">Iniciar Sesion</h2>
+
+          <p><input type="email" name="correo" placeholder="Direccion de email"></p>
+          <p><input type="password" name="pass" placeholder="Contraseña"></p>
+          <p><input class="botonLogin" type="submit" value="Iniciar sesión"></p>
+          <p><a href="https://www.mozilla.org/es-ES/">¿Has olvidado tu contraseña?</a></p>
+          <hr>
+          <p>¿Aún no tienes cuenta?</p>
+          <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
+          <p><input type="button" class="registro" onclick="window.location.href = 'UsuarioRegistrado/Registo.html'" type="submit" value="Regístrate"></p>
+          <p><input type="button" class="" onclick="window.location.href = 'UsuarioRegistrado/pruebaRegistro.php'" type="submit" value="Regístrate"></p>
+
+      </form>
+  </div>
+
+    <!-- <section>
 
 <div class="card" style="width: 30rem; text-align: center; position:center;">
   <img src="..." class="card-img-top" alt="...">
@@ -91,6 +165,8 @@
       </ul>
     </section> -->
     <script src="Usuario/usuarioJS.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>
