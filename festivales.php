@@ -2,6 +2,8 @@
 require("datos.php");
 echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <h3>Festivales:</h3>
+<label for='nombre_festival'>Festival:</label>
+<input type='text' name='nombre_festival' placeholder='Indica nombre festival'><br/>
 <label for='ini_festival' required>Fecha comienzo:</label>
 <input type='date' name='ini_festival'>
 <label for='fin_festival'>Fecha fin:</label>
@@ -14,8 +16,12 @@ echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <input type='submit' name='enviar' value='Alta festival'>
 </form>";
 $con = mysqli_connect($host, $user, $pass, $db_name) or die("Error " . mysqli_error($con));
-if (isset($_POST['enviar']) && isset($_POST['ini_festival']) && isset($_POST['fin_festival']) && isset($_POST['url_festival']) && isset($_POST['info_festival'])) {
+if (isset($_POST['nombre_festival']) && isset($_POST['ini_festival']) && isset($_POST['fin_festival']) && isset($_POST['url_festival']) && isset($_POST['info_festival'])) {
     $query = "INSERT INTO festivales (inicio, fin, web, imagen, otra_info) 
-    VALUES ('" . $_POST['ini_festival'] . "', '" . $_POST['fin_festival'] . "', '" . $_POST['url_festival'] . "', '" . $_POST['imagen_festival'] . "', '" . $_POST['info_festival'] . "')";
+    VALUES ('".$_POST['nombre_festival']."','" . $_POST['ini_festival'] . "', '" . $_POST['fin_festival'] . "', '" . $_POST['url_festival'] . "', '" . $_POST['imagen_festival'] . "', '" . $_POST['info_festival'] . "')";
     mysqli_query($con, $query) or die("Error " . mysqli_error($con));
+    if (isset($_POST['enviar'])){
+        echo"<script>alert('El festival ha sido dado de alta')</script>";
+        header("location: eventos.php");
+    }
 }
