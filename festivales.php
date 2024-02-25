@@ -14,6 +14,8 @@ echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <input type='submit' name='enviar' value='Alta festival'>
 </form>";
 $con = mysqli_connect($host, $user, $pass, $db_name) or die("Error " . mysqli_error($con));
-$query = "INSERT INTO festivales (fecha_inicio, fecha_fin, web, imagen, otra_info) 
-VALUES ('" . $_POST['ini_festival'] . "', '" . $_POST['fin_festival'] . "', '" . $_POST['url_festival'] . "', '" . $_POST['imagen_festival'] . "', '" . $_POST['info_festival'] . "')";
-mysqli_query($con, $query) or die("Error " . mysqli_error($con));
+if (isset($_POST['enviar']) && isset($_POST['ini_festival']) && isset($_POST['fin_festival']) && isset($_POST['url_festival']) && isset($_POST['info_festival'])) {
+    $query = "INSERT INTO festivales (inicio, fin, web, imagen, otra_info) 
+    VALUES ('" . $_POST['ini_festival'] . "', '" . $_POST['fin_festival'] . "', '" . $_POST['url_festival'] . "', '" . $_POST['imagen_festival'] . "', '" . $_POST['info_festival'] . "')";
+    mysqli_query($con, $query) or die("Error " . mysqli_error($con));
+}

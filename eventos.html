@@ -21,7 +21,17 @@
                 </select><br/>
                 <!--El grupo se muestra en base a la información que hay en la base de datos (se recupera con php)-->
                 <span id="grupo" style="visibility:hidden;"><select name="grupo" id="grupo">
-                    <option value="">Indica el grupo</option>
+                    <?php
+                    require_once("datos.php");
+                    echo"<option value=''>Grupo</option>";
+                    $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                    $query="SELECT id_grupo, nombre FROM grupos";
+                    $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                    while($row = mysqli_fetch_array($result)){
+                        extract($row);
+                        echo "<option value='$id_grupo'>$nombre</option>";
+                    }
+                    ?>
                 </select>
                 <!--El botón para dar de alta un grupo llevará al formulario correspondiente-->
                 *Si el grupo no aparece en la lista pulsa aquí <button>
@@ -30,7 +40,17 @@
                     ?>
                 </button></span><br/>
                 <span id="festival" style="visibility:hidden;"><select name="festival" id="festival">
-                    <option value="">Selecciona festival</option>
+                    <?php
+                    require_once("datos.php");
+                    echo"<option value=''>Festival</option>";
+                    $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                    $query="SELECT id_festival, nombre FROM festivales";
+                    $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                    while($row = mysqli_fetch_array($result)){
+                        extract($row);
+                        echo "<option value='$id_festival'>$nombre</option>";
+                    }
+                    ?>
                 </select>
                 *Si el festival no aparece en la lista lo puedes dar de alta desde aquí <button>
                     <?php
@@ -63,7 +83,7 @@
                 <input type="url" name="web" placeholder="URL evento"><br/>
                 <span>Puedes añadir una imagen del evento pulsando aqui <input type="file" name="archivo" acept="image/*"></span><br/>
                 <label for="info">Otra información:</label><br/>
-                <textarea name="info" id="info_festival" cols="30" rows="3"></textarea><br/>
+                <textarea name="info" id="info_festival" cols="60" rows="7"></textarea><br/>
                 <input type="submit" id="enviar" value="Enviar">
         </form>
     </main>
