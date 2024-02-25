@@ -1,5 +1,7 @@
 <?php
 require("datos.php");
+#Elimina los warning manteniendo el resto de errores
+#error_reporting(E_ALL & ~E_WARNING);
 echo"<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <h3>Grupos:</h3>
 <label for='nombre_grupo'>Nombre:</label>
@@ -14,13 +16,12 @@ echo"<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <input type='submit' name='enviar' value='Alta grupo'>
 </form>";
 $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
-if (isset($_POST['nombre_grupo'])&&isset($_POST['genero'])&&isset($_POST['url_grupo'])&&isset($_POST['info_festival'])){
-    $query="INSERT INTO grupos (nombre, genero, web, imagen, otra_info) 
-    VALUES ('" . $_POST['nombre_grupo'] . "', '" . $_POST['genero'] . "', '" . $_POST['url_grupo'] . "', '" . $_POST['imagen_grupo'] . "', '" . $_POST['info_festival'] . "')";
-    mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+$query="INSERT INTO grupos (nombre, genero, web, imagen, otra_info) 
+VALUES ('" . $_POST['nombre_grupo'] . "', '" . $_POST['genero'] . "', '" . $_POST['url_grupo'] . "', '" . $_POST['imagen_grupo'] . "', '" . $_POST['info_festival'] . "')";
+mysqli_query($con, $query) or die("Error ".mysqli_error($con));
 if (isset($_POST['enviar'])){
     echo"<script>alert('El grupo ha sido dado de alta')</script>";
-    header("location: eventos.php");
+    header("refresh:3; url=eventos.html");
 }
-}
+
 ?>
