@@ -60,7 +60,7 @@ VALUES
 	
 	
 CREATE TABLE `grupos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_grupo` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `genero` VARCHAR(45) NOT NULL,
   `web` VARCHAR(45) NULL,
@@ -69,7 +69,7 @@ CREATE TABLE `grupos` (
   PRIMARY KEY (`id`));
   
   CREATE TABLE `festivales` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_festival` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `fecha_inicio` DATE NOT NULL,
   `fecha_fin` DATE NOT NULL,
