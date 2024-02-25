@@ -1,17 +1,16 @@
 function seleccionEvento(){
-    var reference=document.getElementById("evento");
-    if(document.getElementById("tipo_evento").value=="festival"){
-        document.getElementById("formulario_eventos").insertBefore(document.getElementById("festival"), reference.nextSibling);
+    if(document.getElementById("tipo_evento").value=="concierto"){
+        document.getElementById("grupo").style.visibility = "visible";
         document.getElementById("festival").style.visibility = "visible";
-        document.getElementById("concierto").style.visibility = "visible";
-    }
-    else if(document.getElementById("tipo_evento").value=="concierto"){
-        document.getElementById("formulario_eventos").insertBefore(document.getElementById("concierto"), reference.nextSibling);
-        document.getElementById("concierto").style.visibility = "visible";
     } 
-    else{
-        document.getElementById("formulario_eventos").insertBefore(document.getElementById("otro"), reference.nextSibling);
-        document.getElementById("otro").style.visibility = "visible";
+}
+
+
+document.getElementById("tipo_evento").addEventListener("change", seleccionEvento);
+document.getElementById("enviar").addEventListener("click",function(event){event.preventDefault(),location.reload()})
+
+function marcar(){
+    if(document.getElementById("varios_dias").checked&&document.getElementById("tipo_evento").value!="concierto"&&document.getElementById("tipo_evento").value!=""){
+        document.getElementById("fecha_fin").style.visibility = "visible";
     }
 }
-document.getElementById("tipo_evento").addEventListener("change", seleccionEvento);
