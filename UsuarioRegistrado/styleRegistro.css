@@ -1,20 +1,25 @@
 
-.Registro{
-    width: 50%;
-}.divRegistro{
+.card{
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+body{
+    position: relative;
+
+}
+/* .divRegistro{
     text-align: center;
     background-color: white;
-    width: 25%;
     align-self: center;
-    padding: 20px;
 
 }
 .formRegistro{
-    margin-top: 7%;
     display: flex;
     justify-content: center;
 
-}
+} */
 input{
 
     border-radius: 3px;
@@ -27,6 +32,7 @@ input{
     outline: 0;
     font-family: inherit;
     font-size: 0.95em;
+
 }
 .botonRegistro{
     margin-top: 7%;
@@ -40,4 +46,6 @@ input{
 .botonRegistro:hover {
     background:red;
   }
-  
+  .col-md-8 input{
+    margin-top: 2%;
+  }
