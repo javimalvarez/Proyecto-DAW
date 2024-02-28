@@ -4,7 +4,7 @@ SHOW DATABASES;
 USE events_db;
 
 -- DROP TABLE IF EXISTS usuarios;
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(150) NOT NULL,
     apellidos VARCHAR(200) NOT NULL,
@@ -23,7 +23,7 @@ VALUES
 SELECT * FROM usuarios;
 
 -- DROP TABLE IF EXISTS tipo_eventos;
-CREATE TABLE tipo_eventos (
+CREATE TABLE IF NOT EXISTS tipo_eventos (
     id_tipo INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(200) NOT NULL,
     PRIMARY KEY (id_tipo)    
@@ -36,7 +36,7 @@ VALUES
 SELECT * FROM tipo_eventos;
 
 -- DROP TABLE IF EXISTS provincia;
-CREATE TABLE provincia (
+CREATE TABLE IF NOT EXISTS provincia (
     id_provincia INT NOT NULL,
     provincia  VARCHAR(80) DEFAULT NULL,
     PRIMARY KEY (id_provincia)
@@ -97,7 +97,7 @@ VALUES
 (50, 'Zaragoza');
 
 -- DROP TABLE IF EXISTS eventos;
-CREATE TABLE eventos (
+CREATE TABLE IF NOT EXISTS eventos (
     id_evento INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(200) NOT NULL,
     id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros, ...
@@ -120,6 +120,42 @@ VALUES
 ('Vermut', 3, '{"lat": 43.32554, "lng": -1.98662}', 20, '2024-05-26 11:30:00', NULL, 'Quedada para tomar unos Vermuts.', NULL, 2),
 ('Concierto - Depeche Mode', 2, '{"lat": 40.42406, "lng": -3.67176}', 28, '2024-03-12 21:00:00', NULL, 'Concierto Depeche Mode en el WizInk Arena', 'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505', 3),
 ('Sonar Festival', 1, '{"lat": 41.4114, "lng": 2.225}', 8, '2024-06-13', '2024-06-15', 'Festival Internacional de música (electrónica)', 'https://sonar.es/es/tickets', 4);
+
+-- DROP TABLE IF EXISTS grupos;
+CREATE TABLE IF NOT EXISTS grupos (
+	 id_grupo INT NOT NULL AUTO_INCREMENT,
+	 nombre VARCHAR(45) NOT NULL,
+	 genero VARCHAR(50) NOT NULL,
+	 url VARCHAR(45) NULL,
+	 imagen_url VARCHAR(100) NULL,
+	 PRIMARY KEY (id_grupo)
+);
+INSERT INTO grupos (nombre, genero)
+VALUES
+('Depeche Mode', 'Alternativo/Indie');
+
+
+-- DROP TABLE IF EXISTS festivales;
+CREATE TABLE IF NOT EXISTS festivales (
+	id_festival INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    fecha_comienzo DATETIME NOT NULL,
+    fecha_fin DATE NULL,
+    url VARCHAR(45) NULL,
+    imagen_url VARCHAR(100) NULL,
+    info VARCHAR(200) NULL,
+    PRIMARY KEY (id_festival),
+    FOREIGN KEY (id_festival) REFERENCES eventos (id_tipo),
+    FOREIGN KEY (id_festival) REFERENCES grupos (id_grupo)
+);
+INSERT INTO festivales (nombre, fecha_comienzo, fecha_fin, info)
+VALUES
+('Sonar Festival', '2024-06-13', '2024-06-15', 'Varios conciertos de música electrónica');
+
+SELECT e.id_evento, e.nombre AS nombre_evento, e.ubicacion, e.id_provincia, e.fecha_comienzo, e.fecha_fin, e.info, e.link,
+       f.id_festival, f.nombre AS nombre_festival, f.fecha_comienzo AS fecha_comienzo_festival, f.fecha_fin AS fecha_fin_festival, f.url AS url_festival, f.imagen_url AS imagen_url_festival, f.info AS info_festival
+FROM eventos e
+JOIN festivales f ON e.id_evento = f.id_festival;
 
 SELECT * FROM provincia;
 SELECT * FROM eventos;
