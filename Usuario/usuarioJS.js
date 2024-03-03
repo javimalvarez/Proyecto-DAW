@@ -29,6 +29,16 @@ document.addEventListener('click', function(event) {
     }
 });
 
-
-
+//Comprobacion campos vacios login
+/*function comprobarLogin(){
+   const divErrores=document.createElement("div");
+   divErrores.setAttribute("class", "errores");
+   divErrores.style.color="red";
+    if (document.getElementById("correo").value == ""&&document.getElementById("pass").value == "") {
+        return false;
+        divErrores.innerHTML="Todos los campos son obligatorios";
+        document.querySelector("reset-pass").appendChild(divErrores);
+    }
+}
+document.querySelector('.botonLogin').addEventListener("click",comprobarLogin);*/
 //PROGRAMAR CODIGO

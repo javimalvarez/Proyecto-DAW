@@ -96,18 +96,25 @@
     </nav>
     <div class="login" id="login-form">
       <div class="login-triangle"></div>
-      <form class="login-container">
+      <form class="login-container" action="login.php" method="post">
         <h2 class="login-header">Iniciar Sesion</h2>
 
-          <p><input type="email" name="correo" placeholder="Direccion de email"></p>
-          <p><input type="password" name="pass" placeholder="Contraseña"></p>
-          <p><input class="botonLogin" type="submit" value="Iniciar sesión"></p>
-          <p><a href="https://www.mozilla.org/es-ES/">¿Has olvidado tu contraseña?</a></p>
+          <p><input type="email" id="correo" name="correo" placeholder="Correo"></p>
+          <p><input type="password" id="pass" name="pass" placeholder="Contraseña"></p>
+          <p><input class="botonLogin" type="submit" value="Acceder"></p>
+          <?php
+          session_start();
+          //Se mostrará un mensaje de error si hay un error en el inicio de sesión
+          if (isset($_SESSION['mensaje'])) {
+            echo $_SESSION['mensaje'];
+            unset($_SESSION['mensaje']);
+          }
+          ?>
+          <p class="reset-pass">No recuerdo mi <a href="login/forgotPass.html">contraseña</a></p>
           <hr>
           <p>¿Aún no tienes cuenta?</p>
           <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-          <p><input type="button" class="registro" onclick="window.location.href = 'UsuarioRegistrado/Registo.html'" type="submit" value="Regístrate"></p>
-
+          <p><input type="button" class="registro" onclick="window.location.href = 'login/registro.php'" type="submit" value="Regístrate"></p>
       </form>
   </div>
 <!-- 

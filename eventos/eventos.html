@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <script src="eventos.js" defer></script>
+</head>
+<body>
+    <main>
+        <form id="eventos" method="post" action="file.php">
+            <label for="nombre_evento" required>Evento:</label>
+                <input type="text" id="nombre_evento" name="nombre_evento">
+                <select name="tipo_evento" id="tipo_evento" autofocus>
+                    <option value="" selected>Indica tipo de evento</option>
+                    <option value="concierto">Concierto/Festival</option>
+                    <option value="teatro">Teatro</option>
+                    <option value="Cine">Cine</option>
+                    <option value="ferias">Ferias</option>
+                    <option value="otros">Otros</option>
+                </select><br/>
+                <!--El grupo se muestra en base a la información que hay en la base de datos (se recupera con php)-->
+                <span id="grupo" style="visibility:hidden;"><select name="grupo" id="grupo">
+                    <?php
+                    require_once("datos.php");
+                    echo"<option value=''>Grupo</option>";
+                    $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                    $query="SELECT id_grupo, nombre FROM grupos";
+                    $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                    while($row = mysqli_fetch_array($result)){
+                        extract($row);
+                        echo "<option value='$id_grupo'>$nombre</option>";
+                    }
+                    ?>
+                </select>
+                <!--El botón para dar de alta un grupo llevará al formulario correspondiente-->
+                *Si el grupo no aparece en la lista pulsa aquí <button>
+                    <?php
+                    echo"<a href='grupos.php' style='text-decoration:none; color:black;'>Nuevo grupo</a>"
+                    ?>
+                </button></span><br/>
+                <span id="festival" style="visibility:hidden;"><select name="festival" id="festival">
+                    <?php
+                    require_once("datos.php");
+                    echo"<option value=''>Festival</option>";
+                    $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                    $query="SELECT id_festival, nombre FROM festivales";
+                    $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                    while($row = mysqli_fetch_array($result)){
+                        extract($row);
+                        echo "<option value='$id_festival'>$nombre</option>";
+                    }
+                    ?>
+                </select>
+                *Si el festival no aparece en la lista lo puedes dar de alta desde aquí <button>
+                    <?php
+                    echo"<a href='festivales.php' style='text-decoration:none; color:black;'>Alta festival</a>"
+                    ?>
+                </button></span><br/>
+                <select name="provincia">
+                    <?php
+                    require_once("datos.php");
+                    echo"<option value=''>Provincia</option>";
+                    $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+                    $query="SELECT * FROM provincias";
+                    $result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+                    while($row = mysqli_fetch_array($result)){
+                        extract($row);
+                        echo "<option value='$id_provincia'>$provincia</option>";
+                    }
+                    ?>
+                </select><br/>
+                <label for="ubicacion" title="Indica coordenadas">Ubicación:</label>
+                <input type="text" name="ubicacion" placeholder="ejemplo: {lat:42.54992, lng:-6.59791}"><br/>
+                <input type="checkbox" id="varios_dias" onchange="marcar()">Marca esta opción si el evento tiene una duración de varios días (no disponible para conciertos)<br/>
+                <label for="fecha_inicio">Fecha/hora evento:</label>
+                <input type="datetime-local" name="fecha_inicio">
+                <span id="fecha_fin"style="visibility: hidden;">
+                    <label for="fecha_fin">Fecha fin:</label>
+                    <input type="date" name="fecha_fin">
+                </span><br/>
+                <label for="web">Web:</label>
+                <input type="url" name="web" placeholder="URL evento"><br/>
+                <span>Puedes añadir una imagen del evento pulsando aqui <input type="file" name="archivo" acept="image/*"></span><br/>
+                <label for="info">Otra información:</label><br/>
+                <textarea name="info" id="info_festival" cols="60" rows="7"></textarea><br/>
+                <input type="submit" id="enviar" value="Enviar">
+        </form>
+    </main>
+</body>
+</html>
