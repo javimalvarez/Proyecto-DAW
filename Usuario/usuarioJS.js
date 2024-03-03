@@ -42,3 +42,9 @@ document.addEventListener('click', function(event) {
 }
 document.querySelector('.botonLogin').addEventListener("click",comprobarLogin);*/
 //PROGRAMAR CODIGO
+
+function reemplazoLogin(){
+    const loginForm = document.getElementById("login-form");
+    loginForm.innerHTML="<div class='login-triangle'></div><form class='login-container' action='login/resetPassword.php' method='post'><h2 class='login-header'>¿Has olvidado tu contraseña?</h2><p>Por favor introduce tu correo,<br/>te enviaremos una nueva contraseña</p><p><input type='email' id='correo' name='correo_recuperacion' placeholder='Dirección de correo'></p><p><input class='botonLogin' type='submit' value='Solicitar nueva Contraseña'></p></form>"
+}
+ document.getElementById("recuperar_contraseña").addEventListener("click",reemplazoLogin);
