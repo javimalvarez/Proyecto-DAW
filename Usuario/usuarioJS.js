@@ -44,7 +44,41 @@ document.querySelector('.botonLogin').addEventListener("click",comprobarLogin);*
 //PROGRAMAR CODIGO
 
 function reemplazoLogin(){
-    const loginForm = document.getElementById("login-form");
-    loginForm.innerHTML="<div class='login-triangle'></div><form class='login-container' action='login/resetPassword.php' method='post'><h2 class='login-header'>¿Has olvidado tu contraseña?</h2><p>Por favor introduce tu correo,<br/>te enviaremos una nueva contraseña</p><p><input type='email' id='correo' name='correo_recuperacion' placeholder='Dirección de correo'></p><p><input class='botonLogin' type='submit' value='Solicitar nueva Contraseña'></p></form>"
+//     var producto1 = document.getElementById('inicio');
+//     var producto2 = document.getElementById('contra');
+  
+  
+  
+//    switch(idButton) {
+//    case 1:
+  
+//             producto1.style.display = 'block';
+//             producto2.style.display = 'none';
+//       break;
+  
+//    case 2:
+//             producto1.style.display = 'none';
+//             producto2.style.display = 'block';
+//       break;
+  
+
+  
+//   default:
+//             alert("hay un problema: No existe el producto.")
+//           }
+            $('.inicio').hide();
+
+         $('.contra').show();
+
+
+        //  $('.login-container').toggle();
+    // const loginForm = document.getElementById("login-form");
+    // loginForm.innerHTML="<div class='login-triangle'></div><form class='login-container' action='login/resetPassword.php' method='post'><h2 class='login-header'>¿Has olvidado tu contraseña?</h2><p>Por favor introduce tu correo,<br/>te enviaremos una nueva contraseña</p><p><input type='email' id='correo' name='correo_recuperacion' placeholder='Dirección de correo'></p><p><input class='botonLogin' type='submit' value='Solicitar nueva Contraseña'></p></form>"
 }
+function volverLogin(){
+    $('.inicio').show();
+
+    $('.contra').hide();
+}
+
  document.getElementById("recuperar_contraseña").addEventListener("click",reemplazoLogin);
