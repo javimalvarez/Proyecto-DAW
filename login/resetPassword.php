@@ -23,5 +23,8 @@ if (isset($_POST['correo_recuperacion'])&&!empty($_POST['correo_recuperacion']))
         header("Location: registro.php");
     }
     
+}else{
+    $url=$_SERVER['HTTP_REFERER'];
+    header("Location: $url");
 }
 ?>

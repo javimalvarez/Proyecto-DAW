@@ -26,6 +26,8 @@ if (isset($_POST['correo']) && isset($_POST['pass'])&&!empty($_POST['correo'])&&
     }
 }else if(empty($_POST['correo'])||empty($_POST['pass'])){
     $_SESSION['mensaje'] = "Campos vacios";
-    header("Location: login/registro.php");
+    //Se determina la página origen desde donde se llama al script
+    $url=$_SERVER['HTTP_REFERER'];
+    header("Location: $url");
     
 }
