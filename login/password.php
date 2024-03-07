@@ -22,7 +22,8 @@ if(isset($_POST['pass']) && isset($_POST['pass2']) && !empty($_POST['pass']) && 
         $result=mysqli_query($con,"SELECT * FROM usuarios WHERE email = '$_SESSION[correo]'");
         $numUser = mysqli_fetch_array($result);
         if($numUser == 0){
-            echo "<div>No se encuentra el usuario</div>";
+            $_SESSION['mensaje'] ="<script>alert('No se encuentra el usuario');</script>";
+            header("Location: registro.php");//Se redirige a la página de registro
         }
         else{
             //Contraseña hasheada
@@ -34,17 +35,17 @@ if(isset($_POST['pass']) && isset($_POST['pass2']) && !empty($_POST['pass']) && 
             header("Location: index.php");//Se redirige a la página de inicio
         }
     }else{
-        echo "<div>La contraseña no cumple con los requisitos especificados</div>";
+        echo "<script>alert('La contraseña no cumple con los requisitos especificados');</script>";
     }
 }
 else{
     //Se envia la información con los campos vacios
     if(empty($_POST['pass']) || empty($_POST['pass2'])){
-        echo "<div>Debes rellenar todos los campos</div>";
+        echo "<script>alert('Hay campos vacios en el formulario');</script>";
     }
     //Las contraseñas no coinciden
     else if($_POST['pass']!=$_POST['pass2']){
-        echo "<div>Las contraseñas no coinciden</div>";
+        echo "<script>alert('La contraseña y su confirmación no coinciden');</script>";
     }
 }
 ?>

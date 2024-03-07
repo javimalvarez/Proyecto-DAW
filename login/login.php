@@ -12,13 +12,14 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
     //Si el usuario cumplimenta los datos de login se realizan varias validaciones
     if ($numUsers > 0 && password_verify($_POST['pass'], $contraseña)) {
         //Se recupera el tipo de usuario mediante una consulta a la base de datos
-        $query_typeUser = "SELECT tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
+        $query_typeUser = "SELECT email, tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
         $result = mysqli_query($con, $query_typeUser);
         extract(mysqli_fetch_array($result));
-        $tipoUsuario = $tipo;
-        if ($tipoUsuario == 0) {
+        $_SESSION['tipoUsuario'] = $tipo;
+        $_SESSION['usuario'] = $email;
+        if ($_SESSION['tipoUsuario'] == 0 ) {
             //Se redirige al usuario al panel de administrador
-        } else if ($tipoUsuario == 1) {
+        } else if ($_SESSION['tipoUsuario'] == 1) {
             //Se mostrará la página del perfil de usuario
         }
     } else if ($numUsers == 0) {

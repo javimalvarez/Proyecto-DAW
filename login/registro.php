@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../css/styleNavbar.css">
 <link rel="stylesheet" type="text/css" href="../css/styleRegistro.css">
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <?php
@@ -42,7 +41,7 @@ echo"<nav class='navbar bg-body-tertiary'>
                     <div class='form-group row'>
                         <label class='col-md-3 col-form-label text-md-right'>Apellidos:</label>
                         <div class='col-md-8'>
-                            <input type='text' name='apellido' id='apellido'>
+                            <input type='text' name='apellidos' id='apellidos'>
                         </div>
                     </div>
                     <div class='form-group row'>
@@ -75,12 +74,12 @@ echo"<nav class='navbar bg-body-tertiary'>
         </div>";
         //Garantiza que las comprobaciones se realicen solo si se envía el formulario
         if($_SERVER['REQUEST_METHOD']==='POST'){
-            if (empty($_POST['nombre'])|| empty($_POST['apellido'])|| empty($_POST['correo'])||empty($_POST['pass'])||empty($_POST['pass2'])) {
-                echo "faltan datos";
+            if (empty($_POST['nombre'])|| empty($_POST['apellidos'])|| empty($_POST['correo'])||empty($_POST['pass'])||empty($_POST['pass2'])) {
+                echo "<script>alert('Hay campos vacios en el formulario')</script>";
             }
             else {
                 $_SESSION['nombre'] = $_POST['nombre'];
-                $_SESSION['apellido'] = $_POST['apellido'];
+                $_SESSION['apellidos'] = $_POST['apellidos'];
                 $_SESSION['correo'] = $_POST['correo'];
                 if($_POST['pass']==$_POST['pass2']){
                     /*Se valida que la contraseña enviada por el usuario cumpla con los requisitos establecidos de seguridad*/
@@ -92,20 +91,21 @@ echo"<nav class='navbar bg-body-tertiary'>
                     if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['pass'])){
                         $mensaje="Hola, hemos recibido una petición de registro en City Planner.<br/>
                         Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW/confirmar.php'>enlace</a><br/>
-                        http://localhost/Proyecto-DAW/confirmar.php
+                        http://localhost/Proyecto-DAW/login/confirmar.php
                         Si la petición no la has realizado tu, omite este correo.<br/><br/>
                         Un saludo del equipo de City Planner.";
                         $headers = "From: cityplanner.info@gmx.com";
                         mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,$headers);
                         //Se almacena la contraseña hasheada en la base de datos
                         $_SESSION['password'] = password_hash($_POST['pass'],PASSWORD_DEFAULT);
+                        echo "<script>alert('Te hemos enviado correo que debes\n confirmar para finalizar el registro')</script>";
                     }
                     else{
-                        echo "<div>La contraseña no cumple con los requisitos especificados</div>";
+                        echo "<script>alert('La contraseña no cumple con los requisitos especificados')</script>";
                     }
                     
                 }else{
-                    echo "<div>Las contraseñas no coinciden</div>";
+                    echo "<script>alert('Las contraseña y su confirmación no coinciden')</script>";
                 }
             }
         }
