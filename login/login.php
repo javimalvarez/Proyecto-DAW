@@ -3,7 +3,7 @@ session_start();
 require("../database/datos.php");
 $con = mysqli_connect($host, $user, $pass, $db_name);
 if (isset($_POST['correo']) && isset($_POST['pass'])&&!empty($_POST['correo'])&&!empty($_POST['pass'])) {
-    $query = "SELECT password FROM usuarios WHERE email = '".$_POST['correo']."'";
+    $query = "SELECT contraseña FROM usuarios WHERE email = '".$_POST['correo']."'";
     $result = mysqli_query($con, $query);
     //Comprueba si hay algun usuario registrado con esos datos en la base de datos
     $numUsers = mysqli_num_rows($result);
@@ -16,16 +16,18 @@ if (isset($_POST['correo']) && isset($_POST['pass'])&&!empty($_POST['correo'])&&
     } else {
         //Se muestra al usuario el error de inicio sesión
         if ($numUsers == 0) {
-            header("Location:login/registro.php");
             $_SESSION['mensaje'] = "Usuario no registrado";
+            header("Location:registro.php");
         } else if ($loginPassword != $password) {
             $_SESSION['mensaje'] = "Contraseña incorrecta";
             //Se redirige al usuario a la página de cambio de contraseña
-            header("Location: USuarioRegistrado/registro.php");
+            header("Location:resetPassword.php");
         }
     }
 }else if(empty($_POST['correo'])||empty($_POST['pass'])){
     $_SESSION['mensaje'] = "Campos vacios";
-    header("Location: login/registro.php");
+    //Se determina la página origen desde donde se llama al script
+    $url=$_SERVER['HTTP_REFERER'];
+    header("Location: $url");
     
 }

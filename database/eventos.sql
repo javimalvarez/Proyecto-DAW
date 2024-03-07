@@ -14,12 +14,14 @@ CREATE TABLE usuarios (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (id_usuario)
 );
-INSERT INTO usuarios (nombre, apellidos, email, contraseña)
+INSERT INTO usuarios (nombre, apellidos, email, contraseña, tipo)
 VALUES
-('Aranzazu', 'Ordoyo', 'aordoyo@msn.com', '1234'),
-('Itizar', 'Esteban', 'iesteban@yahoo.com', '1234'),
-('Javier', 'Martinez', 'jmartinez@mediavida.com', '1234'),
-('David', 'Rodriguez', 'drgz@hotmail.com', '1234');
+/*VALORES 0=Administrador 1=Usuario registrado 
+El alta de usuarios administradores se gestionara desde el alta de panel de administrador*/
+('Aranzazu', 'Ordoyo', 'aordoyo@msn.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4',0),
+('Itizar', 'Esteban', 'iesteban@yahoo.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4',1),
+('Javier', 'Martinez', 'jmartinez@mediavida.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4',1)
+('David', 'Rodriguez', 'drgz@hotmail.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4'1);
 SELECT * FROM usuarios;
 
 -- DROP TABLE IF EXISTS tipo_eventos;

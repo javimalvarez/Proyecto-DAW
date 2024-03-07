@@ -14,7 +14,7 @@ body {
   }
 
     .login {
-        display: none ;
+        display: none;
         position: absolute;
         /* Alinea el formulario justo debajo del nav */
         right: 0;
@@ -148,7 +148,6 @@ width: 30px;
 cursor: pointer;
 margin-right: 10px;
   }
-
 
 
 

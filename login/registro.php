@@ -72,11 +72,14 @@ echo"<nav class='navbar bg-body-tertiary'>
                 <div class='hidden-xs hidden-sm col-md-5'>
                     <p>Inicia sesión y accede a tu área de usuario donde podrás encontrar tus entradas y modificar tus datos de registro y envío. Al iniciar sesión confirmas que has leído y aceptas la Política de Privacidad y los Términos y condiciones de apeplanner.com.</p>
                 </div>
-            </form>";
-            
-            if (isset($_POST['nombre'])&&isset($_POST['apellido'])&&isset($_POST['correo'])&&isset($_POST['pass'])&&isset($_POST['pass2'])
-            && !empty($_POST['nombre'])&& !empty($_POST['apellido'])&& !empty($_POST['correo'])&& !empty($_POST['pass'])&& !empty($_POST['pass2'])) {
-                //Función para enviar un correo desde un script PHP
+            </form>
+        </div>";
+        //Garantiza que las comprobaciones se realicen solo si se envía el formulario
+        if($_SERVER['REQUEST_METHOD']==='POST'){
+            if (empty($_POST['nombre'])|| empty($_POST['apellido'])|| empty($_POST['correo'])||empty($_POST['pass'])||empty($_POST['pass2'])) {
+                echo "faltan datos";
+            }
+            else {
                 $_SESSION['nombre'] = $_POST['nombre'];
                 $_SESSION['apellido'] = $_POST['apellido'];
                 $_SESSION['correo'] = $_POST['correo'];
@@ -88,12 +91,12 @@ echo"<nav class='navbar bg-body-tertiary'>
                     [\w\W] se permite carácteres alfanuméricos y carácteres especiales
                     {8,} longitud mínima de 8 carácteres*/
                     if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['pass'])){
-                        $mensaje="Hola, hemos recibido una petición de registro en Ape Planner.<br/>
+                        $mensaje="Hola, hemos recibido una petición de registro en City Planner.<br/>
                         Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW-main/confirmar.php'>enlace</a><br/>
                         http://localhost/Proyecto-DAW-main/confirmar.php
                         Si la petición no la has realizado tu, omite este correo.<br/><br/>
-                        Un saludo del equipo de Ape Planner.";
-                        mail($_POST['correo'],"Ape Planner - Solicitud registro",$mensaje,'proyectodaw.linkiafp@gmail.com');
+                        Un saludo del equipo de City Planner.";
+                        mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,'proyectodaw.linkiafp@gmail.com');
                         //Se almacena la contraseña hasheada en la base de datos
                         $_SESSION['password'] = password_hash($_POST['pass'],PASSWORD_DEFAULT);
                     }
@@ -105,11 +108,9 @@ echo"<nav class='navbar bg-body-tertiary'>
                     echo "<div>Las contraseñas no coinciden</div>";
                 }
             }
-            else{
-                echo "<script>alert('Debes rellenar todos los campos');</script>";
-            }    
-            
-        echo"</div>";
+        }
+      
+        
         
         echo "<div id='Login' style='display: none;'>
             <!-- Contenido para el enlace Link -->
@@ -137,7 +138,7 @@ echo"<nav class='navbar bg-body-tertiary'>
                                     <input type='email' class='form-control' id='correo_recuperacion' name='correo_recuperacion'>
                                 </div>
                                 <div class='col-md-8 offset-md-3'>
-                                    <input type='submit' class='btn btn-primary botonRegistro' value='Recuperar'><!--pon un icono para el botón--></input>
+                                    <input type='submit' class='btn btn-primary botonRegistro' value='Recuperar'><!--poner un icono para el botón-->
                                 </div>
                             </form>
                         </details>
@@ -159,7 +160,7 @@ echo"<nav class='navbar bg-body-tertiary'>
         echo "<div style='color:red;'>".$_SESSION['mensaje']."</div>";
         unset($_SESSION['mensaje']);
         //Refresca la página
-        echo"<script>setTimeout(function(){location.reload();}, 1000);</script>";
+        echo"<script>setTimeout(function(){location.reload();}, 2000);</script>";
     }
     echo"</div>
 </div>

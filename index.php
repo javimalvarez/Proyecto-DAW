@@ -8,18 +8,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   </head>
-  <body>
+  <body onload="mostrarAlerta()">
+  <div id="alerta">
+    <?php
+    session_start();
+    //Mensajes a mostrar en el index.php
+    if (isset($_SESSION['mensaje'])) {
+      echo "<script> alert('".$_SESSION['mensaje']."')</script>";
+      unset($_SESSION['mensaje']);
+    }
+    ?>
+  </div>
     <!-- Popup de inicio de sesión -->
     <nav class=" nav navbar navbar-expand-lg navbar-light bg-light " id="main-navbar">
-      <a class="navbar-brand mr-auto" href="/index.html">
+      <a class="navbar-brand mr-auto" href="index.html">
         <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
         <img
           src="img/LogoSinFondo.png"
           alt="Logo"
-          width="50"      
+          width="80"     
           class="d-inline-block align-text-top fotoNavbar"
-        />
-       Ape Planner </a>
+        /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -96,27 +105,21 @@
     </nav>
     <div class="login" id="login-form">
       <div class="login-triangle"></div>
-      <form class="login-container" action="login.php" method="post">
+      <form class="login-container" action="login/login.php" method="post">
         <h2 class="login-header">Iniciar Sesion</h2>
-
-          <p><input type="email" id="correo" name="correo" placeholder="Correo"></p>
-          <p><input type="password" id="pass" name="pass" placeholder="Contraseña"></p>
-          <p><input class="botonLogin" type="submit" value="Acceder"></p>
-          <?php
-          session_start();
-          //Se mostrará un mensaje de error si hay un error en el inicio de sesión
-          if (isset($_SESSION['mensaje'])) {
-            echo $_SESSION['mensaje'];
-            unset($_SESSION['mensaje']);
-          }
-          ?>
-          <p class="reset-pass">No recuerdo mi <a href="#" id="recuperar_contraseña">contraseña</a></p>
-          <hr>
-          <p>¿Aún no tienes cuenta?</p>
-          <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-          <p><input type="button" class="registro" onclick="window.location.href = 'login/registro.php'" type="submit" value="Regístrate"></p>
+        <p><input type="email" id="correo" name="correo" placeholder="Correo"></p>
+        <p><input type="password" id="pass" name="pass" placeholder="Contraseña"></p>
+        <p><input class="botonLogin" type="submit" value="Acceder"></p>
+        <a id="enlaceContraseña" href="#">No recuerdo mi contraseña</a>
+        <hr>
+        <p>¿Aún no tienes cuenta?</p>
+        <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
+        <p><input type="button" class="registro" onclick="window.location.href = 'login/registro.php'" type="submit" value="Regístrate"></p>
       </form>
   </div>
+
+  
+  
 <!-- 
     <section>
 
@@ -169,7 +172,9 @@
         </li>
       </ul>
     </section> -->
+   
     <script src="Usuario/usuarioJS.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

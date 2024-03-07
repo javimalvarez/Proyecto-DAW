@@ -22,7 +22,7 @@ if(isset($_POST['pass']) && isset($_POST['pass2']) && !empty($_POST['pass']) && 
         $result=mysqli_query($con,"SELECT * FROM usuarios WHERE email = '$_SESSION[correo]'");
         $numUser = mysqli_fetch_array($result);
         if($numUser == 0){
-            echo "El usuario no existe";
+            echo "<div>No se encuentra el usuario</div>";
         }
         else{
             //Contraseña hasheada
@@ -30,21 +30,21 @@ if(isset($_POST['pass']) && isset($_POST['pass2']) && !empty($_POST['pass']) && 
             $query="UPDATE usuarios SET contraseña = '$hashPass' WHERE email = '$_SESSION[correo]'";/*Se actualiza la contraseña en la base de datos*/
             mysqli_query($con,$query);
             mysqli_close($con);
-            echo "Contraseña cambiada";
-            header("Location: login.html");//Se redirige a la página de login
+            $_SESSION['mensaje'] = "Contraseña cambiada";
+            header("Location: index.php");//Se redirige a la página de inicio
         }
     }else{
-        echo "La contraseña no cumple con los requisitos especificados";
+        echo "<div>La contraseña no cumple con los requisitos especificados</div>";
     }
 }
 else{
     //Se envia la información con los campos vacios
     if(empty($_POST['pass']) || empty($_POST['pass2'])){
-        echo "Debes rellenar todos los campos";
+        echo "<div>Debes rellenar todos los campos</div>";
     }
     //Las contraseñas no coinciden
     else if($_POST['pass']!=$_POST['pass2']){
-        echo "Las contraseñas no coinciden";
+        echo "<div>Las contraseñas no coinciden</div>";
     }
 }
 ?>
