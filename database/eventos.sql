@@ -9,19 +9,19 @@ CREATE TABLE usuarios (
     nombre VARCHAR(150) NOT NULL,
     apellidos VARCHAR(200) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
-    contraseña VARCHAR(40) NOT NULL,
+    contraseña VARCHAR(100) NOT NULL,
     tipo INT DEFAULT 1,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (id_usuario)
 );
 INSERT INTO usuarios (nombre, apellidos, email, contraseña, tipo)
 VALUES
-/*VALORES 0=Administrador 1=Usuario registrado 
+/*VALORES 1=Administrador 2=Usuario registrado 
 El alta de usuarios administradores se gestionara desde el alta de panel de administrador*/
-('Aranzazu', 'Ordoyo', 'aordoyo@msn.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4',0),
-('Itizar', 'Esteban', 'iesteban@yahoo.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4',1),
-('Javier', 'Martinez', 'jmartinez@mediavida.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4',1)
-('David', 'Rodriguez', 'drgz@hotmail.com', '$2a$10$HvcZSqgBznGcslp6Efp3Cea6L.cmJLfj4'1);
+('Aranzazu', 'Ordoyo', 'aordoyo@msn.com', '$2y$10$.8TAwmU4N//7rhOHH0CuvOMmWgftarZ4J.jlYZ.Schiwn3Rl2i2Gy',0),
+('Itizar', 'Esteban', 'iesteban@yahoo.com', '$2y$10$VqwC6kYzHmjZOCUtt83GJ.lfnb2vOm0OALJWeDzKhO6wj7BJcnVB2',0),
+('Javier', 'Martinez', 'jmartinez@mediavida.com', '$2y$10$oE54WkAyfFfj/uMmnC7PFebyVGK7V9rlSno1uHs6vX3ONuypJsZPu',0),
+('David', 'Rodriguez', 'drgz@hotmail.com', '$2y$10$laQFvGyIM1m7yw1FgLxmj.vHlzPRcNXuziaa5EBpYTliJmFd31UpS',0);
 SELECT * FROM usuarios;
 
 -- DROP TABLE IF EXISTS tipo_eventos;

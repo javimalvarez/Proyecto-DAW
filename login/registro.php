@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="../styleNavbar.css">
-<link rel="stylesheet" type="text/css" href="styleRegistro.css">
+<link rel="stylesheet" type="text/css" href="../css/styleNavbar.css">
+<link rel="stylesheet" type="text/css" href="../css/styleRegistro.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -154,18 +154,14 @@ echo"<nav class='navbar bg-body-tertiary'>
                 </div>
             </form>
         </div>
-    </div>
-    <div class='mensaje'>";
+    </div>";
+
     //Muestra el mensaje de error si hay un problema en login
     if(isset($_SESSION['mensaje'])){
-        echo "<div style='color:red;'>".$_SESSION['mensaje']."</div>";
-        unset($_SESSION['mensaje']);
-        //Refresca la página
-        echo"<script>setTimeout(function(){location.reload();}, 2000);</script>";
+        echo "<script> let respuesta = window.confirm('".$_SESSION['mensaje']."'); if (!respuesta){window.location.href = '../index.php'; }</script>";
     }
-    echo"</div>
-</div>
-<script src='registro.js'></script>
+echo"</div>
+<script src='../script.js'></script>
   <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'
     integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL'
     crossorigin='anonymous'></script>";

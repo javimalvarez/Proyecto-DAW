@@ -2,32 +2,38 @@
 session_start();
 require("../database/datos.php");
 $con = mysqli_connect($host, $user, $pass, $db_name);
-if (isset($_POST['correo']) && isset($_POST['pass'])&&!empty($_POST['correo'])&&!empty($_POST['pass'])) {
-    $query = "SELECT contraseña FROM usuarios WHERE email = '".$_POST['correo']."'";
+if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo']) && !empty($_POST['pass'])) {
+    $query = "SELECT contraseña FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
     $result = mysqli_query($con, $query);
     //Comprueba si hay algun usuario registrado con esos datos en la base de datos
     $numUsers = mysqli_num_rows($result);
     //Se recupera contraseña desde la base de datos
-    $password = mysqli_fetch_array($result);
-    //Se hashea la contraseña de la ventana de login
-    $loginPassword=password_hash($_POST['pass'],PASSWORD_DEFAULT);
-    if ($numUsers > 0&&$loginPassword == $password) {
-        //Debe aparecer el usuario logado
-    } else {
-        //Se muestra al usuario el error de inicio sesión
-        if ($numUsers == 0) {
-            $_SESSION['mensaje'] = "Usuario no registrado";
-            header("Location:registro.php");
-        } else if ($loginPassword != $password) {
-            $_SESSION['mensaje'] = "Contraseña incorrecta";
-            //Se redirige al usuario a la página de cambio de contraseña
-            header("Location:resetPassword.php");
+    $contraseña = mysqli_fetch_array($result)['contraseña'];
+    //Si el usuario cumplimenta los datos de login se realizan varias validaciones
+    if ($numUsers > 0 && password_verify($_POST['pass'], $contraseña)) {
+        //Se recupera el tipo de usuario mediante una consulta a la base de datos
+        $query_typeUser = "SELECT tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
+        $result = mysqli_query($con, $query_typeUser);
+        extract(mysqli_fetch_array($result));
+        $tipoUsuario = $tipo;
+        if ($tipoUsuario == 0) {
+            //Se redirige al usuario al panel de administrador
+        } else if ($tipoUsuario == 1) {
+            //Se mostrará la página del perfil de usuario
         }
+    } else if ($numUsers == 0) {
+        //Caso donde no existe el usuario en la base de datos
+        $_SESSION['mensaje'] = "Usuario no registrado. Debes registrarte";
+        header("Location:registro.php");
+    } else if (password_verify($_POST['pass'], $contraseña) == false) {
+        //Caso donde la contraseña no coincide
+        $_SESSION['mensaje'] = "Contraseña incorrecta";
+        //Se redirige al usuario a la página de inicio donde puede cambiar la contraseña
+        header("Location:../index.php");
     }
-}else if(empty($_POST['correo'])||empty($_POST['pass'])){
+} else if (empty($_POST['correo']) || empty($_POST['pass'])) {
     $_SESSION['mensaje'] = "Campos vacios";
     //Se determina la página origen desde donde se llama al script
-    $url=$_SERVER['HTTP_REFERER'];
+    $url = $_SERVER['HTTP_REFERER'];
     header("Location: $url");
-    
 }
