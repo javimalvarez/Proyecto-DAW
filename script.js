@@ -63,7 +63,7 @@ document.addEventListener('click', function(event) {
      let targetElement = event.target; // Elemento en el que se hizo clic
     console.log(targetElement.id);
     // Verificar si el clic ocurrió dentro del formulario de inicio de sesión o en el icono del perfil
-    if (!loginForm.contains(targetElement) && targetElement.id !== 'profile-icon'&&targetElement.id !== 'enlaceContraseña'&&targetElement.id !== 'atras'&&targetElement.id!='alerta') {
+    if (!loginForm.contains(targetElement) && targetElement.id !== 'profile-icon'&&targetElement.id !== 'enlaceContraseña'&&targetElement.id !== 'atras') {
         loginForm.style.display = 'none';
         
     }
@@ -87,7 +87,7 @@ document.querySelector('.botonLogin').addEventListener("click",comprobarLogin);*
 //PROGRAMAR CODIGO
 let enlaceContraseña=document.getElementById("enlaceContraseña");
 function reemplazoLogin(){
-    loginForm.innerHTML="<div class='login-triangle'></div><a id='atras' href='#'style='text-decoration:none'>\< Iniciar sesión</a><form class='login-container' action='login/resetPassword.php' method='post'><h2 class='login-header'>¿Has olvidado tu contraseña?</h2><p>Por favor introduce tu correo,<br/>te enviaremos una nueva contraseña</p><p><input type='email' id='correo' name='correo_recuperacion' placeholder='Dirección de correo'></p><p><input class='botonLogin' id='reset-pass' type='submit' value='Solicitar nueva Contraseña'></p></form>";
+    loginForm.innerHTML="<div class='login-triangle'></div><a id='atras' href='#'style='text-decoration:none'>\< Iniciar sesión</a><form class='login-container' action='login/resetPassword.php' method='post'><h2 class='login-header'>¿Has olvidado tu contraseña?</h2><p>Por favor introduce tu correo,<br/>te enviaremos una nueva contraseña</p><p><input type='email' id='correo' name='correo_recuperacion' placeholder='Dirección de correo'></p><p><input class='botonLogin' type='submit' value='Solicitar nueva Contraseña'></p></form>";
     function mostrarAnterior(){
         loginForm.innerHTML="<div class='login-triangle'></div><form class='login-container' action='login/login.php' method='post'><h2 class='login-header'>Iniciar Sesion</h2><p><input type='email' id='correo' name='correo' placeholder='Correo'></p><p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p><p><input class='botonLogin' type='submit' value='Acceder'></p><?php session_start(); if (isset($_SESSION['mensaje'])) {echo $_SESSION['mensaje']; unset($_SESSION['mensaje']);}?><a id='enlaceContraseña' href='#'>No recuerdo mi contraseña</a><hr><p>¿Aún no tienes cuenta?</p><p><input type='button' class='registro' onclick=\"window.location.href = 'login/registro.php'\" type='submit' value='Regístrate'></p></form>";
         document.getElementById("enlaceContraseña").addEventListener("click", reemplazoLogin);

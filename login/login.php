@@ -32,7 +32,7 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
         header("Location:../index.php");
     }
 } else if (empty($_POST['correo']) || empty($_POST['pass'])) {
-    $_SESSION['mensaje'] = "Campos vacios";
+    $_SESSION['mensaje'] = "Hay campos vacios en el formulario";
     //Se determina la página origen desde donde se llama al script
     $url = $_SERVER['HTTP_REFERER'];
     header("Location: $url");

@@ -11,9 +11,8 @@ $con=mysqli_connect($host,$user,$pass,$db_name);
 //Formulario entrada de datos y login
 echo"<nav class='navbar bg-body-tertiary'>
     <div class='container-fluid'>
-        <a class='navbar-brand' href='#'>
-            <img src='../img/LogoSinFondo.png' alt='Logo' width='100' height='' class='d-inline-block align-text-top'>
-            Ape Planner </a>
+        <a class='navbar-brand' href='../index.php'>
+            <img src='../img/LogoSinFondo.png' alt='Logo' width='100' height='' class='d-inline-block align-text-top'></a>
     </div>
 </nav>
 <div class='card text-center'>
@@ -70,7 +69,7 @@ echo"<nav class='navbar bg-body-tertiary'>
 
                 </div>
                 <div class='hidden-xs hidden-sm col-md-5'>
-                    <p>Inicia sesión y accede a tu área de usuario donde podrás encontrar tus entradas y modificar tus datos de registro y envío. Al iniciar sesión confirmas que has leído y aceptas la Política de Privacidad y los Términos y condiciones de apeplanner.com.</p>
+                    <p>Regístrate desde aquí. Al registrarte confirmas que has leído y aceptas la <a href='../condiciones.html'>Política de Privacidad y los Términos y condiciones de cityplanner.com</a></p>
                 </div>
             </form>
         </div>";
@@ -129,33 +128,38 @@ echo"<nav class='navbar bg-body-tertiary'>
                             <input type='password' class='form-control' id='pass' name='pass'>
                         </div>
                     </div>
-                    <div class='form-group row'>
-                        <details>
-                            <summary>¿Has olvidado tu contraseña?</summary>
-                            <form class='row' action='resetPassword.php' method='post'>
-                                <p>Por favor indica tu correo, te enviaremos una nueva contraseña</p>
-                                <label for='correo_recuperacion' class='col-md-3 col-form-label text-md-right'>Dirección de correo:</label>
-                                <div class='col-md-8'>
-                                    <input type='email' class='form-control' id='correo_recuperacion' name='correo_recuperacion'>
-                                </div>
-                                <div class='col-md-8 offset-md-3'>
-                                    <input type='submit' class='btn btn-primary botonRegistro' value='Recuperar'><!--poner un icono para el botón-->
-                                </div>
-                            </form>
-                        </details>
-                    </div>
                     <div class='col-md-8 offset-md-3'>
                         <input type='submit' class='btn btn-primary botonRegistro' value='Acceder'>
                     </div>
-
                 </div>
                 <div class='hidden-xs hidden-sm col-md-5'>
-                    <p>Inicia sesión y accede a tu área de usuario donde podrás encontrar tus entradas y modificar tus datos de registro y envío. Al iniciar sesión confirmas que has leído y aceptas la Política de Privacidad y los Términos y condiciones de appeplanner.com.</p>
+                    <p>Inicia sesión y accede a tu área de usuario donde podrás  modificar tus datos de registro. Al iniciar sesión confirmas que has leído y aceptas la <a href='../condiciones.html'>Política de Privacidad y los Términos y condiciones de cityplanner.com</a></p>
                 </div>
             </form>
+            <div class='col-md-7'>
+                <details>
+                <summary>¿Has olvidado tu contraseña?</summary>
+                    <div class='form-group row'>
+                        <form class='row' action='resetPassword.php' method='post'>
+                            <p>Por favor indica tu correo y te enviaremos una nueva contraseña</p>
+                            <label for='correo_recuperacion' class='col-md-3 col-form-label text-md-right'>Dirección de correo:</label>
+                            <div class='col-md-8'>
+                                <input type='email' class='form-control' id='correo_recuperacion' name='correo_recuperacion'>
+                            </div>
+                            <div class='col-md-8 offset-md-3'>
+                                <input type='submit' class='btn btn-primary botonRegistro' value='Solicitar nueva contraseña'>
+                            </div>                      
+                        </form>
+                    </div>
+                </details>
+            </div>
         </div>
     </div>";
-
+    if (isset($_POST['btnReset'])){
+        echo "<script> 
+        document.getElementById('btnLogin').disabled = true;
+         </script>";
+    }
     //Muestra el mensaje de error si hay un problema en login
     if(isset($_SESSION['mensaje'])){
         echo "<script> let respuesta = window.confirm('".$_SESSION['mensaje']."'); if (!respuesta){window.location.href = '../index.php'; }</script>";
