@@ -92,11 +92,12 @@ echo"<nav class='navbar bg-body-tertiary'>
                     {8,} longitud mínima de 8 carácteres*/
                     if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['pass'])){
                         $mensaje="Hola, hemos recibido una petición de registro en City Planner.<br/>
-                        Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW-main/confirmar.php'>enlace</a><br/>
-                        http://localhost/Proyecto-DAW-main/confirmar.php
+                        Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW/confirmar.php'>enlace</a><br/>
+                        http://localhost/Proyecto-DAW/confirmar.php
                         Si la petición no la has realizado tu, omite este correo.<br/><br/>
                         Un saludo del equipo de City Planner.";
-                        mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,'proyectodaw.linkiafp@gmail.com');
+                        $headers = "From: cityplanner.info@gmx.com";
+                        mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,$headers);
                         //Se almacena la contraseña hasheada en la base de datos
                         $_SESSION['password'] = password_hash($_POST['pass'],PASSWORD_DEFAULT);
                     }

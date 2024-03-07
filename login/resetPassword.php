@@ -11,8 +11,8 @@ if (isset($_POST['correo_recuperacion']) && !empty($_POST['correo_recuperacion']
         //Función para enviar un correo desde un script PHP
         $mensaje = "Hola, hemos recibido una petición para cambiar tu contraseña en City Planner.<br/>
         Puedes solicitar el cambio de contraseña pulsando en el siguiente <a href='password.php'>enlace</a><br/>
-        http://localhost/Proyecto-Login/password.php";
-        $headers = "From: cityplanner.info@gmail.com";
+        http://localhost/Proyecto-DAW/password.php";
+        $headers = "From: cityplanner.info@gmx.com";
         mail($_POST['correo_recuperacion'], "City Planner - Solicitud cambio contraseña", $mensaje, $headers);
         $_SESSION['correo'] = $_POST['correo_recuperacion'];
         $_SESSION['mensaje'] = "Se ha enviado un correo para cambiar la contraseña";
