@@ -57,14 +57,26 @@ echo"<nav class='navbar bg-body-tertiary'>
                         </div>
                         <div class='col-md-8 offset-md-3'style='text-align:left'>
                             <details>
-                                <summary><strong>Información importante:</strong></summary>
-                                <p>Para que la contraseña sea valida; la contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número<br/>*Se permiten caracteres especiales</p></details>
+                                <summary>Información importante:</summary>
+                                <p>Para que la contraseña sea valida; la contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número<br/>*Se permiten caracteres especiales</p>
+                            </details>
                         </div>
                     </div>
                     <div class='form-group row'>
                         <label class='col-md-3 col-form-label text-md-right'>Repite la contraseña:</label>
                         <div class='col-md-8'>
                             <input type='password' name='pass2' id='pass2'>
+                        </div>
+                    </div>
+
+                    <div class='form-group row'>
+                        <div class='col-md-8 offset-md-3'>
+                            <div class='form-check'>
+                                <input class='form-check-input' type='checkbox' id='confirmar' name='confirmar' value='1'>
+                                <label class='form-check-label' for='confirmar'>
+                                    Quiero poder gestionar alta de eventos
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class='col-md-8 offset-md-3'>
@@ -77,41 +89,77 @@ echo"<nav class='navbar bg-body-tertiary'>
                 </div>
             </form>
         </div>";
+        
+    
         //Garantiza que las comprobaciones se realicen solo si se envía el formulario
         if($_SERVER['REQUEST_METHOD']==='POST'){
+            $query="SELECT * FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
+        $result = mysqli_query($con, $query);
+        $numUsers = mysqli_num_rows($result);
             if (empty($_POST['nombre'])|| empty($_POST['apellidos'])|| empty($_POST['correo'])||empty($_POST['pass'])||empty($_POST['pass2'])) {
                 echo "<script>alert('Hay campos vacios en el formulario')</script>";
             }
             else {
                 $_SESSION['nombre'] = $_POST['nombre'];
                 $_SESSION['apellidos'] = $_POST['apellidos'];
-                $_SESSION['correo'] = $_POST['correo'];
-                if($_POST['pass']==$_POST['pass2']){
-                    /*Se valida que la contraseña enviada por el usuario cumpla con los requisitos establecidos de seguridad*/
-                    /*?=.*[A-Z] debe incluir al menos una mayúscula
-                    ?=.*[a-z] debe incluir al menos una minúscula
-                    ?=.*[0-9] de incluir al menos un número
-                    [\w\W] se permite carácteres alfanuméricos y carácteres especiales
-                    {8,} longitud mínima de 8 carácteres*/
-                    if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['pass'])){
-                        $mensaje="Hola, hemos recibido una petición de registro en City Planner.<br/>
-                        Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW/confirmar.php'>enlace</a><br/>
-                        http://localhost/Proyecto-DAW/login/confirmar.php
-                        Si la petición no la has realizado tu, omite este correo.<br/><br/>
-                        Un saludo del equipo de City Planner.";
-                        $headers = "From: cityplanner.info@gmx.com";
-                        mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,$headers);
-                        //Se almacena la contraseña hasheada en la base de datos
-                        $_SESSION['password'] = password_hash($_POST['pass'],PASSWORD_DEFAULT);
-                        echo "<script>alert('Te hemos enviado correo que debes\n confirmar para finalizar el registro')</script>";
+                $_SESSION['correo']=$_POST['correo'];
+                if($numUsers==0){
+                    if($_POST['pass']==$_POST['pass2']){
+                        /*Se valida que la contraseña enviada por el usuario cumpla con los requisitos establecidos de seguridad*/
+                        /*?=.*[A-Z] debe incluir al menos una mayúscula
+                        ?=.*[a-z] debe incluir al menos una minúscula
+                        ?=.*[0-9] de incluir al menos un número
+                        [\w\W] se permite carácteres alfanuméricos y carácteres especiales
+                        {8,} longitud mínima de 8 carácteres*/
+                        if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['pass'])){
+                            $mensaje="Hola, hemos recibido una petición de registro en City Planner.<br/>
+                            Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW/confirmar.php'>enlace</a><br/>
+                            http://localhost/Proyecto-DAW/login/confirmar.php
+                            Si la petición no la has realizado tu, omite este correo.<br/><br/>
+                            Un saludo del equipo de City Planner.";
+                            $headers = "From: cityplanner.info@gmx.com";
+                            mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,$headers);
+                            //Se almacena la contraseña hasheada en la base de datos
+                            $_SESSION['password'] = password_hash($_POST['pass'],PASSWORD_DEFAULT);
+                            echo "<script>alert('Te hemos enviado correo que debes confirmar para finalizar el registro')</script>";
+                        }
+                        else{
+                            echo "<script>alert('La contraseña no cumple con los requisitos especificados')</script>";
+                        }
+                        
+                    }
+                    else if($_POST['pass']==$_POST['pass2']&&isset($_POST['confirmar'])&&isset($_POST['confirmar'])&&$_POST['confirmar']=='1'){
+                        /*Se valida que la contraseña enviada por el usuario cumpla con los requisitos establecidos de seguridad*/
+                        /*?=.*[A-Z] debe incluir al menos una mayúscula
+                        ?=.*[a-z] debe incluir al menos una minúscula
+                        ?=.*[0-9] de incluir al menos un número
+                        [\w\W] se permite carácteres alfanuméricos y carácteres especiales
+                        {8,} longitud mínima de 8 carácteres*/
+                        if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['pass'])){
+                            $mensaje="Hola, hemos recibido una petición de registro en City Planner.<br/>
+                            Para confirmar el registro pulsa en el siguiente <a href='http:.//localhost/Proyecto-DAW/confirmar.php'>enlace</a><br/>
+                            http://localhost/Proyecto-DAW/login/confirmar.php
+                            Si la petición no la has realizado tu, omite este correo.<br/><br/>
+                            Un saludo del equipo de City Planner.";
+                            $headers = "From: cityplanner.info@gmx.com";
+                            mail($_POST['correo'],"City Planner - Solicitud registro",$mensaje,$headers);
+                            //Se almacena la contraseña hasheada en la base de datos
+                            $_SESSION['password'] = password_hash($_POST['pass'],PASSWORD_DEFAULT);
+                            $_SESSION['confirmar']=$_POST['confirmar'];
+                            echo "<script>alert('Te hemos enviado correo que debes confirmar para finalizar el registro')</script>";
+                        }
+                        else{
+                            echo "<script>alert('La contraseña no cumple con los requisitos especificados')</script>";
+                        }
+                        
                     }
                     else{
-                        echo "<script>alert('La contraseña no cumple con los requisitos especificados')</script>";
+                        echo "<script>alert('La contraseña y su confirmación no coinciden')</script>";
                     }
-                    
                 }else{
-                    echo "<script>alert('Las contraseña y su confirmación no coinciden')</script>";
-                }
+                    echo "<script>alert('El correo ya existe')</script>";
+                    header("Location: ../index.php");
+                }                  
             }
         }
       
