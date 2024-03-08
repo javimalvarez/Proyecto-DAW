@@ -6,9 +6,15 @@ echo"<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <h3>Grupos:</h3>
 <label for='nombre_grupo'>Nombre:</label>
 <input type='text' name='nombre_grupo'><br/>
-<label for='genero'>Género:</label>
-<input type='text' name='generoo'><br/>
-<label for='url_grupo'>Web:</label>
+<select><option value=''>Genero</option>";
+$con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
+$query="SELECT * FROM generos";
+$result=mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+while($row = mysqli_fetch_array($result)){
+    extract($row);
+    echo "<option value='$id_genero'>$genero</option>";
+}
+echo"</select><br/><label for='url_grupo'>Web:</label>
 <input type='url' name='url_grupo' placeholder='URL grupo'><br/>
 <input type='file' name='imagen_grupo' acept='image/*'><br/>
 <label for='info_festival'>Otra información:</label><br/>
