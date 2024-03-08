@@ -10,13 +10,15 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
     //Se recupera contraseña desde la base de datos
     $contraseña = mysqli_fetch_array($result)['contraseña'];
     //Si el usuario cumplimenta los datos de login se realizan varias validaciones
-    if ($numUsers > 0 && password_verify($_POST['pass'], $contraseña)) {
+    if ($numUsers > 0 && password_verify($_POST['pass'], $contraseña)|| $_SESSION['usuario']&&$_SESSION['password']) {
+    //Usuario registrado y validado y usuario registrado y no validado (pendiente de alta en la base de datos)
         //Se recupera el tipo de usuario mediante una consulta a la base de datos
         $query_typeUser = "SELECT email, tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
         $result = mysqli_query($con, $query_typeUser);
         extract(mysqli_fetch_array($result));
         $_SESSION['tipoUsuario'] = $tipo;
         $_SESSION['usuario'] = $email;
+        //Usuario registrado y validado. Se comprueba tipo de usuario
         if ($_SESSION['tipoUsuario'] == 0 ) {
             //Se redirige al usuario al panel de administrador
         } else if ($_SESSION['tipoUsuario'] == 1) {

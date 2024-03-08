@@ -55,6 +55,11 @@ echo"<nav class='navbar bg-body-tertiary'>
                         <div class='col-md-8'>
                             <input type='password' name='pass' id='pass'>
                         </div>
+                        <div class='col-md-8 offset-md-3'style='text-align:left'>
+                            <details>
+                                <summary><strong>Información importante:</strong></summary>
+                                <p>Para que la contraseña sea valida; la contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número<br/>*Se permiten caracteres especiales</p></details>
+                        </div>
                     </div>
                     <div class='form-group row'>
                         <label class='col-md-3 col-form-label text-md-right'>Repite la contraseña:</label>
@@ -123,7 +128,7 @@ echo"<nav class='navbar bg-body-tertiary'>
                         </div>
                     </div>
                     <div class='form-group row'>
-                        <label for='pass' class='col-md-3 col-form-label text-md-right'>Contraseña</label>
+                        <label for='pass' class='col-md-3 col-form-label text-md-right'>Contraseña:</label>
                         <div class='col-md-8'>
                             <input type='password' class='form-control' id='pass' name='pass'>
                         </div>
@@ -138,10 +143,10 @@ echo"<nav class='navbar bg-body-tertiary'>
             </form>
             <div class='col-md-7'>
                 <details>
-                <summary>¿Has olvidado tu contraseña?</summary>
+                <summary style='text-align: left;'>¿Has olvidado tu contraseña?</summary>
                     <div class='form-group row'>
                         <form class='row' action='resetPassword.php' method='post'>
-                            <p>Por favor indica tu correo y te enviaremos una nueva contraseña</p>
+                            <p style='text-align: left;'>Por favor indica tu correo y te enviaremos una nueva contraseña</p>
                             <label for='correo_recuperacion' class='col-md-3 col-form-label text-md-right'>Dirección de correo:</label>
                             <div class='col-md-8'>
                                 <input type='email' class='form-control' id='correo_recuperacion' name='correo_recuperacion'>
