@@ -213,10 +213,6 @@ echo"<nav class='navbar bg-body-tertiary'>
         document.getElementById('btnLogin').disabled = true;
          </script>";
     }
-    //Muestra el mensaje de error si hay un problema en login
-    if(isset($_SESSION['mensaje'])){
-        echo "<script> let respuesta = window.confirm('".$_SESSION['mensaje']."'); if (!respuesta){window.location.href = '../index.php'; }</script>";
-    }
 echo"</div>";
 ?>
 <script src="../script.js"></script>

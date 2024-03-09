@@ -19,12 +19,13 @@ if (isset($_POST['correo_recuperacion']) && !empty($_POST['correo_recuperacion']
         //Se redirige al usuario a la página de inicio  
         header("Location: ../index.php");
     } else {
-        $_SESSION['mensaje'] = "El usuario no existe. Debes de registrarte primero";
-        //Se redirige al usuario a la página de registro
-        header("Location: registro.php");
+        //Se redirige al usuario a la página de registro si el usuario no existe
+        echo"<script>let confirmar=window.confirm('Usuario no registrado. Debes registrarte');if(!confirmar){window.location.href='../index.php'}else{window.location.href='registro.php'}</script>";
     }
 } else {
     //En caso de que el correo esté vacio se redirige al usuario a la página de origen
     $url = $_SERVER['HTTP_REFERER'];
-    header("Location: $url");
+    echo"<script>alert('El correo no puede estar vacio')</script>";
+    header("refresh:0; url=$url"); 
 }
+?>

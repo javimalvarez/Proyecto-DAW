@@ -5,23 +5,32 @@ session_start();
 y si ha iniciado sesión que tenga perfil de admistrador*/
 if (!isset($_SESSION['usuario'])||$_SESSION['tipoUsuario']!='0') {
     header("Location: ../index.php");
+}else{
+    echo "<script>alert('Bienvenid@ a la página de administrador $_SESSION[nombre]')</script>";
 }
 require("../database/datos.php");
 $con = mysqli_connect($host, $user, $pass, $db_name);
 #$query = mysqli_query($con, "SHOW DATABASES LIKE '$db_name'");
 
-
 $resultado = obtener_usuarios($con);
 $num_filas = obtener_num_filas($resultado);
 
-echo "<h1>Panel de administrador</h1>
+echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+<div>Usuario: " . $_SESSION['nombre']."Correo: ".$_SESSION['usuario']."<button type='submit' name='logout'>Logout</button></div>
+<h1>Panel de administrador</h1>
 <h2>Gestión de usuarios</h2>";
-    if($num_filas == 0) {
+    //Si el usuario pulsa el botón se elimina la sesión y se redirige a la página de inicio
+    if(isset($_POST['logout'])) {
+        echo"<script>alert('Hasta pronto...')</script>";
+        session_destroy();
+        header("refresh:3; url=../index.php");
+        }
+    else if($num_filas == 0) {
         echo "No hay usuarios registrados";
     }
+    
     else {
-        echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'><table border='1'>
-            <tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Perfil</th><th></th><th></th></tr>";
+        echo "<table border='1'><tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Perfil</th><th></th><th></th></tr>";
             while($fila = obtener_resultados($resultado)) {
                 extract($fila);
                 if($tipo==0){
@@ -44,6 +53,7 @@ echo "<h1>Panel de administrador</h1>
             }
             echo "</table>";
     }
+    
     echo "<h3>Alta de administrador</h3>
     <label for='name'>Nombre:</label>
     <input type='text' name='nombre'>
