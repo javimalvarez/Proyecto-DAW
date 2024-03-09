@@ -20,9 +20,11 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
         $_SESSION['usuario'] = $email;
         //Usuario registrado y validado. Se comprueba tipo de usuario
         if ($_SESSION['tipoUsuario'] == 0 ) {
-            //Se redirige al usuario al panel de administrador
+            header("Location: ../administrador/admin.php");
+            echo "<script>alert('Bienvenid@ a la página de administrador $_SESSION[usuario]')</script>";
         } else if ($_SESSION['tipoUsuario'] == 1) {
             //Se mostrará la página del perfil de usuario
+            echo"<script>alert('Bienvenid@ $_SESSION[usuario]')</script>";
         }
     } else if ($numUsers == 0) {
         //Caso donde no existe el usuario en la base de datos
