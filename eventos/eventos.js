@@ -1,5 +1,5 @@
 function seleccionEvento(){
-    if(document.getElementById("tipo_evento").value==2){
+    if(document.getElementById("tipo_evento").value==1){
         document.getElementById("grupo").style.visibility = "visible";
         document.getElementById("festival").style.visibility = "visible";
     } 
