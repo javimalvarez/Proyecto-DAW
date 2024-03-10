@@ -26,7 +26,8 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
                 $_SESSION['nombre'] = $nombre;
                 //Usuario registrado y validado. Se comprueba tipo de usuario
                 if ($_SESSION['tipoUsuario'] == 0) {
-                    header("Location: ../administrador/admin.php");
+                    echo"<script>let confirmar=confirm('Estas accediendo al panel de administrador ". $_SESSION['nombre']." ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
+                    header("refresh:0; url=../administrador/admin.php");
                 } else {
                     //Se mostrará la página del perfil de usuario
                     echo "<script>alert('Bienvenid@ $_SESSION[nombre]')</script>";
