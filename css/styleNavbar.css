@@ -1,0 +1,156 @@
+body {
+    background: rgb(34, 193, 195);
+    background: linear-gradient(
+      135deg,
+      rgba(34, 193, 195, 1) 23%,
+      rgba(253, 247, 45, 1) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    background-color: aquamarine;
+  }
+
+    .login {
+        display: none;
+        position: absolute;
+        /* Alinea el formulario justo debajo del nav */
+        right: 0;
+   margin: 10px;
+   background: white;
+   padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 0px; /* Ajusta el espacio entre el nav y el formulario */
+    }
+  
+ 
+  
+  /* The triangle form is achieved by a CSS hack */
+  .login-triangle {
+    width: 0;
+    border: 12px solid transparent;
+    border-bottom-color: #28d;
+    position: absolute;
+    top: -24px; /* Ajusta la posición vertical */
+    right: 10px; /* Ajusta la posición horizontal */
+
+
+    
+  }
+  
+  .login-header {
+    /* background: #28d;
+    padding: 20px;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff; */
+    font-size: 1.2em;
+    padding-bottom: 10px;
+
+  }
+  
+  
+  .login input {
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    outline: 0;
+    font-family: inherit;
+    font-size: 0.95em;
+  }
+  
+  .login input[type="email"],
+  .login input[type="password"] {
+    background: #fff;
+    border-color: #bbb;
+    color: #555;
+  }
+  
+  /* Text fields' focus effect */
+  .login input[type="email"]:focus,
+  .login input[type="password"]:focus {
+    border-color: #888;
+  }
+  
+  .registro{
+    background: pink;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+
+  }
+  .botonLogin {
+    background: #28d;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login input[type="submit"]:hover {
+    background: #17c;
+  }
+  .login input[type="button"]:hover {
+    background: #17c;
+  }
+  
+  /* Buttons' focus effect */
+  .login input[type="button"]:focus {
+    border-color: #05a;
+  }
+  .fotoNavbar{
+    cursor: pointer;
+    float: left;
+    padding-right:10px;
+  }
+  
+.navbar-brand {
+    padding-left:10px;
+    width: auto;
+}
+  .nav {
+    display: flex;
+  
+    justify-content: center;
+  
+    align-items: center;
+  
+    list-style-type: none;
+  
+  
+  }
+  
+  .nav-item {
+    margin: 0 10px;
+  }
+  
+  .form-control {
+    width: 300px;
+  }
+  
+  .centered-nav {
+    display: flex;  
+    justify-content: center;  
+    align-items: center;
+  }
+    #profile-icon {
+/* position: fixed;    
+right: 30px; */
+width: 30px;
+cursor: pointer;
+margin-right: 10px;
+  }
+
+
+
+
+
+
