@@ -149,3 +149,35 @@ VALUES
 ('Vermut', 5, '{"lat": 43.32554, "lng": -1.98662}', 20, '2024-05-26 11:30:00', NULL, NULL, NULL, 'Quedada para tomar unos Vermuts.', NULL, 2),
 ('Concierto Depeche Mode', 1, '{"lat": 40.42406, "lng": -3.67176}', 28, '2024-03-12 21:00:00', NULL, 1, NULL, 'Concierto Depeche Mode en el WizInk Arena', 'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505', 3),
 ('Alvaro Casares - Check un show bien', 2, '{"lat": 42.59501, "lng": -5.57092}', 24, '2024-04-12 21:00:00', NULL, NULL, 1,' 2º pase. Teatro San Francisco C/Corredera 1 (León)', 'https://alvarocasares.es/', 4);
+
+CREATE TABLE usuarios_eventos (
+    id_usuario INT NOT NULL,
+    id_evento INT NOT NULL,
+    PRIMARY KEY (id_usuario, id_evento),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
+    FOREIGN KEY (id_evento) REFERENCES eventos (id_evento)
+);
+
+INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
+(2, 1),
+(2, 2),
+(2, 3),
+(1, 2),
+(1, 3),
+(3, 2),
+(3, 4),
+(4, 2),
+(4, 3),
+(4, 4);
+
+
+select * from usuarios_eventos;
+
+SELECT u.id_usuario, u.nombre, e.id_evento, e.nombre AS nombre_evento, e.id_tipo, e.ubicacion, e.fecha_comienzo, e.fecha_fin, e.info
+FROM usuarios u
+JOIN usuarios_eventos ue ON u.id_usuario = ue.id_usuario
+JOIN eventos e ON ue.id_evento = e.id_evento
+WHERE u.id_usuario = 1;
+
+select * from usuarios;
+select * from eventos;
