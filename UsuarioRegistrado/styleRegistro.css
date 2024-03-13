@@ -43,9 +43,13 @@ input{
     cursor: pointer;
 
 }
+.navbar{
+    text-align: right;
+}
 .botonRegistro:hover {
     background:red;
   }
   .col-md-8 input{
     margin-top: 2%;
   }
+  
