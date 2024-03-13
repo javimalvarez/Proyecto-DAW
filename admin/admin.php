@@ -1,0 +1,168 @@
+
+<?php
+session_start();
+/*Para acceder al panel de administrador se requiere que el usuario haya iniciado sesion
+y si ha iniciado sesión que tenga perfil de admistrador*/
+if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] != 0) {
+    header("Location: ../index.php");
+}
+require("../database/datos.php");
+$con = mysqli_connect($host, $user, $pass, $db_name);
+#$query = mysqli_query($con, "SHOW DATABASES LIKE '$db_name'");
+
+
+$resultado = obtener_usuarios($con);
+$num_filas = obtener_num_filas($resultado);
+
+if ($num_filas == 0) {
+    echo "No hay usuarios registrados";
+} else {
+
+    echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+    <div style='text-align: right;'>Usuario: " . $_SESSION['nombre']." (".$_SESSION['usuario'].") <button type='button'><a style='text-decoration: none; color:black;' href='../index.php'>Logout</a></button></div>
+    <h1>Panel de administrador</h1>
+    <h2>Gestión de usuarios</h2>
+    <table border='1'><tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Contraseña</th><th>Perfil</th><th></th><th></th></tr>";
+    while ($fila = obtener_resultados($resultado)) {
+        extract($fila);
+        if ($tipo == 0) {
+            $tipo = "Administrador";
+        } else if ($tipo == 1) {
+            $tipo = "Usuario";
+        } else {
+            $tipo = "Alta eventos";
+        }
+        echo "<tr id='$id_usuario'><td><input type='checkbox' name='user[]' value='$id_usuario'/></td>
+                <td>$id_usuario</td>
+                <td>$nombre</td>
+                <td>$apellidos</td>
+                <td>$email</td>
+                <td>$contraseña</td>
+                <td>$tipo</td>
+                <td><input type='submit' name='borrar' value='borrar'/></td>
+                <td><input type='submit' name='editar' value='editar'/></td></tr>";
+    }
+    echo "</table><br>
+    pulsa aquí si necesitas cambiar la contraseña <button type='button'><a style='text-decoration: none; color:black;' href='calculadoraHash.php' target='_blank'>Calcular hash</a></button>";
+}
+echo "<h3>Alta de administrador</h3>
+    <label for='name'>Nombre:</label>
+    <input type='text' name='nombre'>
+    <label for='apellidos'>Apellidos:</label>
+    <input type='text' name='apellidos'><br/>
+    <label for='email'>Email:</label>
+    <input type='email' name='correo'>
+    <label for='contraseña'>Contraseña:</label>
+    <input type='password' name='contraseña'><br/>
+    <input type='submit' name='alta' value='Alta de administrador'/>";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_POST['user']) && !empty($_POST['user']) && isset($_POST['borrar'])) {
+    foreach ($_POST['user'] as $user) {
+        $query ="DELETE FROM usuarios WHERE id_usuario=$user";
+        mysqli_query($con, $query);
+        echo "<script>alert('Usuario borrado')</script>";
+    }
+    header("refresh:0; url=admin.php");
+} 
+
+else if (empty($_POST['user']) && isset($_POST['borrar'])) {
+    echo "<script>alert('Debes seleccionar al menos un usuario')</script>";
+}
+
+if (isset($_POST['user']) && !empty($_POST['user']) && isset($_POST['editar'])) {
+    foreach ($_POST['user'] as $user) {
+        $query = "SELECT * FROM usuarios WHERE id_usuario=$user";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_array($result);
+        extract($row);
+        echo "<script> 
+        let filaEditable=\"<td><input type='checkbox' name='nuevo_user[]' value='$user' checked/></td><td>$user</td><td><input style='border: none;' type='text' name='nuevo_nombre' value='$nombre'/></td><td><input style='border: none;' type='text' name='nuevo_apellido'value='$apellidos'/></td><td><input style='border: none;' type='email' name='nuevo_correo' value='$email'/></td><td><input style='border: none;' type='password' name='nuevo_pass' value='$contraseña'/></td><td><select style='border: none;' name='nuevo_tipo'><option value='0'>Administrador</option><option value='1'selected>Usuario</option><option value='2'>Alta eventos</option></select></td><td><input type='submit' name='eliminar' value='borrar'/></td><td><input type='submit' name='guardar' value='Guardar'/></td>\";
+        document.getElementById('$user').innerHTML = filaEditable;
+        </script>";
+    }
+} else if (empty($_POST['user']) && isset($_POST['editar'])) {
+    echo "<script>alert('Debes seleccionar un usuario')</script>";
+}
+
+if (isset($_POST['guardar']) && isset($_POST['nuevo_user']) && !empty($_POST['nuevo_user'])) {
+    foreach ($_POST['nuevo_user'] as $user) {
+        //actualizar_usuario($_POST['nombre'], $_POST['apellidos'], $_POST['correo'], $_POST['pass'], $_POST['tipo'], $user);
+         $query ="UPDATE usuarios SET nombre = '".$_POST['nuevo_nombre']."', apellidos = '".$_POST['nuevo_apellido']."', email = '".$_POST['nuevo_correo']."', contraseña = '".$_POST['nuevo_pass']."', tipo = ".$_POST['nuevo_tipo']." WHERE id_usuario = $user";
+        mysqli_query($con, $query)or die("Error: ".mysqli_error($con));
+        echo "<script>alert('Datos cambiados')</script>";
+    }
+    header("refresh:0; url=admin.php");
+    exit();
+}
+
+    if (isset($_POST['alta'])){
+        if (isset($_POST['alta']) && isset($_POST['nombre']) && !empty($_POST['nombre']) && isset($_POST['apellidos']) && !empty($_POST['apellidos']) && isset($_POST['correo']) && !empty($_POST['correo']) && isset($_POST['contraseña']) && !empty($_POST['contraseña'])) {
+            if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[\w\W]{8,}$/', $_POST['contraseña'])) {
+                $passEncrypted = password_hash($_POST['contraseña'], PASSWORD_DEFAULT);
+                insertar_usuario($_POST['nombre'], $_POST['apellidos'], $_POST['email'], $passEncrypted);
+                echo "<script>alert('Nuevo administrador dado de alta')</script>";
+                header("refresh:0; url=admin.php");
+            } else {
+                echo "<script>alert('La contraseña debe contener al menos una mayúscula, una minúscula y un número')</script>";
+            }
+        } else {
+            echo "<script>alert('No es posible enviar el formulario con campos vacios')</script>";
+        }
+    }
+}
+echo "</form>";
+/* Funciones */
+function obtener_usuarios($con)
+{
+    $resultado = mysqli_query($con, "SELECT * FROM usuarios;");
+    return $resultado;
+}
+
+function insertar_usuario($nombre, $apellido, $email, $contraseña)
+{
+    global $con;
+    mysqli_query($con, "INSERT INTO usuarios(nombre, apellidos, email, contraseña, tipo)
+                        VALUES 
+                        ('$nombre', '$apellido', '$email', '$contraseña', 0)");
+}
+
+function borrar_usuario($referencias)
+{
+    global $con;
+    $query = "DELETE FROM usuarios 
+              WHERE id_usuario IN (";
+    foreach ($referencias as $referencia) {
+        $query = $query . $referencia . ", ";
+    }
+    $query = $query . "0)";
+    mysqli_query($con, $query);
+}
+
+function actualizar_usuario($nombre, $apellido, $email, $contraseña, $tipo, $id)
+{
+    global $con;
+    mysqli_query($con, "UPDATE usuarios 
+                        SET nombre='$nombre', apellidos='$apellido', email='$email', contraseña='$contraseña', tipo='$tipo'
+                        WHERE id_usuario='$id'");
+}
+
+function monstrar_eventos_usuario($id_usuario)
+{
+    global $con;
+    $query = mysqli_query($con, "SELECT * FROM eventos 
+                                WHERE 
+                                id_usuario_creador='$id_usuario'");
+    return obtener_resultados($query);
+}
+
+function obtener_num_filas($resultado)
+{
+    return mysqli_num_rows($resultado);
+}
+
+function obtener_resultados($resultado)
+{
+    return mysqli_fetch_array($resultado);
+}
+?>
