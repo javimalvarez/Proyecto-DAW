@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
 $user = "root";
-$pass = "";
+$pass = "admin";
 $db_name = "events_db";
 ?>
