@@ -53,13 +53,13 @@
             </div>
           </li>
           <li class="nav-item ocultar-div">
-        <a class="nav-link " href="login/loginResponsive.php">Login <span class="sr-only">(current)</span></a>
-      </li>
+            <a class="nav-link " href="login/loginResponsive.php">Login <span class="sr-only">(current)</span></a>
+          </li>
         </ul>
         <form class="d-flex mx-auto  col-md-4">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
           <button class="btn btn-outline-success" type="submit">
-            Search
+            Search</button>
         </form>
         <ul class="navbar-nav ml-auto align-items-center">
           <li class="nav-item">
@@ -81,9 +81,7 @@
               </div>
             </div>
           </li>
-        
         </ul>
-        
       </div>
     </div>
   </nav>
@@ -106,7 +104,7 @@
               </div>
               <div class="star-icon-container col-md-4¡1">
                 <a href="">
-                <img id="star-icon" src="img/star.svg" alt="Star" />
+                  <img id="star-icon" src="img/star.svg" alt="Star" />
                 </a>
               </div>
             </div>
