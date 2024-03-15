@@ -10,7 +10,7 @@ $query_tipo="SELECT * FROM tipo_eventos";
 $result_tipo = mysqli_query($con, $query_tipo);
 while($row = mysqli_fetch_array($result_tipo)){
     extract($row);
-    echo "<button type='checkbox' name='filtro[]'value='$id_tipo'>$categoria_evento</button>";
+    echo "<button type='checkbox' name='categoria[]'value='$id_tipo'>$categoria_evento</button>";
 }
 echo"<br/><label for='provincia'>Eventos en</label>
 <select name='provincia'>";
@@ -24,8 +24,8 @@ while($row = mysqli_fetch_array($result_provincia)){
 echo"</select><br/>";
 date_default_timezone_set('Europe/Madrid');
 $fecha=date("Y-m-d");
-echo"<button type='checkbox' name='filtro[]' value='$fecha'>Hoy</button>
-<button type='checkbox' name='filtro[]' value='0'>Gratis</button>
+echo"<button type='checkbox' name='fecha[]' value='$fecha'>Hoy</button>
+<button type='checkbox' name='coste[]' value='0'>Gratis</button>
 <label for='f_inicio'>Fecha inicio:</label>
 <input type='date' name='f_inicio' id='f_inicio' min='$fecha' value='$fecha'>
 <label for='f_fin'>Fecha fin:</label>
