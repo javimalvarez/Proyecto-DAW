@@ -45,6 +45,19 @@ echo"<nav class='navbar bg-body-tertiary'>
                         </div>
                     </div>
                     <div class='form-group row'>
+                        <label class='col-md-3 col-form-label text-md-right'>Provincia:</label>
+                        <div class='col-md-8'>
+                            <select name='provincia' id='provincia' class='form-control form-select-sm' aria-label='Default select example'>";
+                                $query="SELECT * FROM provincias";
+                                $result = mysqli_query($con, $query);
+                                while($row = mysqli_fetch_array($result)){
+                                    extract($row);
+                                    echo"<option value='$id_provincia'>$provincia</option>";
+                                }
+                            echo"</select>
+                        </div>
+                    </div>
+                    <div class='form-group row'>
                         <label class='col-md-3 col-form-label text-md-right'>Correo electrónico:</label>
                         <div class='col-md-8'>
                             <input type='email' name='correo' id='correo'>
@@ -96,12 +109,13 @@ echo"<nav class='navbar bg-body-tertiary'>
             $query="SELECT * FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
         $result = mysqli_query($con, $query);
         $numUsers = mysqli_num_rows($result);
-            if (empty($_POST['nombre'])|| empty($_POST['apellidos'])|| empty($_POST['correo'])||empty($_POST['pass'])||empty($_POST['pass2'])) {
+            if (empty($_POST['nombre'])|| empty($_POST['apellidos'])|| empty($_POST['provincia'])||empty($_POST['correo'])||empty($_POST['pass'])||empty($_POST['pass2'])) {
                 echo "<script>alert('Hay campos vacios en el formulario')</script>";
             }
             else {
                 $_SESSION['nombre'] = $_POST['nombre'];
                 $_SESSION['apellidos'] = $_POST['apellidos'];
+                $_SESSION['provincia'] = $_POST['provincia'];
                 $_SESSION['correo']=$_POST['correo'];
                 if($numUsers==0){
                     if($_POST['pass']==$_POST['pass2']){
