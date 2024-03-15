@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS eventos(
     ubicacion VARCHAR(200) NOT NULL,
     fecha_comienzo DATETIME NOT NULL,
     fecha_fin DATE NULL,
+    precio DECIMAL(10,2) NOT NULL DEFAULT 0,
     web VARCHAR(100) NULL,
     imagen VARCHAR(100) NULL,
     otra_info VARCHAR(400) NULL,
