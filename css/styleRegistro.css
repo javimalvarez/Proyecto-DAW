@@ -49,3 +49,10 @@ input{
   .col-md-8 input{
     margin-top: 2%;
   }
+summary{
+    padding-top: 2%!important;
+
+}
+  #informacionImportante{
+    padding-top: 2%;
+  }

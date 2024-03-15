@@ -1,0 +1,28 @@
+
+.loginResponsive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Espacio interno */
+  box-sizing: border-box; /* Incluye padding y border en el ancho */
+}
+
+.login-container {
+  background-color: #fff; /* Color de fondo del formulario */
+  border-radius: 5px; /* Borde redondeado */
+  padding: 20px; /* Espacio interno */
+  text-align: center; /* Centrar contenido interno horizontalmente */
+}
+
+.login-header {
+  margin-bottom: 20px; /* Espacio entre el título y los campos */
+}
+#arrowLeft {
+    padding-top:7%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left:10%;
+    width: 30px;
+    cursor: pointer;
+  }

@@ -70,7 +70,7 @@ echo"<nav class='navbar bg-body-tertiary'>
                         </div>
                         <div class='col-md-8 offset-md-3'style='text-align:left'>
                             <details>
-                                <summary>Información importante:</summary>
+                                <summary id='informacionImportante'>Información importante:</summary>
                                 <p>Para que la contraseña sea valida; la contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número<br/>*Se permiten caracteres especiales</p>
                             </details>
                         </div>

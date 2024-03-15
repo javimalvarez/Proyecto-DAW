@@ -1,13 +1,31 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../css/styleNavbar.css">
+<link rel="stylesheet" type="text/css" href="../css/styleEventos.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 <?php
+
 session_start();
 //Requiere que el usuario haya iniciado sesion y en caso de haber iniciado sesión solo puede ser usuario administrador o con permisos alta eventos
 // if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] != 0 || $_SESSION['tipoUsuario'] != 2) {
 //     header("Location: ../index.php");
 // }
 require_once("../database/datos.php");
+
 $con = mysqli_connect($host, $user, $pass, $db_name) or die("Error " . mysqli_error($con));
-echo "<form id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
+echo"<nav class='navbar bg-body-tertiary'>
+<div class='container-fluid'>
+    <a class='navbar-brand' href='../index.php'>
+        <img src='../img/LogoSinFondo.png' alt='Logo' width='100' height='' class='d-inline-block align-text-top'></a>
+</div>
+</nav>";
+?>
+<div class="cem col-md-8">
+<?php
+echo "
+
+<form class='formEventos' id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
 <label for='nombre_evento' required>Evento:</label>
 <input type='text' id='nombre_evento' name='nombre_evento'>
 <select name='tipo_evento' id='tipo_evento' autofocus>
@@ -27,7 +45,10 @@ while ($row = mysqli_fetch_array($result_grupo)) {
     extract($row);
     echo "<option value='$id_grupo'>$nombre</option>";
 }
-echo "</select>
+echo "
+
+
+</select>
 *Si el grupo no aparece en la lista pulsa aquí <button type='button'><a href='grupos.php' style='text-decoration:none; color:black;'>Nuevo grupo</a></button></span><br/>
 <span id='festival' style='visibility:hidden;'><select name='festival' id='festival'><option value=''>Festival</option>";
 $query_festival = "SELECT id_festival, nombre FROM festivales";
@@ -72,6 +93,7 @@ if (isset($_POST['enviar'])) {
     header("Location: $_SERVER[HTTP_REFERER]");
 }
 ?>
+</div>
 <script src='eventos.js'></script>
 <script src="../script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
