@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <?php
 session_start();
-//Requiere que el usuario haya iniciado sesion
-if (!isset($_SESSION['usuario'])) {
+//Requiere que el usuario haya iniciado sesion y en caso de haber iniciado sesión solo puede ser usuario administrador o con permisos alta eventos
+if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] != 0 || $_SESSION['tipoUsuario'] != 2) {
     header("Location: ../index.php");
 }
 require_once("../database/datos.php");
@@ -11,7 +11,7 @@ echo"<form id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
 <label for='nombre_evento' required>Evento:</label>
 <input type='text' id='nombre_evento' name='nombre_evento'>
 <select name='tipo_evento' id='tipo_evento' autofocus>
-    <option value='' selected>Indica tipo de evento</option>";
+    <option value='' selected disabled>Indica tipo de evento</option>";
     $query_tipoEvento="SELECT * FROM tipo_eventos";
     $result_tipoEvento = mysqli_query($con, $query_tipoEvento) or die("Error ".mysqli_error($con));
     while($row = mysqli_fetch_array($result_tipoEvento)){
@@ -56,12 +56,21 @@ echo"</select><br/>
     <label for='fecha_fin'>Fecha fin:</label>
     <input type='date' name='fecha_fin'>
 </span><br/>
+<label for='precio'>Precio:</label>
+<input type='number' name='precio' min='0' value='0'><br/>
 <label for='web'>Web:</label>
 <input type='url' name='web' placeholder='URL evento'><br/>
-<span>Puedes añadir una imagen del evento pulsando aqui <input type='file' name='archivo' acept='image/*'></span><br/>
+<input type='url' name='imagen' placeholder='URL imagen'><br/>
 <label for='info'>Otra información:</label><br/>
 <textarea name='info' id='info_festival' cols='60' rows='7'></textarea><br/>
 <input type='submit' id='enviar' value='Enviar'></form>";
+if(isset($_POST['enviar'])){
+    $query="INSERT INTO eventos nombre, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_comienzo, fecha_fin, web, imagen, otra_info, id_usuario) VALUES($_POST[nombre_evento], $_POST[grupo], $_POST[festival], $_POST[provincia], $_POST[ubicacion], $_POST[fecha_inicio], $_POST[fecha_fin], $_POST[web], $_POST[imagen], $_POST[info],". $_SESSION['id_usuario'].")";
+    mysqli_query($con, $query) or die("Error ".mysqli_error($con));
+    mysqli_close($con);
+    echo"<script>(alert('Alta realizada correctamente'))</script>";
+    header("Location: $_SERVER[HTTP_REFERER]");
+}
 ?>
 <script src='eventos.js'></script>
 <script src="../script.js"></script>

@@ -4,16 +4,16 @@
 session_start();
 require("../database/datos.php");
 $con=mysqli_connect($host,$user,$pass,$db_name);
-echo "<form action='".$_SERVER['PHP_SELF']."' method='post'>
-<Select><option value=''>Tipo de evento</option>";
+echo "<form action='".$_SERVER['PHP_SELF']."' method='post'>";
 //Consulta de las categorias de eventos a la base de datos
 $query_tipo="SELECT * FROM tipo_eventos";
 $result_tipo = mysqli_query($con, $query_tipo);
 while($row = mysqli_fetch_array($result_tipo)){
     extract($row);
-    echo "<option value='$id_tipo'>$categoria_evento</option>";
+    echo "<button type='checkbox' name='filtro[]'value='$id_tipo'>$categoria_evento</button>";
 }
-echo"</select><select><option value=''>Provincia</option>";
+echo"<br/><label for='provincia'>Eventos en</label>
+<select name='provincia'>";
 //Consulta de las provincias a la base de datos
 $query_provincia="SELECT * FROM provincias";
 $result_provincia= mysqli_query($con, $query_provincia);
@@ -21,11 +21,21 @@ while($row = mysqli_fetch_array($result_provincia)){
     extract($row);
     echo "<option value='$id_provincia'>$provincia</option>";
 }
-echo"</select><label for='f_inicio'>Fecha inicio:</label>
-<input type='date' name='f_inicio' id='f_inicio'>
+echo"</select><br/>";
+date_default_timezone_set('Europe/Madrid');
+$fecha=date("Y-m-d");
+echo"<button type='checkbox' name='filtro[]' value='$fecha'>Hoy</button>
+<button type='checkbox' name='filtro[]' value='0'>Gratis</button>
+<label for='f_inicio'>Fecha inicio:</label>
+<input type='date' name='f_inicio' id='f_inicio' min='$fecha' value='$fecha'>
 <label for='f_fin'>Fecha fin:</label>
 <input type='date' name='f_fin' id='f_fin'>
 <input type='submit' name='enviar' value='Filtrar' id='filtrar'/></form>";
+if (isset($_POST['filtro'])){
+    foreach ($_POST['filtro'] as $filtro){
+        echo "$filtro<br/>";
+    }
+}
 ?>
 <script>
     function comprobar(){
