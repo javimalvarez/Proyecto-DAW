@@ -2,9 +2,9 @@
 <?php
 session_start();
 //Requiere que el usuario haya iniciado sesion y en caso de haber iniciado sesión solo puede ser usuario administrador o con permisos alta eventos
-if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] != 0 || $_SESSION['tipoUsuario'] != 2) {
-    header("Location: ../index.php");
-}
+// if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] != 0 || $_SESSION['tipoUsuario'] != 2) {
+//     header("Location: ../index.php");
+// }
 require_once("../database/datos.php");
 $con=mysqli_connect($host, $user, $pass, $db_name) or die("Error ".mysqli_error($con));
 echo"<form id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
