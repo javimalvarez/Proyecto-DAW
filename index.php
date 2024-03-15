@@ -52,14 +52,15 @@
               <a class="dropdown-item" href="#">Another action</a>
             </div>
           </li>
+          <li class="nav-item ocultar-div">
+        <a class="nav-link " href="login/loginResponsive.php">Login <span class="sr-only">(current)</span></a>
+      </li>
         </ul>
         <form class="d-flex mx-auto  col-md-4">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
           <button class="btn btn-outline-success" type="submit">
             Search
-          </button>
         </form>
-        <a class="ocultar-div">PRueba</a>
         <ul class="navbar-nav ml-auto align-items-center">
           <li class="nav-item">
             <div class="profile-icon-container">
@@ -75,141 +76,115 @@
                   <hr>
                   <p>¿Aún no tienes cuenta?</p>
                   <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-                  <p><input type="button" class="registro" onclick="window.location.href = 'login/registro.php'" type="submit" value="Regístrate"></p>
+                  <p><input type="button" class="registro" onclick="window.location.href = 'login/registro.php'" value="Regístrate"></p>
                 </form>
               </div>
             </div>
           </li>
+        
         </ul>
+        
       </div>
     </div>
   </nav>
 
 
+  <section>
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img id="imgInfo" src="https://doggiesintown.com/wp-content/uploads/2023/08/El-Fascinante-Mundo-del-Perro-Salchicha-Explorando-su-Historia-Crianza-y-Personalidad-Unica-Doggies-in-Town-1200x676-5.jpg" alt="imgInfo" style="max-width: 100%; height: auto;" />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <div class="row">
 
-
-  <!-- 
-    <section>
-
-<div class="card" style="width: 30rem; text-align: center; position:center;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-      </section>
-      <section>
-        <div class="card text-center">
-            <div class="card-header">
-              Featured
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-              2 days ago
+              <div class="col-md-11">
+                <button onclick="window.location.href = 'https://doggiesintown.com/wp-content/uploads/2023/08/El-Fascinante-Mundo-del-Perro-Salchicha-Explorando-su-Historia-Crianza-y-Personalidad-Unica-Doggies-in-Town-1200x676-5.jpg'">Ir al enlace</button>
+              </div>
+              <div class="star-icon-container col-md-4¡1">
+                <a href="">
+                <img id="star-icon" src="img/star.svg" alt="Star" />
+                </a>
+              </div>
             </div>
           </div>
-      </section>
-      <section>
-        <div class="card mb-3">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          
-          
-      </section>
-    <h1>Hello, world!</h1>
-    <section> <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </section> -->
-    <footer class="bg-primary text-white text-center text-lg-start footer " >
-  <!-- Grid container -->
-  <div class="container p-4">
-    <!--Grid row-->
-    <div class="row">
-      <!--Grid column-->
-      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Footer Content</h5>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-          voluptatem veniam, est atque cumque eum delectus sint!
-        </p>
+        </div>
       </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled mb-0">
-          <li>
-            <a href="#!" class="text-white">Link 1</a>
-          </li>
-          <li>
-            <a href="#!" class="text-white">Link 2</a>
-          </li>
-          <li>
-            <a href="#!" class="text-white">Link 3</a>
-          </li>
-          <li>
-            <a href="#!" class="text-white">Link 4</a>
-          </li>
-        </ul>
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-        <h5 class="text-uppercase mb-0">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!" class="text-white">Link 1</a>
-          </li>
-          <li>
-            <a href="#!" class="text-white">Link 2</a>
-          </li>
-          <li>
-            <a href="#!" class="text-white">Link 3</a>
-          </li>
-          <li>
-            <a href="#!" class="text-white">Link 4</a>
-          </li>
-        </ul>
-      </div>
-      <!--Grid column-->
     </div>
-    <!--Grid row-->
-  </div>
-  <!-- Grid container -->
+  </section>
+  <footer class="bg-success text-white text-center text-lg-start footer ">
+    <!-- Grid container -->
+    <div class="container p-4 footerInfo">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Sobre Nosotros</h5>
 
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2020 Copyright:
-    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+            molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+            voluptatem veniam, est atque cumque eum delectus sint!
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-0">Links</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3 footerCopyright" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

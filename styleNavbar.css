@@ -1,3 +1,8 @@
+html {
+  min-height: 100%;
+  position: relative;
+}
+
 body {
   background: rgb(34, 193, 195);
   background: linear-gradient(
@@ -11,6 +16,13 @@ body {
   background-attachment: fixed;
   font-family: Arial, sans-serif;
   background-color: aquamarine;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin: 0;
+  margin-bottom: 40px;
+  min-height: 100vh; /* Ajuste */
+  display: flex;
+  flex-direction: column; /* Ajusta el valor según la altura del footer */
 }
 .ocultar-div{
   display:none;
@@ -19,7 +31,7 @@ body {
   position: relative;
   display: inline-block;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width:770px) {
   .ocultar-div{
       display:block;
   }
@@ -27,18 +39,18 @@ body {
     display:none;
 
   }
-  .footer{
+  .footerInfo{
     display: none;
-    background-color: #555;
+  }
+  .footerCopyright{
+    display: block;
   }
 }
-footer {
-  position: fixed;
-  bottom: 0;
+.footer {
   width: 100%;
-  background-color: #555;
-
+  margin-top: auto; 
 }
+
 .login {
   display: none;
   position: absolute;
@@ -50,6 +62,8 @@ footer {
   border: 1px solid #ccc;
   border-radius: 5px;
   width:250px;/* no me gusta usar px*/
+  z-index: 1000;
+
 }
 
 .login-triangle {
@@ -60,7 +74,7 @@ footer {
   border-bottom: 15px solid #28d;
   position: absolute;
   top: -15px; /* Posición vertical ajustada para que esté debajo del navbar */
-  right: 30px;/* Ajusta la posición horizontal para que esté alineado con el perfil */
+  right: 15px;/* Ajusta la posición horizontal para que esté alineado con el perfil */
 }
 
 .login-header {
@@ -125,6 +139,7 @@ footer {
 .login input[type="button"]:focus {
   border-color: #05a;
 }
+
 .fotoNavbar {
   cursor: pointer;
   float: left;
@@ -163,5 +178,8 @@ footer {
 right: 30px; */
   width: 30px;
   cursor: pointer;
-  margin-right: 10px;
+  position: relative;
+  z-index: 1000; 
 }
+
+
