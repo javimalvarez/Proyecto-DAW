@@ -25,29 +25,8 @@ echo"</div>
   </button>
 
   <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-    <ul class='navbar-nav mr-auto'>";
-      /*<li class='nav-item dropdown'>
-        <a class='nav-link dropdown-toggle' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-          Eventos
-        </a>
-        <div class='dropdown-menu' aria-labelledby='navbarEventos'>
-          <a class='dropdown-item' href='#'>Action</a>
-          <a class='dropdown-item' href='#'>Another action</a>
-          <div class='dropdown-divider'></div>
-          <a class='dropdown-item' href='#'>Something else here</a>
-        </div>
-      </li>
-      <li class='nav-item dropdown'>
-        <a class='nav-link dropdown-toggle' href='#' id='navbarLugar' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-          Lugar
-        </a>
-        <div class='dropdown-menu' aria-labelledby='navbarLugar'>
-          <a class='dropdown-item' href='#'>Action</a>
-          <a class='dropdown-item' href='#'>Another action</a>
-        </div>
-      </li>*/
-
-      echo"<li>
+    <ul class='navbar-nav mr-auto'>
+      <li>
         <form class='d-flex' role='search'>
           <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
           <button class='btn btn-outline-success' type='submit'>
@@ -64,23 +43,21 @@ echo"</div>
       <img id='profile-icon' src='img/person.svg' />
       <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
     </div>
-    
-</nav>
-<div class='login' id='login-form'>
-  <div class='login-triangle'></div>
-  <form class='login-container' action='login/login.php' method='post'>
-    <h2 class='login-header'>Iniciar Sesion</h2>
-    <p><input type='email' id='correo' name='correo' placeholder='Correo'></p>
-    <p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p>
-    <p><input class='botonLogin' type='submit' value='Acceder'></p>
-    <a id='enlaceContraseña' href='#'>No recuerdo mi contraseña</a>
-    <hr>
-    <p>¿Aún no tienes cuenta?</p>
-    <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-    <p><input type='button' class='registro' onclick='window.location.href = \"login/registro.php\"' value='Regístrate'></p></form>
-  </div>";
+    <div class='login'>
+      <div class='login-triangle'></div>
+      <img src='img/user.svg'/>
+      <div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
+      <form action='".$_SERVER['PHP_SELF']."' method='post' class='form-container'>
+        <input type='submit' class='exit' name='salir' value='Salir'></form>
+      </form>
+    </div>
+</nav>";
+if (isset($_POST['salir'])) {
+    session_destroy();
+    header("Location: index.php");
+}
 //Filtros
-echo "<div><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
+echo"<details><summary>Personaliza tu plan</summary><div><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
 <input type='checkbox' name='festival' value='festival'>Festivales";
 //Consulta de las categorias de eventos a la base de datos
 $query_tipo = "SELECT * FROM tipo_eventos";
@@ -107,43 +84,48 @@ echo "</select><br/><input type='checkbox' name='coste' value='0'>Gratis
 <label for='f_fin'>Fecha fin:</label>
 <input type='date' name='f_fin' id='f_fin'>
 <input type='submit' name='consultar' value='Consultar' id='consultar'/>
-<button type='reset'>Eliminar seleccion</button></form></div>";
+<button type='reset'>Eliminar seleccion</button></form></div></details>";
 
 //Mostrará una lista de eventos de la base de datos a partir de la fecha actual
-$query="SELECT e.evento, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.precio, e.web_evento, e.imagen_evento, e.info_evento, t.categoria_evento, g.nombre_grupo, g.web_grupo, g.info_grupo, f.nombre_festival, f.web_festival, f.info_festival, p.provincia FROM eventos e LEFT JOIN tipo_eventos t ON e.id_tipo = t.id_tipo LEFT JOIN grupos g ON e.id_grupo = g.id_grupo LEFT JOIN festivales f ON f.id_festival = e.id_festival INNER JOIN provincias p ON p.id_provincia = e.id_provincia";
+$query="SELECT e.evento, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.precio, e.web_evento, e.imagen_evento, e.info_evento, t.categoria_evento, g.nombre_grupo, g.web_grupo, g.info_grupo, f.nombre_festival, f.web_festival, f.info_festival, p.provincia FROM eventos e LEFT JOIN tipo_eventos t ON e.id_tipo = t.id_tipo LEFT JOIN grupos g ON e.id_grupo = g.id_grupo LEFT JOIN festivales f ON f.id_festival = e.id_festival INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE e.id_provincia='".$_SESSION['provincia_usuario']."'";
 $result = mysqli_query($con, $query);
-while($row = mysqli_fetch_array($result)){
-    extract($row);
-    echo "<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
-        <div><img src='$imagen_evento'></div>
-        <div><img src='$imagen_festival'></div>
-        <div>
-            <h3>$evento</h3>
-            <span><a href='#'>$categoria_evento</a></span>
-            <span>Provincia: $provincia</span>
-            <div>
-                <span><a href='$web_grupo'>$nombre_grupo</a></span>
-                <span>$info_grupo</span>
-                <span><a href='$web_festival'>$nombre_festival</a></span>
-                <span>$info_festival</span>
-            </div>
-            <div>
-                <span>Fecha:$fecha_inicio</span>
-                <span>$fecha_fin</span>
-            </div>
-            <div><a href='$web_evento'>$web_evento</a></div>";
-            if($precio==0){
-                $precio="Gratuita";
-            }else{
-                $precio=$precio."€";
-            }
-            echo "<span>Entrada: $precio</span>
-            <div>Otra información: $info_evento</div>
+$numEventos=mysqli_num_rows($result);
+if ($numEventos > 0) {
+  while($row = mysqli_fetch_array($result)){
+      extract($row);
+      echo "<h3>Planes en $provincia</h3>
+      <div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
+          <div><img src='$imagen_evento'></div>
+          <div><img src='$imagen_festival'></div>
+          <div>
+              <h3>$evento</h3>
+              <span><a href='#'>$categoria_evento</a></span>
+              <div>
+                  <span><a href='$web_grupo'>$nombre_grupo</a></span>
+                  <span>$info_grupo</span>
+                  <span><a href='$web_festival'>$nombre_festival</a></span>
+                  <span>$info_festival</span>
+              </div>
+              <div>
+                  <span>Fecha:$fecha_inicio</span>
+                  <span>$fecha_fin</span>
+              </div>
+              <div><a href='$web_evento'>$web_evento</a></div>";
+              if($precio==0){
+                  $precio="Gratuita";
+              }else{
+                  $precio=$precio."€";
+              }
+              echo "<span>Entrada: $precio</span>
+              <div>Otra información: $info_evento</div>
 
-        </div>
-        </div></div>";
+          </div>
+          </div></div>
+        <script>document.getElementById('provincia').value=".$_SESSION['provincia_usuario'].";</script>";
+  }
+}else{
+    echo "No hay eventos en esta provincia";
 }
-
  /* <!-- 
     <section>
 

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS tipo_eventos(
     categoria_evento VARCHAR(200) NOT NULL,
     PRIMARY KEY (id_tipo)    
 );
-INSERT INTO tipo_eventos (categoria_evento)VALUES('Concierto/Festival'),('Teatro'),('Cine'),('Ferias'),('Otros');
+INSERT INTO tipo_eventos (categoria_evento)VALUES('Concierto'),('Teatro'),('Cine'),('Ferias'),('Otros');
 
 CREATE TABLE IF NOT EXISTS provincias(
     id_provincia INT NOT NULL,
@@ -79,43 +79,42 @@ CREATE TABLE IF NOT EXISTS generos(
 
 CREATE TABLE IF NOT EXISTS grupos(
   id_grupo INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(45) NOT NULL,
+  nombre_grupo VARCHAR(45) NOT NULL,
   id_genero INT NOT NULL,
-  web VARCHAR(100) NULL,
-  imagen VARCHAR(100) NULL,
-  otra_info VARCHAR(400) NULL,
+  web_grupo VARCHAR(100) NULL,
+  info_grupo VARCHAR(400) NULL,
   PRIMARY KEY (id_grupo),
-  FOREIGN KEY (id_genero) REFERENCES generos (id_genero));
+  FOREIGN KEY (id_genero) REFERENCES generos (id_genero) ON DELETE CASCADE ON UPDATE CASCADE);
 
-INSERT INTO grupos (nombre, id_genero, web, imagen, otra_info) VALUES ('Depeche Mode', 1, 'https://www.depechemode.com/', NULL, NULL);
+INSERT INTO grupos (nombre_grupo, id_genero, web_grupo, info_grupo) VALUES ('Depeche Mode', 1, 'https://www.depechemode.com/', NULL);
   
   CREATE TABLE IF NOT EXISTS festivales(
   id_festival INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(45) NOT NULL,
+  nombre_festival VARCHAR(45) NOT NULL,
   fecha_inicio DATE NOT NULL,
   fecha_fin DATE NOT NULL,
-  web VARCHAR(100) NULL,
-  imagen VARCHAR(100) NULL,
-  otra_info VARCHAR(400) NULL,
+  web_festival VARCHAR(100) NULL,
+  imagen_festival VARCHAR(100) NULL,
+  info_festival VARCHAR(400) NULL,
   PRIMARY KEY (id_festival));
 
-INSERT INTO festivales (nombre, fecha_inicio, fecha_fin, web, imagen, otra_info) VALUES ('Sonar 2024', '2024-07-01', '2024-07-31', 'https://sonar.es/es', NULL, NULL);
+INSERT INTO festivales (nombre_festival, fecha_inicio, fecha_fin, web_festival, imagen_festival, info_festival) VALUES ('Sonar 2024', '2024-07-01', '2024-07-31', 'https://sonar.es/es', NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS usuarios(
     id_usuario INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(150) NOT NULL,
     apellidos VARCHAR(200) NOT NULL,
-    provincia INT NULL,
+    id_provincia INT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     contraseña VARCHAR(100) NOT NULL,
     tipo INT DEFAULT 1 NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (id_usuario),
-    FOREIGN KEY (provincia) REFERENCES provincias (id_provincia));
+    FOREIGN KEY (id_provincia) REFERENCES provincias (id_provincia) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- Tipos de usuario 0=Administrador 1=Default  2=Alta eventos--
 -- El alta de usuarios administradores se gestionara desde el alta de panel de administrador --
-INSERT INTO usuarios (nombre, apellidos, provincia, email, contraseña, tipo)
+INSERT INTO usuarios (nombre, apellidos, id_provincia, email, contraseña, tipo)
 VALUES
 ('Aranzazu', 'Ordoyo', NULL, 'aordoyo@msn.com','$2y$10$.8TAwmU4N//7rhOHH0CuvOMmWgftarZ4J.jlYZ.Schiwn3Rl2i2Gy',0),
 ('Itziar', 'Esteban', 48, 'iesteban@yahoo.com', '$2y$10$VqwC6kYzHmjZOCUtt83GJ.lfnb2vOm0OALJWeDzKhO6wj7BJcnVB2',2),
@@ -125,33 +124,33 @@ SELECT * FROM usuarios;
 
 CREATE TABLE IF NOT EXISTS eventos(
     id_evento INT NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(200) NOT NULL,
+    evento VARCHAR(200) NOT NULL,
     id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros, ...
     id_grupo INT NULL,
     id_festival INT NULL,
     id_provincia INT NOT NULL,
     ubicacion VARCHAR(200) NOT NULL,
-    fecha_comienzo DATETIME NOT NULL,
+    fecha_inicio DATETIME NOT NULL,
     fecha_fin DATE NULL,
     precio DECIMAL(10,2) NOT NULL DEFAULT 0,
-    web VARCHAR(100) NULL,
-    imagen VARCHAR(100) NULL,
-    otra_info VARCHAR(400) NULL,
-    id_usuarioI INT NOT NULL,
+    web_evento VARCHAR(100) NULL,
+    imagen_evento VARCHAR(100) NULL,
+    info_evento VARCHAR(400) NULL,
+    id_usuario INT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    FOREIGN KEY (id_tipo) REFERENCES tipo_eventos (id_tipo),
-    FOREIGN KEY (id_provincia) REFERENCES provincias (id_provincia),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
-    FOREIGN KEY (id_festival) REFERENCES festivales (id_festival),
-    FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo),
-    PRIMARY KEY (id_evento));
+    PRIMARY KEY (id_evento),
+    FOREIGN KEY (id_tipo) REFERENCES tipo_eventos (id_tipo) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_provincia) REFERENCES provincias (id_provincia) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_festival) REFERENCES festivales (id_festival)ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo)ON DELETE CASCADE ON UPDATE CASCADE);
 
-INSERT INTO eventos (nombre, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_comienzo, fecha_fin, web, imagen, otra_info, id_usuario_creador)
+INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_comienzo, fecha_fin, precio, web_evento, imagen_evento, info_evento, id_usuario)
 VALUES
-('Al aire', 3, NULL, NULL, 8, '{"lat": 41.4114, "lng": 2.225}', '2024-07-04 19:00:00', NULL, 'https://cinedeverano.es/entrada', NULL, 'Cine de verano (al aire libre) todos los Jueves de Julio a Agosto. Entradas limitadas', 2),
-('Vermut', 5, NULL, NULL, 20, '{"lat": 43.32554, "lng": -1.98662}', '2024-05-26 11:30:00', NULL, NULL, NULL, 'Quedada para tomar unos Vermuts.', 2),
-('Concierto Depeche Mode', 1, 1, NULL, 28, '{"lat": 40.42406, "lng": -3.67176}', '2024-03-12 21:00:00', NULL, 'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505', NULL, 'Concierto Depeche Mode en el WizInk Arena', 1),
-('Alvaro Casares - Check un show bien', 2, NULL, NULL, 24, '{"lat": 42.59501, "lng": -5.57092}', '2024-04-12 21:00:00', NULL, 'https://alvarocasares.es/',NULL,' 2º pase. Teatro San Francisco C/Corredera 1 (León)', 1);
+('Al aire', 3, NULL, NULL, 8, '{"lat": 41.4114, "lng": 2.225}', '2024-07-04 19:00:00', NULL, 0,'https://cinedeverano.es/entrada', NULL, 'Cine de verano (al aire libre) todos los Jueves de Julio a Agosto. Entradas limitadas', 2),
+('Vermut', 5, NULL, NULL, 20, '{"lat": 43.32554, "lng": -1.98662}', '2024-05-26 11:30:00', NULL, 0,NULL, NULL, 'Quedada para tomar unos Vermuts.', 2),
+('Concierto Depeche Mode', 1, 1, NULL, 28, '{"lat": 40.42406, "lng": -3.67176}', '2024-03-12 21:00:00', NULL, 48,'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505', NULL, 'Concierto Depeche Mode en el WizInk Arena', 1),
+('Alvaro Casares - Check un show bien', 2, NULL, NULL, 24, '{"lat": 42.59501, "lng": -5.57092}', '2024-04-12 21:00:00', NULL, 35, 'https://alvarocasares.es/',NULL,' 2º pase. Teatro San Francisco C/Corredera 1 (León)', 1);
 CREATE TABLE usuarios_eventos (
     id_usuario INT NOT NULL,
     id_evento INT NOT NULL,
@@ -164,8 +163,6 @@ INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
 (2, 1),
 (2, 2),
 (2, 3),
-(1, 2),
-(1, 3),
 (3, 2),
 (3, 4),
 (4, 2),
@@ -175,11 +172,11 @@ INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
 
 select * from usuarios_eventos;
 
-SELECT u.id_usuario, u.nombre, e.id_evento, e.nombre AS nombre_evento, e.id_tipo, e.ubicacion, e.fecha_comienzo, e.fecha_fin, e.info
+SELECT u.id_usuario, u.nombre, e.id_evento, e.evento, e.id_tipo, e.ubicacion, e.fecha_comienzo, e.fecha_fin, e.info_evento
 FROM usuarios u
 JOIN usuarios_eventos ue ON u.id_usuario = ue.id_usuario
 JOIN eventos e ON ue.id_evento = e.id_evento
-WHERE u.id_usuario = 1;
+WHERE u.id_usuario = 2;
 
 select * from usuarios;
 select * from eventos;
