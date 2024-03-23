@@ -3,10 +3,16 @@
 
 <?php
 session_start();
+if (!isset($_SESSION['usuario'])){
+  header('Location: index.php');
+}
 require("database/datos.php");
+require("database/filtros.php");
 $con = mysqli_connect($host, $user, $pass, $db_name);
 date_default_timezone_set('Europe/Madrid');
 $fecha = date("Y-m-d");
+$coste="";
+setlocale(LC_TIME, 'es_ES.UTF-8');
 echo"<head>
   <meta charset='utf-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -26,158 +32,158 @@ echo"</div>
 
   <div class='collapse navbar-collapse' id='navbarSupportedContent'>
     <ul class='navbar-nav mr-auto'>
+      <li class='nav-item dropdown'>
+          <a class='nav-link dropdown-toggle' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Eventos
+          </a>
+          <div class='dropdown-menu' aria-labelledby='navbarEventos'>
+            <a class='dropdown-item' href='#'>Festivales</a>
+            <a class='dropdown-item' href='eventos/event_pages/conciertos.php'>Conciertos</a>
+            <a class='dropdown-item' href='#'>Cine</a>
+            <a class='dropdown-item' href='#'>Teatro</a>
+            <div class='dropdown-divider'></div>
+            <a class='dropdown-item' href='#'>Otros</a>
+          </div>
+      </li>
       <li>
-        <form class='d-flex' role='search'>
+          <a class='nav-link' href='miplan.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Plan personalizado
+          </a>
+      </li>
+      <li><form class='d-flex' role='search' >
           <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
           <button class='btn btn-outline-success' type='submit'>
             Search
           </button>
         </form>
       </li>
-    </ul>
   </div>
-
-
-  <div class='navbar-nav ml-auto'>
     <div class='nav-item'>
       <img id='profile-icon' src='img/person.svg' />
       <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
     </div>
-    <div class='login'>
-      <div class='login-triangle'></div>
-      <img src='img/user.svg'/>
-      <div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
-      <form action='".$_SERVER['PHP_SELF']."' method='post' class='form-container'>
-        <input type='submit' class='exit' name='salir' value='Salir'></form>
-      </form>
-    </div>
-</nav>";
+</nav>
+<div class='login'>
+  <div class='login-triangle'></div>
+  <img src='img/user.svg'/>
+  <div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
+  <form action='".$_SERVER['PHP_SELF']."' method='post' class='form-container'>
+    <input type='submit' class='exit' name='salir' value='Salir'></form>
+  </form>
+</div>";
 if (isset($_POST['salir'])) {
     session_destroy();
     header("Location: index.php");
 }
 //Filtros
-echo"<details><summary>Personaliza tu plan</summary><div><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
-<input type='checkbox' name='festival' value='festival'>Festivales";
-//Consulta de las categorias de eventos a la base de datos
-$query_tipo = "SELECT * FROM tipo_eventos";
-$result_tipo = mysqli_query($con, $query_tipo);
-while ($row = mysqli_fetch_array($result_tipo)) {
+echo"<div style='padding: 10px; margin: 10px'><details><summary>Búsqueda avanzada</summary><div><form action='".$_SERVER['PHP_SELF']."' method='post'>
+<select class='form-select' id='tipo' name='tipo'>
+<option value='' selected disabled>Elige un plan:</option>";
+//Consulta de los tipos de eventos a la base de datos
+$query_evento = "SELECT * FROM tipo_eventos";
+$result_evento = mysqli_query($con, $query_evento);
+while ($row = mysqli_fetch_array($result_evento)) {
     extract($row);
-    echo "<input type='checkbox' name='categoria[]'value='$id_tipo'/>$categoria_evento";
+    echo "<option value='$idtipo'>$categoria_evento</option>";
 }
-echo "<br/><label for='provincia'>Eventos en</label>
-<select class='form-select' name='provincia' id='provincia'>
-<option value='' selected disabled>Provincia</option>";
+echo "<option value='Festivales'>Festivales</option></select>
+<label for='provincia'>Eventos en</label>
+<select class='form-select' id='provincia' name='provincia'>
+<option value='' disabled>Provincia:</option><optgroup>";
 //Consulta de las provincias a la base de datos
 $query_provincia = "SELECT * FROM provincias";
 $result_provincia = mysqli_query($con, $query_provincia);
 while ($row = mysqli_fetch_array($result_provincia)) {
     extract($row);
-    echo "<option value='$id_provincia'>$provincia</option>";
+    if ($_SESSION['provincia_usuario'] == $id_provincia) {
+        echo "<option value='$id_provincia' selected>$provincia</option>";
+    }else{
+      echo "<option value='$id_provincia'>$provincia</option>";
+    }
 }
 
-echo "</select><br/><input type='checkbox' name='coste' value='0'>Gratis
-<input type='checkbox' name='f_hoy' value='$fecha'>Hoy 
+echo "</select><input type='checkbox' id='precio' name='precio' value='0'>
+<label for='coste'>Solo planes gratuitos</label><br/>
 <label for='f_inicio'>Fecha inicio:</label>
-<input type='date' name='f_inicio' id='f_inicio'>
+<input type='date' id='f_inicio' name='f_inicio' id='f_inicio' value='$fecha'>
 <label for='f_fin'>Fecha fin:</label>
-<input type='date' name='f_fin' id='f_fin'>
-<input type='submit' name='consultar' value='Consultar' id='consultar'/>
-<button type='reset'>Eliminar seleccion</button></form></div></details>";
-
-//Mostrará una lista de eventos de la base de datos a partir de la fecha actual
-$query="SELECT e.evento, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.precio, e.web_evento, e.imagen_evento, e.info_evento, t.categoria_evento, g.nombre_grupo, g.web_grupo, g.info_grupo, f.nombre_festival, f.web_festival, f.info_festival, p.provincia FROM eventos e LEFT JOIN tipo_eventos t ON e.id_tipo = t.id_tipo LEFT JOIN grupos g ON e.id_grupo = g.id_grupo LEFT JOIN festivales f ON f.id_festival = e.id_festival INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE e.id_provincia='".$_SESSION['provincia_usuario']."'";
-$result = mysqli_query($con, $query);
+<input type='date' id ='f_fin' name='f_fin' id='f_fin' value='2024-12-31'>
+<input class='btn btn-primary' type='submit' id='consultar' name='consultar' value='Consultar'/>
+<button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form></details></div>";
+$query_provincia="SELECT * FROM provincias WHERE id_provincia = '$_SESSION[provincia_usuario]'";
+$result_provincia = mysqli_query($con, $query_provincia);
+while ($row = mysqli_fetch_array($result_provincia)) {
+    extract($row);
+    echo"<div id='eventos' style='border: 2 solid black; padding: 10px'><h3>Planes en $provincia</h3>";
+}
+//Mostrará una lista de eventos relativos a la provincia que consta en el registro
+$result=provincia($con, $_SESSION['provincia_usuario']);
 $numEventos=mysqli_num_rows($result);
 if ($numEventos > 0) {
   while($row = mysqli_fetch_array($result)){
       extract($row);
-      echo "<h3>Planes en $provincia</h3>
-      <div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
-          <div><img src='$imagen_evento'></div>
-          <div><img src='$imagen_festival'></div>
-          <div>
-              <h3>$evento</h3>
-              <span><a href='#'>$categoria_evento</a></span>
-              <div>
-                  <span><a href='$web_grupo'>$nombre_grupo</a></span>
-                  <span>$info_grupo</span>
-                  <span><a href='$web_festival'>$nombre_festival</a></span>
-                  <span>$info_festival</span>
-              </div>
-              <div>
-                  <span>Fecha:$fecha_inicio</span>
-                  <span>$fecha_fin</span>
-              </div>
-              <div><a href='$web_evento'>$web_evento</a></div>";
-              if($precio==0){
-                  $precio="Gratuita";
-              }else{
-                  $precio=$precio."€";
-              }
-              echo "<span>Entrada: $precio</span>
-              <div>Otra información: $info_evento</div>
-
-          </div>
-          </div></div>
-        <script>document.getElementById('provincia').value=".$_SESSION['provincia_usuario'].";</script>";
+      if($precio==0){
+        $coste="Gratuita";
+      }else{
+        $coste=$precio."€";
+      }
+      if(!empty($fecha_inicio)){
+        $fecha_inicio= date("j F, Y H:i", strtotime($fecha_inicio));
+      }
+      if(!empty($fecha_fin)){
+        $fecha_fin= date("j F, Y", strtotime($fecha_fin)); 
+      }
+      echo "<div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
+            <div><img src='$imagen_evento'></div>
+            <div><img src='$imagen_festival'></div>
+            <div>
+                <h3>$evento</h3>
+                <span><a href='#'>$categoria_evento</a></span>
+                <div>
+                    <span><a href='$web_grupo'>$nombre_grupo</a></span>
+                    <span>$info_grupo</span>
+                    <span><a href='$web_festival'>$nombre_festival</a></span>
+                    <span>$info_festival</span>
+                </div>
+                <div>
+                    <span>Fecha: $fecha_inicio</span>
+                    <span>$fecha_fin</span>
+                </div>
+                <div><a href='$web_evento'>$web_evento</a></div>";
+                
+                echo "<span>Entrada: $coste</span>
+                <div>Otra información: $info_evento</div>   
+            </div>
+          </div>";
   }
 }else{
     echo "No hay eventos en esta provincia";
 }
- /* <!-- 
-    <section>
-
-<div class='card' style='width: 30rem; text-align: center; position:center;'>
-  <img src='...' class='card-img-top' alt='...'>
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-      </section>
-      <section>
-        <div class="card text-center">
-            <div class="card-header">
-              Featured
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-              2 days ago
-            </div>
-          </div>
-      </section>
-      <section>
-        <div class="card mb-3">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          
-          
-      </section>
-    <h1>Hello, world!</h1>
-    <section> <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </section> -->*/
+if(isset($_POST['precio'])&&isset($_POST['consultar'])){
+  $result=provinciaGratis($con, $_POST['provincia'], $_POST['precio'], $_POST['f_inicio'], $_POST['f_fin']);
+  $numEventos=mysqli_num_rows($result);
+  if ($numEventos > 0) {
+    echo"<script>document.getElementById('eventos').innerHTML = '';</script>";
+    while($row = mysqli_fetch_array($result)){
+        extract($row);
+        if($precio==0){
+          $coste="Gratuita";
+        }else{
+          $coste=$precio."€";
+        }
+        if(!empty($fecha_inicio)){
+          $fecha_inicio= date("j F, Y H:i", strtotime($fecha_inicio));
+        }
+        if(!empty($fecha_fin)){
+          $fecha_fin= date("j F, Y", strtotime($fecha_fin)); 
+        }
+        echo"<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
+    }
+  }else{
+    echo"<script>alert('No se ha encontrado ninguna coincidencia');</script>";
+  }
+}
+echo"</div>";
 ?>
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

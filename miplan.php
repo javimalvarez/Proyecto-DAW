@@ -43,7 +43,7 @@ echo"</div>
       </div>
       </li>
       <li>
-          <a class='nav-link' href='miplan.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          <a class='nav-link' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
             Plan personalizado
           </a>
       </li>

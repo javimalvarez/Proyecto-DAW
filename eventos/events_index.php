@@ -62,7 +62,7 @@ function mostrarFiltros(){
 
     /*if (isset($_POST['categoria'])&&isset($_POST['provincia'])&&isset($_POST['coste'])&&isset($_POST['f_hoy'])&&!isset($_POST['f_inicio'])&&!isset($_POST['f_fin'])) {
         $query="SELECT * FROM eventos WHERE id_provincia = '" . $_POST['provincia'] . "' AND id_coste = '" . $_POST['coste'] . "' AND id_tipo IN (" . implode(',', $_POST['categoria']) . ")";
-        $result = mysqli_query($con, $query);
+        return $result = mysqli_query($con, $query);
         while ($row = mysqli_fetch_array($result)) {
             extract($row);
             echo "<tr><td>$nombre_evento</td><td>$provincia</td><td>$coste</td><td>$tipo_evento</td><td>$fecha_fin</td><td>$id_coste</td><td>$id_provincia</td><td>$idtipo</td></tr>";
