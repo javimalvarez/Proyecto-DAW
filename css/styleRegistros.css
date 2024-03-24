@@ -1,4 +1,3 @@
-
 .card{
     width: 80%;
     position: absolute;
@@ -43,13 +42,13 @@ input{
     cursor: pointer;
 
 }
-.navbar{
-    text-align: right;
-}
 .botonRegistro:hover {
     background:red;
   }
   .col-md-8 input{
     margin-top: 2%;
   }
-  
+summary{
+    padding-top: 2%!important;
+
+}

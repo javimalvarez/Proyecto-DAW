@@ -174,7 +174,6 @@
       </div>
       <!--Grid row-->
     </div>
-    <!-- Grid container -->
 
     <!-- Copyright -->
     <div class="text-center p-3 footerCopyright" style="background-color: rgba(0, 0, 0, 0.2);">
