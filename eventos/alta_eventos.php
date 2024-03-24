@@ -85,7 +85,7 @@ Featured
 <span id='fecha_fin'style='visibility: hidden;'>
     <label for='fecha_fin'>Fecha fin:</label>
     <input type='date' name='fecha_fin'>
-    
+
 </span>
 <label for='precio'>Precio:</label>
 <input type='number' name='precio' step='0.01' min='0' value='0'><br/>
@@ -108,8 +108,8 @@ Featured
 </div>
 <footer>
     <div class="text-center p-3 footerCopyright" style="background-color: rgba(0, 0, 0, 0.2)">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        © 2024 Copyright:
+        <a class="text-white" href="">ApePlanner</a>
     </div>
 </footer>
 <script src='eventos.js'></script>
