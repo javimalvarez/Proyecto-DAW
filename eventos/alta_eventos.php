@@ -85,6 +85,7 @@ Featured
 <span id='fecha_fin'style='visibility: hidden;'>
     <label for='fecha_fin'>Fecha fin:</label>
     <input type='date' name='fecha_fin'>
+    
 </span>
 <label for='precio'>Precio:</label>
 <input type='number' name='precio' step='0.01' min='0' value='0'><br/>
