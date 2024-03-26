@@ -44,8 +44,8 @@ echo "</div>
           </div>
       </li>
       <li>
-          <a class='nav-link' href='../../miplan.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            Plan personalizado
+          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Noticias
           </a>
       </li>
       <li>

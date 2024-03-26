@@ -151,6 +151,7 @@ VALUES
 ('Vermut', 5, NULL, NULL, 20, '{"lat": 43.32554, "lng": -1.98662}', '2024-05-26 11:30:00', NULL, 0,NULL, NULL, 'Quedada para tomar unos Vermuts.', 2),
 ('Concierto Depeche Mode', 1, 1, NULL, 28, '{"lat": 40.42406, "lng": -3.67176}', '2024-03-12 21:00:00', NULL, 48,'https://www.ticketmaster.es/event/depeche-mode-memento-mori-tour-entradas/36505', NULL, 'Concierto Depeche Mode en el WizInk Arena', 1),
 ('Alvaro Casares - Check un show bien', 2, NULL, NULL, 24, '{"lat": 42.59501, "lng": -5.57092}', '2024-04-12 21:00:00', NULL, 35, 'https://alvarocasares.es/',NULL,' 2º pase. Teatro San Francisco C/Corredera 1 (León)', 1);
+
 CREATE TABLE usuarios_eventos (
     id_usuario INT NOT NULL,
     id_evento INT NOT NULL,
@@ -169,6 +170,12 @@ INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
 (4, 3),
 (4, 4);
 
+CREATE TABLE IF NOT EXISTS noticias (
+    id_noticia INT NOT NULL AUTO_INCREMENT,
+    titular VARCHAR(200) NOT NULL,
+    texto VARCHAR(1000) NOT NULL,
+    PRIMARY KEY (id_noticia)
+)
 
 select * from usuarios_eventos;
 

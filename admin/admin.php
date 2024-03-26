@@ -10,14 +10,12 @@ require("../database/datos.php");
 $con = mysqli_connect($host, $user, $pass, $db_name);
 #$query = mysqli_query($con, "SHOW DATABASES LIKE '$db_name'");
 
-
 $resultado = obtener_usuarios($con);
 $num_filas = obtener_num_filas($resultado);
 
 if ($num_filas == 0) {
     echo "No hay usuarios registrados";
 } else {
-
     echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
     <div style='text-align: right;'>Usuario: " . $_SESSION['nombre']." (".$_SESSION['usuario'].") <button type='button'><a style='text-decoration: none; color:black;' href='../index.php'>Logout</a></button></div>
     <h1>Panel de administrador</h1>
@@ -88,7 +86,7 @@ if (isset($_POST['user']) && !empty($_POST['user']) && isset($_POST['editar'])) 
 if (isset($_POST['guardar']) && isset($_POST['nuevo_user']) && !empty($_POST['nuevo_user'])) {
     foreach ($_POST['nuevo_user'] as $user) {
         //actualizar_usuario($_POST['nombre'], $_POST['apellidos'], $_POST['correo'], $_POST['pass'], $_POST['tipo'], $user);
-         $query ="UPDATE usuarios SET nombre = '".$_POST['nuevo_nombre']."', apellidos = '".$_POST['nuevo_apellido']."', email = '".$_POST['nuevo_correo']."', contraseña = '".$_POST['nuevo_pass']."', tipo = ".$_POST['nuevo_tipo']." WHERE id_usuario = $user";
+        $query ="UPDATE usuarios SET nombre = '".$_POST['nuevo_nombre']."', apellidos = '".$_POST['nuevo_apellido']."', email = '".$_POST['nuevo_correo']."', contraseña = '".$_POST['nuevo_pass']."', tipo = ".$_POST['nuevo_tipo']." WHERE id_usuario = $user";
         mysqli_query($con, $query)or die("Error: ".mysqli_error($con));
         echo "<script>alert('Datos cambiados')</script>";
     }
@@ -113,25 +111,20 @@ if (isset($_POST['guardar']) && isset($_POST['nuevo_user']) && !empty($_POST['nu
 }
 echo "</form>";
 /* Funciones */
-function obtener_usuarios($con)
-{
+function obtener_usuarios($con){
     $resultado = mysqli_query($con, "SELECT * FROM usuarios;");
     return $resultado;
 }
 
-function insertar_usuario($nombre, $apellido, $email, $contraseña)
-{
+function insertar_usuario($nombre, $apellido, $email, $contraseña){
     global $con;
-    mysqli_query($con, "INSERT INTO usuarios(nombre, apellidos, email, contraseña, tipo)
-                        VALUES 
-                        ('$nombre', '$apellido', '$email', '$contraseña', 0)");
+    mysqli_query($con, "INSERT INTO usuarios(nombre, apellidos, email, contraseña, tipo) VALUES ('$nombre', '$apellido', '$email', '$contraseña', 0)");
 }
 
-function borrar_usuario($referencias)
-{
+function borrar_usuario($referencias){
     global $con;
     $query = "DELETE FROM usuarios 
-              WHERE id_usuario IN (";
+    WHERE id_usuario IN (";
     foreach ($referencias as $referencia) {
         $query = $query . $referencia . ", ";
     }
@@ -139,30 +132,24 @@ function borrar_usuario($referencias)
     mysqli_query($con, $query);
 }
 
-function actualizar_usuario($nombre, $apellido, $email, $contraseña, $tipo, $id)
-{
+function actualizar_usuario($nombre, $apellido, $email, $contraseña, $tipo, $id_usuario){
     global $con;
-    mysqli_query($con, "UPDATE usuarios 
-                        SET nombre='$nombre', apellidos='$apellido', email='$email', contraseña='$contraseña', tipo='$tipo'
-                        WHERE id_usuario='$id'");
+    mysqli_query($con, "UPDATE usuarios SET nombre='$nombre', apellidos='$apellido', email='$email', contraseña='$contraseña', tipo='$tipo' WHERE id_usuario='$id_usuario'");
 }
 
-function monstrar_eventos_usuario($id_usuario)
-{
+function monstrar_eventos_usuario($id_usuario){
     global $con;
     $query = mysqli_query($con, "SELECT * FROM eventos 
-                                WHERE 
-                                id_usuario_creador='$id_usuario'");
+    WHERE 
+    id_usuario_creador='$id_usuario'");
     return obtener_resultados($query);
 }
 
-function obtener_num_filas($resultado)
-{
+function obtener_num_filas($resultado){
     return mysqli_num_rows($resultado);
 }
 
-function obtener_resultados($resultado)
-{
+function obtener_resultados($resultado){
     return mysqli_fetch_array($resultado);
 }
 ?>
