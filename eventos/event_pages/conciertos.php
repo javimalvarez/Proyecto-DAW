@@ -9,6 +9,7 @@ $con = mysqli_connect($host, $user, $pass, $db_name);
 date_default_timezone_set('Europe/Madrid');
 $fecha = date("Y-m-d");
 $coste = "";
+$categoria=[1];
 setlocale(LC_TIME, 'es_ES.UTF-8');
 echo "<head>
   <meta charset='utf-8' />
@@ -101,7 +102,7 @@ echo "</div>";
 echo "<details><summary>Búsqueda avanzada</summary><div><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
 <label for='provincia'>Eventos en</label>
 <select class='form-select' id='provincia' name='provincia' id='provincia'>
-<option value='' disabled>Provincia</option>";
+<option value='' disabled selected>Provincia</option>";
 //Consulta de las provincias a la base de datos
 $query_provincia = "SELECT * FROM provincias";
 $result_provincia = mysqli_query($con, $query_provincia);
@@ -114,9 +115,7 @@ while ($row = mysqli_fetch_array($result_provincia)) {
 }
 
 echo "</select><input type='checkbox' id='precio' name='precio' value='0'>
-<label for='precio'>Planes gratuitos de la provincia</label><br/>
-<input type='checkbox' id='gratis' name='gratis'>
-<label for='gratis'>Todos los planes gratuitos</label><br/>
+<label for='precio'>Gratis</label><br/>
 <label for='f_inicio'>Fecha inicio:</label>
 <input type='date' id='f_inicio' name='f_inicio' id='f_inicio' value='$fecha'>
 <label for='f_fin'>Fecha fin:</label>
@@ -125,7 +124,7 @@ echo "</select><input type='checkbox' id='precio' name='precio' value='0'>
 <button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form></details>
 <div id='eventos' style='border: 2 solid black; padding: 10px'>";
 //Mostrará una lista de conciertos
-$result = categoria($con, 1);
+$result = categoria($con, $categoria);
 $numEventos = mysqli_num_rows($result);
 if ($numEventos > 0) {
   while ($row = mysqli_fetch_array($result)) {
@@ -159,6 +158,25 @@ if ($numEventos > 0) {
   }
 } else {
   echo "No se ha encontrado ninguna coincidencia";
+}
+if (isset($_POST['precio']) && isset($_POST['consultar'])) {
+  $result = categoriaGratis($con, $categoria, $_POST['precio']);
+  $numEventos = mysqli_num_rows($result);
+  if ($numEventos > 0) {
+    echo "<script>document.getElementById('eventos').innerHTML = '';</script>";
+    while ($row = mysqli_fetch_array($result)) {
+      extract($row);
+      $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
+      if ($precio == 0) {
+        $coste = "Gratuita";
+      } else {
+        $coste = $precio . "€";
+      }
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
+    }
+  } else {
+    echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
+  }
 }
 //Solo conciertos gratuitos
 if (isset($_POST['provincia']) && isset($_POST['precio']) && isset($_POST['consultar'])) {

@@ -77,7 +77,7 @@ if (isset($_POST['salir'])) {
 }
 //Filtros
 echo"<div style='padding: 10px; margin: 10px'><details><summary>Búsqueda avanzada</summary><div><form action='".$_SERVER['PHP_SELF']."' method='post'>
-<select class='form-select' id='tipo' name='tipo'>
+<select class='form-select' id='tipo' name='tipo' multiple size='1'>
 <option value='' selected disabled>Elige un plan:</option>";
 //Consulta de los tipos de eventos a la base de datos
 $query_evento = "SELECT * FROM tipo_eventos";
