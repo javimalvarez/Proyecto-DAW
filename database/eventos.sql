@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS eventos(
     FOREIGN KEY (id_festival) REFERENCES festivales (id_festival)ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo)ON DELETE CASCADE ON UPDATE CASCADE);
 
-INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_comienzo, fecha_fin, precio, web_evento, imagen_evento, info_evento, id_usuario)
+INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, precio, web_evento, imagen_evento, info_evento, id_usuario)
 VALUES
 ('Al aire', 3, NULL, NULL, 8, '{"lat": 41.4114, "lng": 2.225}', '2024-07-04 19:00:00', NULL, 0,'https://cinedeverano.es/entrada', NULL, 'Cine de verano (al aire libre) todos los Jueves de Julio a Agosto. Entradas limitadas', 2),
 ('Vermut', 5, NULL, NULL, 20, '{"lat": 43.32554, "lng": -1.98662}', '2024-05-26 11:30:00', NULL, 0,NULL, NULL, 'Quedada para tomar unos Vermuts.', 2),

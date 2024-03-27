@@ -38,27 +38,22 @@ echo "<form id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
 <input type='text' id='evento' name='evento' required>
 <select name='tipo_evento' id='tipo_evento' autofocus>
     <option value='' selected disabled>Indica tipo de evento</option>";
-    $query_tipoEvento = "SELECT * FROM tipo_eventos";
-    $result_tipoEvento = mysqli_query($con, $query_tipoEvento) or die("Error " . mysqli_error($con));
-    while ($row = mysqli_fetch_array($result_tipoEvento)) {
-        extract($row);
-        echo "<option value='$id_tipo'>$categoria_evento</option>";
-    }
-    echo "</select><br/>
+$query_tipoEvento = "SELECT * FROM tipo_eventos";
+$result_tipoEvento = mysqli_query($con, $query_tipoEvento) or die("Error " . mysqli_error($con));
+while ($row = mysqli_fetch_array($result_tipoEvento)) {
+    extract($row);
+    echo "<option value='$id_tipo'>$categoria_evento</option>";
+}
+echo "</select><br/>
 <span id='grupo' style='visibility:hidden;'><select name='grupo' id='grupo'>
 <option value=''>Grupo</option>";
-    $query_grupo = "SELECT id_grupo, nombre FROM grupos";
-    $result_grupo = mysqli_query($con, $query_grupo) or die("Error " . mysqli_error($con));
-    while ($row = mysqli_fetch_array($result_grupo)) {
-        extract($row);
-        echo "<option value='$id_grupo'>$nombre</option>";
-    }
-    echo "
-
-
-</select>
-
-
+$query_grupo = "SELECT id_grupo, nombre_grupo FROM grupos";
+$result_grupo = mysqli_query($con, $query_grupo) or die("Error " . mysqli_error($con));
+while ($row = mysqli_fetch_array($result_grupo)) {
+    extract($row);
+    echo "<option value='$id_grupo'>$nombre_grupo</option>";
+}
+echo "</select>
 *Si el grupo no aparece en la lista pulsa aquí <button type='button'><a href='grupos.php' style='text-decoration:none; color:black;'>Nuevo grupo</a></button></span><br/>
 <span id='festival' style='visibility:hidden;'><select name='festival' id='festival'><option value=''>Festival</option>";
 $query_festival = "SELECT id_festival, nombre_festival FROM festivales";
@@ -70,12 +65,12 @@ while ($row = mysqli_fetch_array($result_festival)) {
 echo "</select>*Si el festival no aparece en la lista lo puedes dar de alta desde aquí 
 <button type='button'><a href='festivales.php' style='text-decoration:none; color:black;'>Alta festival</a></button></span><br/>
 <select name='provincia'><option value=''>Provincia</option>";
-    $query_provincia = "SELECT * FROM provincias";
-    $result_provincia = mysqli_query($con, $query_provincia) or die("Error " . mysqli_error($con));
-    while ($row = mysqli_fetch_array($result_provincia)) {
-        extract($row);
-        echo "<option value='$id_provincia'>$provincia</option>";
-    }
+$query_provincia = "SELECT * FROM provincias";
+$result_provincia = mysqli_query($con, $query_provincia) or die("Error " . mysqli_error($con));
+while ($row = mysqli_fetch_array($result_provincia)) {
+    extract($row);
+    echo "<option value='$id_provincia'>$provincia</option>";
+}
 
     echo "</select><br/>
 <label for='ubicacion' title='Indica coordenadas'>Ubicación:</label>
@@ -123,3 +118,5 @@ if (isset($_POST['enviar'])) {
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
