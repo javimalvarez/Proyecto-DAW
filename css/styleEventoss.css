@@ -1,0 +1,64 @@
+.formEventos{
+background-color: #fff;
+}
+
+.formEventos {
+    max-width: 600px; /* Limitar el ancho del formulario */
+    margin: 0 auto; /* Centrar el formulario horizontalmente */
+    padding: 20px; /* Añadir espacio interno */
+    background-color: #f8f9fa; /* Cambiar color de fondo */
+    border: 1px solid #ced4da; /* Añadir borde */
+    border-radius: 5px; /* Añadir bordes redondeados */
+}
+
+.formEventos label {
+    font-weight: bold; /* Añadir negrita a las etiquetas */
+}
+
+.formEventos input,
+.formEventos select,
+.formEventos textarea {
+    width: 100%; /* Ajustar ancho al 100% */
+    margin-bottom: 10px; /* Añadir espacio entre elementos */
+    padding: 8px; /* Añadir espacio interno */
+    box-sizing: border-box; /* Incluir relleno en el ancho total */
+}
+
+.formEventos #grupo,
+.formEventos #festival,
+.formEventos #fecha_fin {
+    visibility: hidden; /* Ocultar elementos */
+}
+
+.formEventos button {
+    background-color: transparent; /* Hacer botón transparente */
+    border: none; /* Eliminar borde */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    color: black; /* Cambiar color de texto */
+    text-decoration: none; /* Eliminar subrayado */
+}
+
+.formEventos button:hover {
+    text-decoration: underline; /* Subrayar al pasar por encima */
+}
+.logOut{
+    width: 2rem;
+
+    cursor: pointer;
+}
+.cardEvento{
+    position: relative;
+}
+
+.cardEvento {
+    /* Estilos de tu cardEvento */
+     /* Estilos de tu cardEvento */
+     width: 80%; /* Ancho de tu cardEvento */
+     padding: 20px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     background-color: #f9f9f9;
+     margin: auto; /* Centro horizontalmente */
+     margin-top: 2%; 
+     margin-bottom:2%;
+  }
