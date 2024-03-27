@@ -14,9 +14,7 @@ echo "<head>
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>City Planner</title>
 </head>
-<div id='alerta'>";
-
-echo "</div>
+</div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
   <a class='navbar-brand mr-auto' href='index.php'>
