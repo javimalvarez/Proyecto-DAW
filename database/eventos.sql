@@ -174,6 +174,7 @@ CREATE TABLE IF NOT EXISTS noticias (
     id_noticia INT NOT NULL AUTO_INCREMENT,
     titular VARCHAR(200) NOT NULL,
     texto VARCHAR(1000) NOT NULL,
+    fecha_publicacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (id_noticia)
 )
 

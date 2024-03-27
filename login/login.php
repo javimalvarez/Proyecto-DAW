@@ -10,12 +10,12 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
     //Se recupera contraseña desde la base de datos
     if ($numUsers == 0) {
         //Caso donde no existe el usuario en la base de datos
-        echo"<script>let confirmar=window.confirm('Usuario no registrado. Debes registrarte');if(!confirmar){window.location.href='../index.php'}else{window.location.href='registro.php'}</script>";
-    }else{
-        while($user=mysqli_fetch_array($result)){
+        echo "<script>let confirmar=window.confirm('Usuario no registrado. Debes registrarte');if(!confirmar){window.location.href='../index.php'}else{window.location.href='registro.php'}</script>";
+    } else {
+        while ($user = mysqli_fetch_array($result)) {
             extract($user);
             //Si el usuario cumplimenta los datos de login se realizan varias validaciones
-            
+
             if ($numUsers > 0 && password_verify($_POST['pass'], $contraseña)) {
                 //Se recupera el tipo de usuario mediante una consulta a la base de datos
                 $query_typeUser = "SELECT id_usuario, nombre, id_provincia, email, tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
@@ -28,30 +28,27 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
                 $_SESSION['provincia_usuario'] = $id_provincia;
                 //Usuario registrado y validado. Se comprueba tipo de usuario
                 if ($_SESSION['tipoUsuario'] == 0) {
-                    echo"<script>let confirmar=confirm('Estas accediendo al panel de administrador ". $_SESSION['nombre']." ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
-                    header("refresh:0; url=../administrador/admin.php");
+                    echo "<script>let confirmar=confirm('Estas accediendo al panel de administrador " . $_SESSION['nombre'] . " ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
+                    header("refresh:0; url=../admin/admin.php");
                 } else {
                     //Se mostrará la página del perfil de usuario
                     echo "<script>alert('Bienvenid@ $_SESSION[nombre]')</script>";
                     header("refresh:0; url=../user.php");
                 }
-            }  else if (password_verify($_POST['pass'], $contraseña) == false) {
+            } else if (password_verify($_POST['pass'], $contraseña) == false) {
                 //Caso donde la contraseña no coincide
-                echo"<script>alert('Contraseña incorrecta')</script>";
-            
+                echo "<script>alert('Contraseña incorrecta')</script>";
+
                 //Se redirige al usuario a la página de inicio donde puede cambiar la contraseña
                 $url = $_SERVER['HTTP_REFERER'];
                 header("refresh:0; url=$url");
             }
         }
     }
-    
-   
 } else if (empty($_POST['correo']) || empty($_POST['pass'])) {
-    echo"<script>alert('Hay campos vacios en el formulario')</script>";
+    echo "<script>alert('Hay campos vacios en el formulario')</script>";
     //$_SESSION['mensaje'] = "Hay campos vacios en el formulario";
     //Se determina la página origen desde donde se llama al script
     $url = $_SERVER['HTTP_REFERER'];
     header("refresh:0; url=$url");
-    
 }

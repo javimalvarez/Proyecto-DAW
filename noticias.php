@@ -7,6 +7,7 @@ while($noticias = mysqli_fetch_assoc($result_noticias)){
     extract($noticias);
     echo"<article>
     <h3>$titulo</h3>
+    <div>$fecha_publicacion</div>
     <div>$texto</div>
     </article>";
 }

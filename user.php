@@ -76,17 +76,16 @@ if (isset($_POST['salir'])) {
     header("Location: index.php");
 }
 //Filtros
-echo"<div style='padding: 10px; margin: 10px'><details><summary>Búsqueda avanzada</summary><div><form action='".$_SERVER['PHP_SELF']."' method='post'>
-<select class='form-select' id='tipo' name='tipo' multiple size='1'>
-<option value='' selected disabled>Elige un plan:</option>";
+echo"<div style='padding: 10px; margin: 10px'><details><summary>Búsqueda avanzada</summary><div><form action='".$_SERVER['PHP_SELF']."' method='post'>";
 //Consulta de los tipos de eventos a la base de datos
-$query_evento = "SELECT * FROM tipo_eventos";
-$result_evento = mysqli_query($con, $query_evento);
-while ($row = mysqli_fetch_array($result_evento)) {
-    extract($row);
-    echo "<option value='$idtipo'>$categoria_evento</option>";
+$query_categoria = "SELECT * FROM tipo_eventos";
+$result= mysqli_query($con, $query_categoria);
+while ($row = mysqli_fetch_array($result)) {
+  extract($row);
+  echo "<input type='checkbox' name='categoria[]' value='$id_tipo'>$categoria_evento";
 }
-echo "<option value='Festivales'>Festivales</option></select>
+echo "<input type='checkbox' name='festivales'>Festivales
+<input type='checkbox' name='precio' value='0'>Gratis<br/>
 <label for='provincia'>Eventos en</label>
 <select class='form-select' id='provincia' name='provincia'>
 <option value='' disabled>Provincia:</option><optgroup>";
