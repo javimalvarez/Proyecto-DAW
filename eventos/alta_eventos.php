@@ -32,11 +32,10 @@ echo "<nav class='navbar bg-body-tertiary'>
 <div class='card-header'>
 Featured
 </div>
-<div class='card-body'>
-
-<form class='formEventos' id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
-<label for='nombre_evento' required>Evento:</label>
-<input type='text' id='nombre_evento' name='nombre_evento'>
+<div class='card-body'>";
+echo "<form id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
+<label for='evento' required>Evento:</label>
+<input type='text' id='evento' name='evento' required>
 <select name='tipo_evento' id='tipo_evento' autofocus>
     <option value='' selected disabled>Indica tipo de evento</option>";
     $query_tipoEvento = "SELECT * FROM tipo_eventos";
@@ -58,15 +57,17 @@ Featured
 
 
 </select>
+
+
 *Si el grupo no aparece en la lista pulsa aquí <button type='button'><a href='grupos.php' style='text-decoration:none; color:black;'>Nuevo grupo</a></button></span><br/>
 <span id='festival' style='visibility:hidden;'><select name='festival' id='festival'><option value=''>Festival</option>";
-    $query_festival = "SELECT id_festival, nombre FROM festivales";
-    $result_festival = mysqli_query($con, $query_festival) or die("Error " . mysqli_error($con));
-    while ($row = mysqli_fetch_array($result_festival)) {
-        extract($row);
-        echo "<option value='$id_festival'>$nombre</option>";
-    }
-    echo "</select>*Si el festival no aparece en la lista lo puedes dar de alta desde aquí 
+$query_festival = "SELECT id_festival, nombre_festival FROM festivales";
+$result_festival = mysqli_query($con, $query_festival) or die("Error " . mysqli_error($con));
+while ($row = mysqli_fetch_array($result_festival)) {
+    extract($row);
+    echo "<option value='$id_festival'>$nombre_festival</option>";
+}
+echo "</select>*Si el festival no aparece en la lista lo puedes dar de alta desde aquí 
 <button type='button'><a href='festivales.php' style='text-decoration:none; color:black;'>Alta festival</a></button></span><br/>
 <select name='provincia'><option value=''>Provincia</option>";
     $query_provincia = "SELECT * FROM provincias";
@@ -90,18 +91,19 @@ Featured
 <label for='precio'>Precio:</label>
 <input type='number' name='precio' step='0.01' min='0' value='0'><br/>
 <label for='web'>Web:</label>
-<input type='url' name='web' placeholder='URL evento'><br/>
-<input type='url' name='imagen' placeholder='URL imagen'><br/>
+<input type='url' name='web_festival' placeholder='URL evento'><br/>
+<label for='imagen'>Imagen:</label>
+<input type='url' name='imagen_festival' placeholder='URL imagen'><br/>
 <label for='info'>Otra información:</label><br/>
 <textarea name='info' id='info_festival' cols='60' rows='7'></textarea><br/>
 <input type='submit' id='enviar' value='Enviar'></form>";
-    if (isset($_POST['enviar'])) {
-        $query = "INSERT INTO eventos nombre, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_comienzo, fecha_fin, web, imagen, otra_info, id_usuario) VALUES($_POST[nombre_evento], $_POST[grupo], $_POST[festival], $_POST[provincia], $_POST[ubicacion], $_POST[fecha_inicio], $_POST[fecha_fin], $_POST[web], $_POST[imagen], $_POST[info]," . $_SESSION['id_usuario'] . ")";
-        mysqli_query($con, $query) or die("Error " . mysqli_error($con));
-        mysqli_close($con);
-        echo "<script>(alert('Alta realizada correctamente'))</script>";
-        header("Location: $_SERVER[HTTP_REFERER]");
-    }
+if (isset($_POST['enviar'])) {
+    $query = "INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, precio, web_festival, imagen_festival, info_festival, id_usuario) VALUES($_POST[evento], $_POST[grupo], $_POST[festival], $_POST[provincia], $_POST[ubicacion], $_POST[fecha_inicio], $_POST[fecha_fin], $_POST[precio],$_POST[web], $_POST[imagen], $_POST[info]," . $_SESSION['id_usuario'] . ")";
+    mysqli_query($con, $query) or die("Error " . mysqli_error($con));
+    mysqli_close($con);
+    echo "<script>(alert('Alta eventorealizada correctamente'))</script>";
+    header("Location: $_SERVER[HTTP_REFERER]");
+}
     echo "</div> </div>";
     ?>
 
@@ -112,6 +114,8 @@ Featured
         <a class="text-white" href="">ApePlanner</a>
     </div>
 </footer>
+
+?>
 <script src='eventos.js'></script>
 <script src="../script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
