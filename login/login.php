@@ -28,7 +28,7 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
                 $_SESSION['provincia_usuario'] = $id_provincia;
                 //Usuario registrado y validado. Se comprueba tipo de usuario
                 if ($_SESSION['tipoUsuario'] == 0) {
-                    echo "<script>let confirmar=confirm('Estas accediendo al panel de administrador " . $_SESSION['nombre'] . " ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
+                    echo "<script>let confirmar=confirm('Estas accediendo al área de administrador " . $_SESSION['nombre'] . " ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
                     header("refresh:0; url=../admin/admin.php");
                 } else {
                     //Se mostrará la página del perfil de usuario

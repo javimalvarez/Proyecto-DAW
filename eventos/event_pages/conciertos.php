@@ -44,23 +44,16 @@ echo "</div>
           </div>
       </li>
       <li>
-          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
             Noticias
           </a>
       </li>
-      <li>
-          <a class='nav-link' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            Acerca de nosotros
-          </a>
-      </li>
-      <li>
-        <form class='d-flex' role='search' >
-          <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
-          <button class='btn btn-outline-success' type='submit'>
-            Search
-          </button>
-        </form>
-      </li>
+    </ul>
+    <form class='d-flex mx-auto  col-md-4'>
+        <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
+        <button class='btn btn-outline-success' type='submit'>
+            Search</button>
+    </form>
   </div>
   
     <div class='nav-item'>

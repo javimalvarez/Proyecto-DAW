@@ -18,9 +18,6 @@ echo"<head>
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>City Planner</title>
 </head>
-<div id='alerta'>";
-   
-echo"</div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
   <a class='navbar-brand mr-auto' href='index.php'>
@@ -29,7 +26,6 @@ echo"</div>
   <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
     <span class='navbar-toggler-icon'></span>
   </button>
-
   <div class='collapse navbar-collapse' id='navbarSupportedContent'>
     <ul class='navbar-nav mr-auto'>
       <li class='nav-item dropdown'>
@@ -57,11 +53,12 @@ echo"</div>
           </button>
         </form>
       </li>
+    </ul>
   </div>
-    <div class='nav-item'>
-      <img id='profile-icon' src='img/person.svg' />
-      <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
-    </div>
+  <div class='nav-item'>
+    <img id='profile-icon' src='img/person.svg' />
+    <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
+  </div>
 </nav>
 <div class='login'>
   <div class='login-triangle'></div>

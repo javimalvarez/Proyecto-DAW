@@ -172,11 +172,13 @@ INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
 
 CREATE TABLE IF NOT EXISTS noticias (
     id_noticia INT NOT NULL AUTO_INCREMENT,
-    titular VARCHAR(200) NOT NULL,
-    texto VARCHAR(1000) NOT NULL,
+    titular VARCHAR(200) NULL,
+    texto VARCHAR(1000) NULL,
     fecha_publicacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    PRIMARY KEY (id_noticia)
-)
+    id_usuario INT NOT NULL,
+    PRIMARY KEY (id_noticia),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
+);
 
 select * from usuarios_eventos;
 
