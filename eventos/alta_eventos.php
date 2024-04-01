@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/styleNavbar.css">
-<link rel="stylesheet" type="text/css" href="../css/styleEventoss.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -22,7 +21,7 @@ echo"<head>
 </div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-<a class='navbar-brand mr-auto' href='index.php'>
+<a class='navbar-brand mr-auto' href='../index.php'>
     <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
     <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
   <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
@@ -49,14 +48,14 @@ echo"<head>
     </ul>
 </div>
 <div class='nav-item'>
-      <img id='profile-icon' src='../img/person.svg' />
-      <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
+    <img id='profile-icon' src='../img/person.svg' />
+    <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
 </div>
 </nav>
 <div class='login'>
-  <div class='login-triangle'></div>
-  <img src='../img/user.svg'/>";
-  if($_SESSION['tipoUsuario'] == 0){
+    <div class='login-triangle'></div>
+    <img src='../img/user.svg'/>";
+    if($_SESSION['tipoUsuario'] == 0){
     echo"<div>Administrador</div>";
   }
   echo "<div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
@@ -93,16 +92,15 @@ echo"<div class='cem col-md-9' style='margin-top: 10px;'>
         extract($row);
         echo "<option value='$id_grupo'>$nombre_grupo</option>";
     }
-    echo "</select>Si el grupo no aparece en la lista pulsa aquí <button class='btn btn-outline-primary btn-sm' type='button'><a href='grupos.php' style='text-decoration:none; color:black;'>Nuevo grupo</a></button></span><br/>
-    <span id='festival' style='visibility:hidden;'><select name='festival' id='festival'><option value=''>Festival</option>";
+    echo "</select> Si el grupo no aparece en la lista pulsa aquí <button class='btn btn-outline-primary btn-sm' type='button'><a href='alta_grupos.php' style='text-decoration:none; color:black;'>Nuevo grupo</a></button></span><br/>
+    <span id='festival' style='visibility:hidden;'><select name='festival' id='festival' onchange='desactivarPrecio()'><option value=''>Festival</option>";
     $query_festival = "SELECT id_festival, nombre_festival FROM festivales";
     $result_festival = mysqli_query($con, $query_festival) or die("Error " . mysqli_error($con));
     while ($row = mysqli_fetch_array($result_festival)) {
         extract($row);
         echo "<option value='$id_festival'>$nombre_festival</option>";
     }
-    echo "</select> Si el festival no aparece en la lista lo puedes dar de alta desde aquí 
-    <button class='btn btn-outline-primary btn-sm' type='button'><a href='festivales.php' style='text-decoration:none; color:black;'>Alta festival</a></button></span><br/>
+    echo "</select> Si el festival no aparece en la lista lo puedes dar de alta desde aquí <button class='btn btn-outline-primary btn-sm' type='button'><a href='alta_festivales.php' style='text-decoration:none; color:black;'>Alta festival</a></button></span><br/>
     <select name='provincia'><option value=''>Provincia</option>";
     $query_provincia = "SELECT * FROM provincias";
     $result_provincia = mysqli_query($con, $query_provincia) or die("Error " . mysqli_error($con));
@@ -121,7 +119,7 @@ echo"<div class='cem col-md-9' style='margin-top: 10px;'>
         <input type='date' name='fecha_fin'>
     </span>
     <label for='precio'>Precio:</label>
-    <input type='number' name='precio' step='0.01' min='0' value='0'><br/>
+    <input type='number' name='precio' id='precio' step='0.01' min='0' value='0'><br/>
     <label for='web'>Web:</label>
     <input type='url' name='web_festival' placeholder='URL evento'><br/>
     <label for='imagen'>Imagen:</label>
@@ -134,7 +132,7 @@ if (isset($_POST['enviar'])) {
     $query = "INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, precio, web_festival, imagen_festival, info_festival, id_usuario) VALUES($_POST[evento], $_POST[grupo], $_POST[festival], $_POST[provincia], $_POST[ubicacion], $_POST[fecha_inicio], $_POST[fecha_fin], $_POST[precio],$_POST[web], $_POST[imagen], $_POST[info]," . $_SESSION['id_usuario'] . ")";
     mysqli_query($con, $query) or die("Error " . mysqli_error($con));
     mysqli_close($con);
-    echo "<script>(alert('Alta eventorealizada correctamente'))</script>";
+    echo "<script>(alert('Alta evento realizada correctamente'))</script>";
     header("Location: $_SERVER[HTTP_REFERER]");
 }
     echo "</div> </div>";

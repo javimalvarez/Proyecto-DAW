@@ -2,9 +2,9 @@
 <?php
 session_start();
 //Requiere que el usuario haya iniciado sesion
-if (!isset($_SESSION['usuario'])) {
+/*if (!isset($_SESSION['usuario'])) {
     header("Location: ../index.php");
-}
+}*/
 require("../database/datos.php");
 #Elimina los warning manteniendo el resto de errores
 #error_reporting(E_ALL & ~E_WARNING);
@@ -16,6 +16,9 @@ echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <input type='date' name='ini_festival' required>
 <label for='fin_festival'>Fecha fin:</label>
 <input type='date' name='fin_festival' required><br/>
+<label for='precio_abono'>Fecha fin:</label>
+<input type='number' name='precio_abono' step='0.01'><br/>
+<input type='' name='fin_festival' required><br/>
 <label for='url_festival'>Web:</label>
 <input type='url' name='web_festival' placeholder='URL festival'><br/>
 <input type='url' name='imagen_festival' placeholder='URL imagen'><br/>
@@ -24,8 +27,8 @@ echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <input type='submit' name='enviar' value='Alta festival'>
 </form>";
 $con = mysqli_connect($host, $user, $pass, $db_name) or die("Error " . mysqli_error($con));
-$query = "INSERT INTO festivales (nombre_festival,fecha_inicio,fecha_fin, web_festival, imagen_festival, info_festival) 
-VALUES ('".$_POST['nombre_festival']."','" . $_POST['ini_festival'] . "', '" . $_POST['fin_festival'] . "', '" . $_POST['web_festival'] . "', '" . $_POST['imagen_festival'] . "', '" . $_POST['info_festival'] . "')";
+$query = "INSERT INTO festivales (nombre_festival,fecha_inicio,fecha_fin, precio_abono, web_festival, imagen_festival, info_festival) 
+VALUES ('".$_POST['nombre_festival']."','" . $_POST['ini_festival'] . "', '" . $_POST['fin_festival'] . "', '" . $_POST['web_festival'] . "', ".$_POST['precio_abono'].", '" . $_POST['imagen_festival'] . "', '" . $_POST['info_festival'] . "')";
 mysqli_query($con, $query) or die("Error " . mysqli_error($con));
 if (isset($_POST['enviar'])){
     echo"<script>alert('El festival ha sido dado de alta')</script>";
