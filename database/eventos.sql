@@ -93,6 +93,7 @@ INSERT INTO grupos (nombre_grupo, id_genero, web_grupo, info_grupo) VALUES ('Dep
   nombre_festival VARCHAR(45) NOT NULL,
   fecha_inicio DATE NOT NULL,
   fecha_fin DATE NOT NULL,
+  abono DECIMAL(10,2) NOT NULL,
   web_festival VARCHAR(100) NULL,
   imagen_festival VARCHAR(100) NULL,
   info_festival VARCHAR(400) NULL,
