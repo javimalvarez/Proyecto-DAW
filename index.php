@@ -173,7 +173,7 @@
         <button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button>
       </form></div>
       <div id='gratis'>";
-  $query = "SELECT e.evento, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.precio, e.web_evento, e.imagen_evento, e.info_evento, t.categoria_evento, g.nombre_grupo, g.web_grupo, g.info_grupo, f.nombre_festival, f.web_festival, f.info_festival, p.provincia FROM eventos e LEFT JOIN tipo_eventos t ON e.id_tipo = t.id_tipo LEFT JOIN grupos g ON e.id_grupo = g.id_grupo LEFT JOIN festivales f ON f.id_festival = e.id_festival INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE e.precio = 0 AND e.fecha_inicio BETWEEN CURDATE() AND CURDATE()+INTERVAL 4 MONTH";
+  $query = "SELECT e.*, t.categoria_evento, g.nombre_grupo, g.web_grupo, g.info_grupo, f.*, p.provincia FROM eventos e LEFT JOIN tipo_eventos t ON e.id_tipo = t.id_tipo LEFT JOIN grupos g ON e.id_grupo = g.id_grupo LEFT JOIN festivales f ON f.id_festival = e.id_festival INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE e.precio = 0 AND e.fecha_inicio BETWEEN CURDATE() AND CURDATE()+INTERVAL 4 MONTH";
   $result = mysqli_query($con, $query);
   while ($row = mysqli_fetch_array($result)) {
     extract($row);
