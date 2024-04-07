@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="../css/styleNavbar.css" />
+<link rel="stylesheet" href="../css/styleAdmin.css" />
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <?php
@@ -34,18 +36,11 @@ echo"<head>
       </li>
   </div>
     <div class='nav-item'>
-      <img id='profile-icon' src='../img/person.svg' />
+      <img id='profile-icon' src='../img/box-arrow-right.svg' />
       <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
     </div>
 </nav>
-<div class='login'>
-  <div class='login-triangle'></div>
-  <img src='../img/user.svg'/>
-  <div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
-  <form action='".$_SERVER['PHP_SELF']."' method='post' class='form-container'>
-    <input type='submit' class='exit' name='salir' value='Salir'></form>
-  </form>
-</div>";
+";
 if (isset($_POST['salir'])) {
     session_destroy();
     header("Location: ../index.php");
@@ -57,8 +52,8 @@ if ($num_filas == 0) {
 } else {
     echo "<div><form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
     
-    <h2>Gestión de usuarios</h2>
-    <table border='1'><tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Contraseña</th><th>Perfil</th><th></th><th></th></tr>";
+    <h2 >Gestión de usuarios</h2>
+    <table class='container' border='1'><tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Contraseña</th><th>Perfil</th><th></th><th></th></tr>";
     while ($fila = obtener_resultados($resultado)) {
         extract($fila);
         if ($tipo == 0) {
@@ -79,9 +74,10 @@ if ($num_filas == 0) {
                 <td><input type='submit' name='editar' value='editar'/></td></tr>";
     }
     echo "</table><br>
-    pulsa aquí si necesitas cambiar la contraseña <button type='button'><a style='text-decoration: none; color:black;' href='calculadoraHash.php' target='_blank'>Calcular hash</a></button>";
+  <p> pulsa aquí si necesitas cambiar la contraseña <button type='button'><a style='text-decoration: none; color:black;' href='calculadoraHash.php' target='_blank'>Calcular hash</a></button></p> ";
 }
 echo "<h3>Alta de administrador</h3>
+<div class='container'>
     <label for='name'>Nombre:</label>
     <input type='text' name='nombre'>
     <label for='apellidos'>Apellidos:</label>
@@ -90,7 +86,7 @@ echo "<h3>Alta de administrador</h3>
     <input type='email' name='correo'>
     <label for='contraseña'>Contraseña:</label>
     <input type='password' name='contraseña'><br/>
-    <input type='submit' name='alta' value='Alta administrador'/>";
+    <input type='submit' name='alta' value='Alta administrador'/> </div>";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_POST['user']) && !empty($_POST['user']) && isset($_POST['borrar'])) {
@@ -147,7 +143,15 @@ if (isset($_POST['guardar']) && isset($_POST['nuevo_user']) && !empty($_POST['nu
         }
     }
 }
-echo "</form></div>";
+echo "</form></div>";?>
+<footer>
+<div class='text-center p-3 footerCopyright' style='background-color: rgba(0, 0, 0, 0.2);'>
+© 2024 Copyright:
+<a class='text-white' href=''>CityPlanner</a>
+</div>
+<!-- Copyright -->
+</footer>
+<?php
 /* Funciones */
 function obtener_usuarios($con){
     $resultado = mysqli_query($con, "SELECT * FROM usuarios;");

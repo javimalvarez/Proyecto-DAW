@@ -1,0 +1,40 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el cuerpo ocupe al menos el 100% del viewport */
+}
+
+.content {
+  flex: 1; /* Permite que el contenido ocupe todo el espacio disponible */
+}
+
+.footer {
+  background-color: whitesmoke;
+  color: white;
+  width: 100%;
+}
+h2, h3{
+  text-align: center;
+padding: 1% 1%;}
+p{
+  padding-bottom:-1%;
+  text-align: center;
+}
+
+.container {
+  border: 1px solid #ccc; /* Añade un borde al contenedor */
+  padding: 20px; /* Añade un espacio alrededor de la tabla */
+  text-align: center;
+
+}
+
+table {
+  width: 100%; /* Haz que la tabla ocupe todo el ancho del contenedor */
+  border-collapse: collapse; /* Combina los bordes de las celdas */
+}
+
+th, td {
+  border: 1px solid #ccc; /* Añade bordes a las celdas */
+  padding: 8px; /* Añade espacio interno a las celdas */
+  text-align: left; /* Alinea el texto a la izquierda */
+}
