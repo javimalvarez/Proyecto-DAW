@@ -107,7 +107,7 @@
 </div>
 </section>
 <section>
-  <div id='recientes'>
+  <div  id='recientes'>
     <h2>Planes más próximos</h2>
     <div style='padding: 10px; margin: 10px'>
       <form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
@@ -134,10 +134,18 @@
     if (!empty($fecha_fin)) {
       $fecha_fin = date("j F, Y", strtotime($fecha_fin));
     }
-    echo "<div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
+    // <div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
+
+    echo "
+    <div class='card mb-3' style='max-width: 90%;'>
+    <div class='row g-0'>
+    <div class='col-md-4'>
             <div><img src='$imagen_evento'></div>
             <div><img src='$imagen_festival'></div>
-            <div>
+            </div>
+            <div class='col-md-8'>
+            <div class='card-body'>
+         
                 <h3>$evento</h3>
                 <span><a href='#'>$categoria_evento</a></span>
                 <span>Provincia: $provincia</span>
@@ -155,7 +163,11 @@
                 <span>Entrada: $coste</span>
                 <div>Otra información: $info_evento</div>
             </div>
-            </div>";
+            </div>
+            </div>
+         
+          </div>
+            ";
   }
   echo "</div></section>
 <section>
@@ -163,13 +175,13 @@
     <h2>Planes gratuitos</h2>
     <div style='padding: 10px; margin: 10px'>
       <form action='" . $_SERVER['PHP_SELF'] . "' method='post'>";
-      $query_categoria = "SELECT * FROM tipo_eventos";
-      $result= mysqli_query($con, $query_categoria);
-      while ($row = mysqli_fetch_array($result)) {
-        extract($row);
-        echo "<input type='checkbox' name='categoria[]' value='$id_tipo'>$categoria_evento";
-      }
-    echo "<input type='checkbox' name='festivales'>Festivales
+  $query_categoria = "SELECT * FROM tipo_eventos";
+  $result = mysqli_query($con, $query_categoria);
+  while ($row = mysqli_fetch_array($result)) {
+    extract($row);
+    echo "<input type='checkbox' name='categoria[]' value='$id_tipo'>$categoria_evento";
+  }
+  echo "<input type='checkbox' name='festivales'>Festivales
         <input class='btn btn-primary' type='submit' id='consultar' name='consultar' value='Consultar'/>
         <button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button>
       </form></div>

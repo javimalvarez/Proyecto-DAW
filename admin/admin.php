@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="../css/styleNavbar.css" />
-<link rel="stylesheet" href="../css/styleAdmin.css" />
+<link rel="stylesheet" href="../css/styleAdmins.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -50,9 +50,12 @@ $num_filas = obtener_num_filas($resultado);
 if ($num_filas == 0) {
     echo "No hay usuarios registrados";
 } else {
-    echo "<div><form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+    echo "    <div class='content'>
+
+<div><form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
     
     <h2 >Gestión de usuarios</h2>
+    <div class='table-responsive'>
     <table class='container' border='1'><tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Contraseña</th><th>Perfil</th><th></th><th></th></tr>";
     while ($fila = obtener_resultados($resultado)) {
         extract($fila);
@@ -74,6 +77,7 @@ if ($num_filas == 0) {
                 <td><input type='submit' name='editar' value='editar'/></td></tr>";
     }
     echo "</table><br>
+    </div>
   <p> pulsa aquí si necesitas cambiar la contraseña <button type='button'><a style='text-decoration: none; color:black;' href='calculadoraHash.php' target='_blank'>Calcular hash</a></button></p> ";
 }
 echo "<h3>Alta de administrador</h3>
@@ -143,7 +147,7 @@ if (isset($_POST['guardar']) && isset($_POST['nuevo_user']) && !empty($_POST['nu
         }
     }
 }
-echo "</form></div>";?>
+echo "</form></div></div>";?>
 <footer>
 <div class='text-center p-3 footerCopyright' style='background-color: rgba(0, 0, 0, 0.2);'>
 © 2024 Copyright:
