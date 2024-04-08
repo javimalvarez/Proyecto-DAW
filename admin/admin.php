@@ -18,30 +18,44 @@ echo"<head>
 </div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-  <a class='navbar-brand mr-auto' href='index.php'>
+<a class='navbar-brand mr-auto' href='../index.php'>
     <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
     <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
   <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
     <span class='navbar-toggler-icon'></span>
   </button>
 
-  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+<div class='collapse navbar-collapse' id='navbarSupportedContent'>
     <ul class='navbar-nav mr-auto'>
-      <li>
-          <a class='nav-link' href='alta_noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            Gestionar blog
-          </a>
-      </li>
-  </div>
-    <div class='nav-item'>
+        <li class='nav-item'>
+            <a class='nav-link' href='../admin/admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                Gestionar usuarios
+            </a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' href='../eventos/alta_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                Gestionar eventos
+            </a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                Publicar noticia
+            </a>
+        </li>
+    </ul>
+</div>
+<div class='nav-item'>
       <img id='profile-icon' src='../img/person.svg' />
       <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
-    </div>
+</div>
 </nav>
 <div class='login'>
   <div class='login-triangle'></div>
-  <img src='../img/user.svg'/>
-  <div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
+  <img src='../img/user.svg'/>";
+  if($_SESSION['tipoUsuario'] == 0){
+    echo"<div>Administrador</div>";
+  }
+  echo "<div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
   <form action='".$_SERVER['PHP_SELF']."' method='post' class='form-container'>
     <input type='submit' class='exit' name='salir' value='Salir'></form>
   </form>

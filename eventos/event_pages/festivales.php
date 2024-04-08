@@ -9,7 +9,6 @@ $con = mysqli_connect($host, $user, $pass, $db_name);
 date_default_timezone_set('Europe/Madrid');
 $fecha = date("Y-m-d");
 $coste = "";
-$categoria=[1];
 setlocale(LC_TIME, 'es_ES.UTF-8');
 echo "<head>
   <meta charset='utf-8' />
@@ -72,7 +71,7 @@ if (isset($_SESSION['usuario'])) {
     </div>";
   if (isset($_POST['salir'])) {
     session_destroy();
-    header("Location: conciertos.php");
+    header("Location: festivales.php");
   }
 } else {
   echo "<div class='login' id='login-form'>
@@ -93,8 +92,15 @@ if (isset($_SESSION['usuario'])) {
 echo "</div>";
 //Filtros
 echo "<details><summary>Búsqueda avanzada</summary><div><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
-<label for='provincia'>Eventos en</label>
-<select class='form-select' id='provincia' name='provincia' id='provincia'>
+<select class='form-select' id='festival' name='festival'>
+<option value='' disabled selected>Festival</option>";
+$query_festival="SELECT id_festival, nombre_festival FROM festivales";
+$result_festival = mysqli_query($con, $query_festival);
+while ($row = mysqli_fetch_array($result_festival)) {
+  extract($row);
+  echo "<option value='$id_festival'>$nombre_festival</option>";
+}
+echo"</select><select class='form-select' id='provincia' name='provincia'>
 <option value='' disabled selected>Provincia</option>";
 //Consulta de las provincias a la base de datos
 $query_provincia = "SELECT * FROM provincias";
@@ -107,111 +113,83 @@ while ($row = mysqli_fetch_array($result_provincia)) {
   }
 }
 
-echo "</select><input type='checkbox' id='precio' name='precio' value='0'>
-<label for='precio'>Gratis</label><br/>
+echo "</select><br/>
 <label for='f_inicio'>Fecha inicio:</label>
-<input type='date' id='f_inicio' name='f_inicio' id='f_inicio' value='$fecha'>
+<input type='date'id='f_inicio' name='f_inicio' id='f_inicio' value='$fecha'>
 <label for='f_fin'>Fecha fin:</label>
 <input type='date' id ='f_fin' name='f_fin' id='f_fin' value='2024-12-31'>
 <input class='btn btn-primary' type='submit' id='consultar' name='consultar' value='Consultar'/>
 <button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form></details>
 <div id='eventos' style='border: 2 solid black; padding: 10px'>";
 //Mostrará una lista de conciertos
-$result = categoria($con, $categoria);
-$numEventos = mysqli_num_rows($result);
-if ($numEventos > 0) {
+$query="SELECT * FROM festivales";
+$result = mysqli_query($con, $query);
+$numFestivales=mysqli_num_rows($result);
+if ($numFestivales > 0) {
   while ($row = mysqli_fetch_array($result)) {
     extract($row);
-    $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
     if ($precio == 0) {
       $coste = "Gratuita";
     } else {
       $coste = $precio . "€";
     }
     echo "<div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
-            <div><img src='$imagen_evento'></div>
-            <div><img src='$imagen_festival'></div>
-            <div>
-                <h3>$evento</h3>
-                <span>Provincia: $provincia</span>
-                <div>
-                    <span><a href='$web_grupo'>$nombre_grupo</a></span>
-                    <span>$info_grupo</span>
-                    <span><a href='$web_festival'>$nombre_festival</a></span>
-                    <span>$info_festival</span>
-                </div>
-                <div>
-                    <span>Fecha: $fecha_inicio</span>
-                </div>
-                <div><a href='$web_evento'>$web_evento</a></div>";
-    echo "<span>Entrada: $coste</span>
-                <div>$info_evento</div>   
-            </div>
-      </div>";
+    <h1>$nombre_festival</h1>";
+    $query_provincia="SELECT DISTINCT p.provincia, e.ubicacion FROM eventos e INNER JOIN provincias p ON e.id_provincia = p.id_provincia WHERE e.id_festival = '$id_festival'";
+    $result_provincia = mysqli_query($con, $query_provincia);
+    $row = mysqli_fetch_array($result_provincia);
+    extract($row);
+    echo"<span>Provincia: $provincia</span>
+    <p>Lista de conciertos:</p><ul>";
+    $result=festivales($con,$id_festival);
+    while($row = mysqli_fetch_array($result)){
+      extract($row);
+        echo"<li><div><a href='$web_grupo'>$nombre_grupo</a> $f_concierto</div></li>";
+    }
+    echo "</ul>
+    <div>
+      <div><img src='$imagen_festival'></div>
+      <div>
+        <div>Fecha inicio: $fecha_inicio</div>
+        <div>Fecha fin: $fecha_fin</div>
+        <div>Coste abono: $coste</div> 
+        <div>Web festival: <a href='$web_festival'>$nombre_festival</a></div>
+        <div>$info_festival</div>
+      </div>  
+    </div>";
   }
 } else {
   echo "No se ha encontrado ninguna coincidencia";
 }
-if (isset($_POST['precio']) && isset($_POST['consultar'])) {
-  $result = conciertosGratis($con, $_POST['precio']);
-  $numEventos = mysqli_num_rows($result);
-  if ($numEventos > 0) {
-    echo "<script>document.getElementById('eventos').innerHTML = '';</script>";
-    while ($row = mysqli_fetch_array($result)) {
-      extract($row);
-      $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
-      if ($precio == 0) {
-        $coste = "Gratuita";
-      } else {
-        $coste = $precio . "€";
-      }
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
-    }
-  } else {
-    echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
-  }
-}
-//Solo conciertos gratuitos
-if (isset($_POST['provincia']) && isset($_POST['precio']) && isset($_POST['consultar'])) {
-  $result = conciertosProvinciaGratis($con, $categoria, $_POST['provincia'], $_POST['precio'], $_POST['f_inicio'], $_POST['f_fin']);
-  $numEventos = mysqli_num_rows($result);
-  if ($numEventos > 0) {
-    echo "<script>document.getElementById('eventos').innerHTML = '';</script>";
-    while ($row = mysqli_fetch_array($result)) {
-      extract($row);
-      $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
-      if ($precio == 0) {
-        $coste = "Gratuita";
-      } else {
-        $coste = $precio . "€";
-      }
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
-    }
-  } else {
-    echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
-  }
-}
-//Filtrado de conciertos por provincia
-else if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
-  $result = categoriaProvincia($con, $categoria, $_POST['provincia'], $_POST['f_inicio'], $_POST['f_fin']);
-  $numEventos = mysqli_num_rows($result);
-  if ($numEventos > 0) {
-    echo "<script>document.getElementById('eventos').innerHTML = '';</script>";
-    while ($row = mysqli_fetch_array($result)) {
-      extract($row);
-      if ($precio == 0) {
-        $coste = "Gratuita";
-      } else {
-        $coste = $precio . "€";
-      }
-      $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
-    }
-  } else {
-    echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
-  }
-} 
 echo "</div>";
+
+##Filtros
+//Consulta datos festival
+if (isset($_POST['festival']) && isset($_POST['consultar'])) {
+  //Consulta nombre festival
+  $query_festival="SELECT * FROM festivales WHERE id_festival = '$_POST[festival]'";
+  $result_festival = mysqli_query($con, $query_festival);
+  $row = mysqli_fetch_array($result_festival);
+  extract($row);
+  echo"<script>document.getElementById('eventos').innerHTML = '';
+  <script> document.getElementById('eventos').innerHTML += '<h1>$nombre_festival</h1><div>Provincia: $provincia</div><div>Lista de conciertos:<ul>'</script>;";
+  $result = festivales($con, $_POST['festival']);
+  $numEventos = mysqli_num_rows($result);
+  if ($numEventos > 0) {
+    while ($row = mysqli_fetch_array($result)) {
+      extract($row);
+      if ($precio == 0) {
+        $coste = "Gratuita";
+      } else {
+        $coste = $precio . "€";
+      }
+      $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
+      $fecha_fin = date("j F Y", strtotime($fecha_fin));
+      echo"<script>document.getElementById('eventos').innerHTML += '<li><div><a href='$web_grupo'>$nombre_grupo</a> $f_concierto</div></li>'</script>";
+    }
+    echo"<script>document.getElementById('eventos').innerHTML += '</ul><div>Precio abono: $abono</div><div>fechas: </div><div>Web festival: <a href='$web_festival'>$nombre_festival</a></div><div>$info_festival</div>'</script>";
+  }
+}
 ?>
 <script src="../../script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
