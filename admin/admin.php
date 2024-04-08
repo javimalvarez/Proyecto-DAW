@@ -40,7 +40,7 @@ echo"<head>
           </a>
       </li>
       <li class='nav-item'>
-          <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+          <a class='nav-link' href='../noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
               Publicar noticia
           </a>
       </li>

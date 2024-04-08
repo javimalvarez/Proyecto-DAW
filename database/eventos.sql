@@ -91,7 +91,7 @@ INSERT INTO grupos (nombre_grupo, id_genero, web_grupo, info_grupo) VALUES ('Dep
   CREATE TABLE IF NOT EXISTS festivales(
   id_festival INT NOT NULL AUTO_INCREMENT,
   nombre_festival VARCHAR(45) NOT NULL,
-  fecha_inicio datetime NOT NULL,
+  fecha_inicio DATE NOT NULL,
   fecha_fin DATE NOT NULL,
   abono DECIMAL(10,2) NOT NULL DEFAULT 0,
   web_festival VARCHAR(100) NULL,
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS eventos(
     id_festival INT NULL,
     id_provincia INT NOT NULL,
     ubicacion VARCHAR(200) NOT NULL,
-    fecha_inicio datetime NOT NULL,
+    fecha_inicio DATETIME NOT NULL,
     fecha_fin DATE NULL,
     precio DECIMAL(10,2) NOT NULL DEFAULT 0,
     web_evento VARCHAR(100) NULL,
@@ -173,11 +173,13 @@ INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
 
 CREATE TABLE IF NOT EXISTS noticias (
     id_noticia INT NOT NULL AUTO_INCREMENT,
-    titular VARCHAR(200) NOT NULL,
-    texto VARCHAR(1000) NOT NULL,
+    titular VARCHAR(200) NULL,
+    texto VARCHAR(1000) NULL,
     fecha_publicacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    PRIMARY KEY (id_noticia)
-)
+    id_usuario INT NOT NULL,
+    PRIMARY KEY (id_noticia),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
+);
 
 select * from usuarios_eventos;
 
