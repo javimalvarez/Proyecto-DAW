@@ -4,6 +4,7 @@ html {
 }
 
 body {
+  font-family: "Segoe IU", sans-serif!important;
   background: rgb(34, 193, 195);
   background: linear-gradient(
     135deg,
@@ -23,6 +24,17 @@ body {
   min-height: 100vh; /* Ajuste */
   display: flex;
   flex-direction: column; /* Ajusta el valor según la altura del footer */
+}
+.contenedor {
+  width: auto;
+  height: auto;
+  display: flex !important; /* ETIQUETA QUE POSICIONA UNO AL LADO DEL OTRO */
+  flex-wrap: wrap;
+}
+.card {
+  flex: 0 0 auto; /* Para evitar que las tarjetas se estiren para llenar el contenedor */
+  width: calc(33.33% - 4rem); /* Establece el ancho de las tarjetas para que haya tres en una fila */
+  margin: 0 2rem 2rem 0; /* Margen entre las tarjetas */
 }
 .ocultar-div{
   display:none;
@@ -45,7 +57,15 @@ body {
   .footerCopyright{
     display: block;
   }
+
+  
 }
+@media screen and (max-width:1330px) {
+  .ulnavbarEventos .nav-item {
+    margin: 0 10%!important; 
+  }
+}
+
 .footer {
   width: 100%;
   margin-top: auto; 
@@ -138,6 +158,27 @@ body {
 /* Buttons' focus effect */
 .login input[type="button"]:focus {
   border-color: #05a;
+}
+.navbarEventos {
+  background-color: #555;
+  color: #fff!important;
+}
+.navbarEventos .container-fluid .collapse .navbar-nav .nav-item .nav-link{
+  color: #fff !important;
+}
+.ulnavbarEventos{
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  height: 100%; 
+  font-size: 1.2rem;
+  text-transform: capitalize; /* Convierte la primera letra de cada palabra en mayúscula */
+}
+.navbarEventos .container-fluid .collapse .navbar-nav .nav-item  .nav-link:hover {
+  color: #888 !important; /* Cambia el color del texto al pasar el ratón por encima a rojo y asegura que tenga prioridad con !important */
+}
+.ulnavbarEventos .nav-item {
+  margin: 0 18%; /* Añade margen entre los elementos de navegación */
 }
 
 .fotoNavbar {

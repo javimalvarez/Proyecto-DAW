@@ -80,32 +80,33 @@
 </div>
 </div>
 </nav>
-<section>
-<div class='card mb-3' style='max-width: 70%;'>
-  <div class='row g-0'>
-    <div class='col-md-4'>
-      <img id='imgInfo' src='https://doggiesintown.com/wp-content/uploads/2023/08/El-Fascinante-Mundo-del-Perro-Salchicha-Explorando-su-Historia-Crianza-y-Personalidad-Unica-Doggies-in-Town-1200x676-5.jpg' alt='imgInfo' style='max-width: 100%; height: auto;' />
-    </div>
-    <div class='col-md-8'>
-      <div class='card-body'>
-        <h5 class='card-title'>Card title</h5>
-        <p class='card-text'>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class='row'>
+<nav class='navbarEventos navbar navbar-expand-lg    navbar-dark bg-dark'>
+  <div class='container-fluid'>  
+  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation'>
+  <span class='navbar-toggler-icon'></span>
+</button>
+    <div class='collapse navbar-collapse' id='navbarText'>
+      <ul class='ulnavbarEventos navbar-nav mx-auto'>
+        <li class='nav-item'>
+          <a class='nav-link'  href='eventos/event_pages/festivales.php'>Festivales</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='eventos/event_pages/conciertos.php'>Conciertos</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='eventos/event_pages/teatro.php'>Teatro</a>
+        </li>
+        <li class='nav-item'>
+        <a class='nav-link' href='eventos/event_pages/cine.php'>Cine</a>
+      </li>   <li class='nav-item'>
+      <a class='nav-link' href='eventos/event_pages/ferias.php'>Ferias</a>
+    </li>
+      </ul>
 
-          <div class='col-md-11'>
-            <button onclick='window.location.href = 'https://doggiesintown.com/wp-content/uploads/2023/08/El-Fascinante-Mundo-del-Perro-Salchicha-Explorando-su-Historia-Crianza-y-Personalidad-Unica-Doggies-in-Town-1200x676-5.jpg''>Ir al enlace</button>
-          </div>
-          <div class='star-icon-container col-md-4¡1'>
-            <a href=''>
-              <img id='star-icon' src='img/star.svg' alt='Star' />
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-</div>
-</section>
+</nav>
+
 <section>
   <div  id='recientes'>
     <h2>Planes más próximos</h2>
@@ -137,7 +138,7 @@
     // <div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
 
     echo "
-    <div class='card mb-3' style='max-width: 90%;'>
+    <div class='card mb-3 mx-auto' style='max-width: 90%;'>
     <div class='row g-0'>
     <div class='col-md-4'>
             <div><img src='$imagen_evento'></div>
@@ -162,6 +163,17 @@
                 <div><a href='$web_evento'>$web_evento</a></div>
                 <span>Entrada: $coste</span>
                 <div>Otra información: $info_evento</div>
+                <div class='row'>
+
+                <div class='col-md-11'>
+                  <button onclick='window.location.href = 'https://doggiesintown.com/wp-content/uploads/2023/08/El-Fascinante-Mundo-del-Perro-Salchicha-Explorando-su-Historia-Crianza-y-Personalidad-Unica-Doggies-in-Town-1200x676-5.jpg''>Ir al enlace</button>
+                </div>
+                <div class='star-icon-container col-md-4¡1'>
+                  <a href=''>
+                    <img id='star-icon' src='img/star.svg' alt='Star' />
+                  </a>
+                </div>
+              </div>
             </div>
             </div>
             </div>
@@ -201,28 +213,75 @@
     if (!empty($fecha_fin)) {
       $fecha_fin = date("j F, Y", strtotime($fecha_fin));
     }
-    echo "<div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
-              <div><img src='$imagen_evento'></div>
-              <div><img src='$imagen_festival'></div>
+
+    echo "<div class='contenedor '>";
+    echo "<div class='card mx-2 mb-2' style='width: 18rem;'>
+            <div><img src='$imagen_evento'></div>
+            <div class='card-body'>
+              <h3>$evento</h3>
+              <span><a href='#'>$categoria_evento</a></span>
+              <span>Provincia: $provincia</span>
               <div>
-                  <h3>$evento</h3>
-                  <span><a href='#'>$categoria_evento</a></span>
-                  <span>Provincia: $provincia</span>
-                  <div>
-                      <span><a href='$web_grupo'>$nombre_grupo</a></span>
-                      <span>$info_grupo</span>
-                      <span><a href='$web_festival'>$nombre_festival</a></span>
-                      <span>$info_festival</span>
-                  </div>
-                  <div>
-                      <span>Fecha: $fecha_inicio</span>
-                      <span>$fecha_fin</span>
-                  </div>
-                  <div><a href='$web_evento'>$web_evento</a></div>
-                  <span>Entrada: $coste</span>
-                  <div>Otra información: $info_evento</div>
+                <span><a href='$web_grupo'>$nombre_grupo</a></span>
+                <span>$info_grupo</span>
+                <span><a href='$web_festival'>$nombre_festival</a></span>
+                <span>$info_festival</span>
               </div>
-            </div>";
+              <div>
+                <span>Fecha: $fecha_inicio</span>
+                <span>$fecha_fin</span>
+              </div>
+              <div><a href='$web_evento'>$web_evento</a></div>
+              <span>Entrada: $coste</span>
+              <div>Otra información: $info_evento</div>
+              <a href='#' class='btn btn-primary'>Go somewhere</a>
+            </div>
+          </div>";
+    echo "</div>";
+
+
+    /*echo "<div class='card mb-3 mx-auto' style='max-width: 90%;'>
+    <div class='row g-0'>
+        <div class='col-md-4'>
+            <div><img src='$imagen_evento'></div>
+        </div>
+        <div class='col-md-4'>
+            <div><img src='$imagen_festival'></div>
+        </div>
+        <div class='col-md-8'>
+            <div class='card-body'>
+                <h3>$evento</h3>
+                <span><a href='#'>$categoria_evento</a></span>
+                <span>Provincia: $provincia</span>
+                <div>
+                    <span><a href='$web_grupo'>$nombre_grupo</a></span>
+                    <span>$info_grupo</span>
+                    <span><a href='$web_festival'>$nombre_festival</a></span>
+                    <span>$info_festival</span>
+                </div>
+                <div>
+                    <span>Fecha: $fecha_inicio</span>
+                    <span>$fecha_fin</span>
+                </div>
+                <div><a href='$web_evento'>$web_evento</a></div>
+                <span>Entrada: $coste</span>
+                <div>Otra información: $info_evento</div>
+                <div class='row'>
+                   
+                <div class='col-md-11'>
+                <button onclick='window.location.href = 'https://doggiesintown.com/wp-content/uploads/2023/08/El-Fascinante-Mundo-del-Perro-Salchicha-Explorando-su-Historia-Crianza-y-Personalidad-Unica-Doggies-in-Town-1200x676-5.jpg''>Ir al enlace</button>
+              </div>
+              <div class='star-icon-container col-md-4¡1'>
+                <a href=''>
+                  <img id='star-icon' src='img/star.svg' alt='Star' />
+                </a>
+              </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+";*/
   }
   echo "</div>";
   if (isset($_POST['categoria']) && !empty($_POST['categoria']) && isset($_POST['consultar'])) {

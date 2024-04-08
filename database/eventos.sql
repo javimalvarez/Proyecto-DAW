@@ -91,9 +91,9 @@ INSERT INTO grupos (nombre_grupo, id_genero, web_grupo, info_grupo) VALUES ('Dep
   CREATE TABLE IF NOT EXISTS festivales(
   id_festival INT NOT NULL AUTO_INCREMENT,
   nombre_festival VARCHAR(45) NOT NULL,
-  fecha_inicio DATE NOT NULL,
+  fecha_inicio datetime NOT NULL,
   fecha_fin DATE NOT NULL,
-  abono DECIMAL(10,2) NOT NULL,
+  abono DECIMAL(10,2) NOT NULL DEFAULT 0,
   web_festival VARCHAR(100) NULL,
   imagen_festival VARCHAR(100) NULL,
   info_festival VARCHAR(400) NULL,
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS eventos(
     id_festival INT NULL,
     id_provincia INT NOT NULL,
     ubicacion VARCHAR(200) NOT NULL,
-    fecha_inicio DATETIME NOT NULL,
+    fecha_inicio datetime NOT NULL,
     fecha_fin DATE NULL,
     precio DECIMAL(10,2) NOT NULL DEFAULT 0,
     web_evento VARCHAR(100) NULL,
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS noticias (
 
 select * from usuarios_eventos;
 
-SELECT u.id_usuario, u.nombre, e.id_evento, e.evento, e.id_tipo, e.ubicacion, e.fecha_comienzo, e.fecha_fin, e.info_evento
+SELECT u.id_usuario, u.nombre, e.id_evento, e.evento, e.id_tipo, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.info_evento
 FROM usuarios u
 JOIN usuarios_eventos ue ON u.id_usuario = ue.id_usuario
 JOIN eventos e ON ue.id_evento = e.id_evento
