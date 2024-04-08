@@ -28,13 +28,24 @@ echo"<head>
   </button>
 
   <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-    <ul class='navbar-nav mr-auto'>
-      <li>
-          <a class='nav-link' href='alta_noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            Gestionar blog
+  <ul class='navbar-nav mr-auto'>
+      <li class='nav-item'>
+          <a class='nav-link' href='../admin/admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+              Gestionar usuarios
           </a>
       </li>
-  </div>
+      <li class='nav-item'>
+          <a class='nav-link' href='../eventos/alta_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+              Gestionar eventos
+          </a>
+      </li>
+      <li class='nav-item'>
+          <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+              Publicar noticia
+          </a>
+      </li>
+  </ul>
+</div>
     <div class='nav-item'>
    <a  href='../login/logout.php'>
       <img id='profile-icon' src='../img/box-arrow-right.svg' />
