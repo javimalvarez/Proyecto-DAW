@@ -40,7 +40,7 @@ echo"<head>
           </a>
       </li>
       <li class='nav-item'>
-          <a class='nav-link' href='../noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+          <a class='nav-link' href='../admin/alta_noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
               Publicar noticia
           </a>
       </li>
@@ -86,8 +86,12 @@ if ($num_filas == 0) {
                 <td>$email</td>
                 <td>$contraseña</td>
                 <td>$tipo</td>
-                <td><input type='submit' name='borrar' value='borrar'/></td>
-                <td><input type='submit' name='editar' value='editar'/></td></tr>";
+                <td>     <a href=''>
+                <img id='borrar' src='../img/trash.svg' alt='borrar' />
+              </a></td>
+                <td>     <a href=''>
+                <img id='modificar' src='../img/pencil.svg' alt='modificar' />
+              </a></td></tr>";
     }
     echo "</table><br>
     </div>
