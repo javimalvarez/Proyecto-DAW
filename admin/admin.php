@@ -36,8 +36,10 @@ echo"<head>
       </li>
   </div>
     <div class='nav-item'>
+   <a  href='../login/logout.php'>
       <img id='profile-icon' src='../img/box-arrow-right.svg' />
       <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
+      </a>
     </div>
 </nav>
 ";

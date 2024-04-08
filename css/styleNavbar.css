@@ -25,17 +25,8 @@ body {
   display: flex;
   flex-direction: column; /* Ajusta el valor según la altura del footer */
 }
-.contenedor {
-  width: auto;
-  height: auto;
-  display: flex !important; /* ETIQUETA QUE POSICIONA UNO AL LADO DEL OTRO */
-  flex-wrap: wrap;
-}
-.card {
-  flex: 0 0 auto; /* Para evitar que las tarjetas se estiren para llenar el contenedor */
-  width: calc(33.33% - 4rem); /* Establece el ancho de las tarjetas para que haya tres en una fila */
-  margin: 0 2rem 2rem 0; /* Margen entre las tarjetas */
-}
+
+
 .ocultar-div{
   display:none;
 }

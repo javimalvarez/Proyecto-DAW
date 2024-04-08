@@ -214,33 +214,10 @@
       $fecha_fin = date("j F, Y", strtotime($fecha_fin));
     }
 
-    echo "<div class='contenedor '>";
-    echo "<div class='card mx-2 mb-2' style='width: 18rem;'>
-            <div><img src='$imagen_evento'></div>
-            <div class='card-body'>
-              <h3>$evento</h3>
-              <span><a href='#'>$categoria_evento</a></span>
-              <span>Provincia: $provincia</span>
-              <div>
-                <span><a href='$web_grupo'>$nombre_grupo</a></span>
-                <span>$info_grupo</span>
-                <span><a href='$web_festival'>$nombre_festival</a></span>
-                <span>$info_festival</span>
-              </div>
-              <div>
-                <span>Fecha: $fecha_inicio</span>
-                <span>$fecha_fin</span>
-              </div>
-              <div><a href='$web_evento'>$web_evento</a></div>
-              <span>Entrada: $coste</span>
-              <div>Otra información: $info_evento</div>
-              <a href='#' class='btn btn-primary'>Go somewhere</a>
-            </div>
-          </div>";
-    echo "</div>";
+    
 
 
-    /*echo "<div class='card mb-3 mx-auto' style='max-width: 90%;'>
+    echo "<div class='card mb-3 mx-auto' style='max-width: 90%;'>
     <div class='row g-0'>
         <div class='col-md-4'>
             <div><img src='$imagen_evento'></div>
@@ -281,7 +258,7 @@
         </div>
     </div>
 </div>
-";*/
+";
   }
   echo "</div>";
   if (isset($_POST['categoria']) && !empty($_POST['categoria']) && isset($_POST['consultar'])) {
