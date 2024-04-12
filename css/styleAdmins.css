@@ -38,3 +38,56 @@ th, td {
   padding: 8px; /* Añade espacio interno a las celdas */
   text-align: left; /* Alinea el texto a la izquierda */
 }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  display: inline-block;
+    width: 30%;
+    padding: 5px;
+    margin: 10px 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Dos columnas */
+    grid-gap: 10px; /* Espacio entre las columnas */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.input-container label {
+    width: 100px; /* Ancho deseado para las etiquetas */
+    margin-right: 10px; /* Espacio entre la etiqueta y el campo de entrada */
+}
+
+.input-container input {
+    flex: 1; /* El campo de entrada ocupará el espacio restante */
+    /* Otros estilos como padding, border, etc. */
+}
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: white;
+    color: black !important;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}

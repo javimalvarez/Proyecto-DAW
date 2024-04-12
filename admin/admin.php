@@ -95,19 +95,30 @@ if ($num_filas == 0) {
     }
     echo "</table><br>
     </div>
-  <p> pulsa aquí si necesitas cambiar la contraseña <button type='button'><a style='text-decoration: none; color:black;' href='calculadoraHash.php' target='_blank'>Calcular hash</a></button></p> ";
+  <p> pulsa <a style='text-decoration: none;' href='calculadoraHash.php' target='_blank'>aquí</a> si necesitas cambiar la contraseña </p> ";
 }
 echo "<h3>Alta de administrador</h3>
 <div class='container'>
-    <label for='name'>Nombre:</label>
-    <input type='text' name='nombre'>
-    <label for='apellidos'>Apellidos:</label>
-    <input type='text' name='apellidos'><br/>
-    <label for='email'>Email:</label>
-    <input type='email' name='correo'>
-    <label for='contraseña'>Contraseña:</label>
-    <input type='password' name='contraseña'><br/>
-    <input type='submit' name='alta' value='Alta administrador'/> </div>";
+<div class='input-grid'>
+<div class='input-container'>
+<label for='name'>Nombre:</label>
+<input type='text' name='nombre'>
+</div>
+<div class='input-container'>
+<label for='apellidos'>Apellidos:</label>
+<input type='text' name='apellidos'>
+</div>
+<div class='input-container'>
+<label for='email'>Email:</label>
+<input type='email' name='correo'>
+</div>
+<div class='input-container'>
+<label for='contraseña'>Contraseña:</label>
+<input type='password' name='contraseña'>
+</div>
+</div>
+
+    <input class='boton' type='submit' name='alta' value='Alta administrador'/> </div>";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_POST['user']) && !empty($_POST['user']) && isset($_POST['borrar'])) {
