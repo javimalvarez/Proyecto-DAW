@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="../css/styleNavbar.css" />
 <link rel="stylesheet" href="../css/styleAdmins.css" />
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <?php
@@ -20,7 +22,7 @@ echo"<head>
 </div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-  <a class='navbar-brand mr-auto' href='index.php'>
+  <a class='navbar-brand mr-auto' href='../index.php'>
     <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
     <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
   <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
@@ -67,8 +69,8 @@ if ($num_filas == 0) {
 
 <div><form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
     
-    <h2 >Gestión de usuarios</h2>
-    <div class='table-responsive'>
+    <h2 class='tituloUsuarios' >Gestión de usuarios</h2>
+    <div  class='table-responsive pp'>
     <table class='container' border='1'><tr><th></th><th></th><th>Nombre</th><th>Apellidos</th><th>email</th><th>Contraseña</th><th>Perfil</th><th></th><th></th></tr>";
     while ($fila = obtener_resultados($resultado)) {
         extract($fila);
@@ -93,11 +95,12 @@ if ($num_filas == 0) {
                 <img id='modificar' src='../img/pencil.svg' alt='modificar' />
               </a></td></tr>";
     }
-    echo "</table><br>
+    echo "</table>
+    <p > pulsa <a style='text-decoration: none;' href='calculadoraHash.php' target='_blank'>aquí</a> si necesitas cambiar la contraseña </p>
     </div>
-  <p> pulsa <a style='text-decoration: none;' href='calculadoraHash.php' target='_blank'>aquí</a> si necesitas cambiar la contraseña </p> ";
+  ";
 }
-echo "<h3>Alta de administrador</h3>
+echo "<h3 class='tituloAdmin'>Alta de administrador</h3>
 <div class='container'>
 <div class='input-grid'>
 <div class='input-container'>

@@ -1,6 +1,8 @@
 .container {
     width: 200px; /* Ancho del div */
     margin: 0 auto;
+
+
 }
 
   /* footer {
@@ -8,12 +10,7 @@
     bottom: 0;
     width: 80%;
 } */
-footer {
-    background-color: #343a40; /* Cambiamos el color de fondo del pie de página */
-    color: #fff; /* Cambiamos el color del texto */
-    text-align: center;
-    padding: 20px 0; /* Añadimos espacio interno */
-}
+
 h2{
     text-align: center;
 }
@@ -25,59 +22,77 @@ body {
 }
 
 .container {
-    background-color: aliceblue;
-    max-width: 800px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centrar horizontalmente */
-    padding: 20px; /* Añadimos espacio interno */
+    background-color: #fff;
+    width: 80%; 
+    padding: 20px 2% !important; /* Añadimos espacio interno */
     border-radius: 8px; /* Añadimos bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadimos sombra */
     margin-bottom: 2%;
+    margin: 20px 20px;
+
+
 }
+.tituloEventos{
+font-weight: bold;
+font-family: "Playfair Display", serif;
+font-optical-sizing: auto;
+font-weight: 700;
+font-style: normal;
+margin-bottom: 4%;
+
+}
+.tituloSelect{
+font-size: 19px;
+font-weight: bold;
+font-family: "Playfair Display", serif;
+font-optical-sizing: auto;
+font-weight: 700;
+font-style: normal;
+margin-bottom: 2%;
+margin-top: 1%;
 
 
+}
+.informacion {
+    font-size: 14px;
+    margin-bottom: 1%;
 
-
-
+}
 
 
 input[type="text"],
 input[type="number"],
 input[type="datetime-local"],
 input[type="url"],
-
+select ,
 textarea {
     width: 100%;
     padding: 10px;
-    margin: 5px 10px;
+   
+
     border: 1px solid #ced4da;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
-    margin-bottom: 5px;
+ 
 }
 
 input[type="checkbox"] {
     margin-right: 5px;
 }
 
-.select {
-    width: 30%;
-    padding: 10px;
-    margin: 5px 10px; /* Aquí aplicamos el margen */
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
 
+label{
+    margin-top:0.5%;
+    margin-bottom: 1.2%;
+}
 
 .botonEnviar {
     display: inline-block;
 
     margin-top: 20px; /* Ajustamos el margen superior */
-    padding: 10px 20px; /* Añadimos espacio interno al botón */
-    font-size: 50px; /* Ajustamos el tamaño de la fuente */
+    padding: 10px 10px!important; /* Añadimos espacio interno al botón */
+    font-size: 15px!important; /* Ajustamos el tamaño de la fuente */
     border: none; /* Quitamos el borde del botón */
     border-radius: 4px; /* Añadimos bordes redondeados */
     background-color: #007bff; /* Cambiamos el color de fondo del botón */

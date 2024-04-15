@@ -14,23 +14,45 @@ body {
 h2, h3{
 
   text-align: center;
-padding: 1% 1%;}
+padding: 1% 1%;
+
+}
 p{
 
-  padding-bottom:-1%;
   text-align: center;
 }
+
 
 .container {
-  border: 1px solid #ccc; /* Añade un borde al contenedor */
-  padding: 20px; /* Añade un espacio alrededor de la tabla */
+  background-color: #fff;
+  width: 100%; 
+  padding: 20px 2% !important; /* Añadimos espacio interno */
+  border-radius: 8px; /* Añadimos bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadimos sombra */
+  margin: 20px 20px;
   text-align: center;
-
+  padding-top: 1%!important;
+  margin-top: 1%!important;
 }
-
+.pp{
+  background-color: #fff;
+  border-radius: 8px; /* Añadimos bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadimos sombra */
+  margin: 20px 20px;
+  text-align: center;
+  padding-top: 1%!important;
+  margin-top: 1%!important;
+}
 table {
+  padding-top: 1%!important;
   width: 100%; /* Haz que la tabla ocupe todo el ancho del contenedor */
+  padding-top: 1%!important;
+  margin-top: 1%!important;
   border-collapse: collapse; /* Combina los bordes de las celdas */
+}
+tbody{
+  padding-top: 1%!important;
+ margin-top: 1%!important;
 }
 
 th, td {
@@ -79,10 +101,10 @@ textarea {
     margin-top: 20px;
     border: none;
     border-radius: 4px;
-    background-color: white;
-    color: black !important;
+    background-color: 007bff;
+    color: #fff !important;
     font-size: 16px;
-    text-align: center;
+    text-align: center!important;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -90,4 +112,16 @@ textarea {
 
 .boton:hover {
     background-color: #0056b3;
+}
+
+
+.tituloUsuarios,.tituloAdmin{
+font-weight: bold;
+font-family: "Playfair Display", serif;
+font-optical-sizing: auto;
+font-weight: 700;
+font-style: normal;
+margin-bottom: 2%;
+margin-top: 3%;
+
 }

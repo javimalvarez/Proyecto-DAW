@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/styleNavbar.css">
 <link rel="stylesheet" type="text/css" href="../css/styleAltaEventos.css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -16,7 +18,7 @@ require_once("../database/datos.php");
 
 $con = mysqli_connect($host, $user, $pass, $db_name) or die("Error " . mysqli_error($con));
 echo "<nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-<a class='navbar-brand mr-auto' href='index.php'>
+<a class='navbar-brand mr-auto' href='../index.php'>
   <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
   <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
 <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
@@ -57,8 +59,8 @@ if (isset($_POST['salir'])) {
 
     echo "</select><br/>
     <div class='container' >
-    <h2 >Gestión de Eventos</h2>
-    <label>Selecciona un grupo:</label></br>
+    <h2 class='tituloEventos'>Gestión de Eventos</h2>
+    <label class='tituloSelect'>Selecciona un grupo:</label></br>
 
     <span id='grupo' '><select name='grupo' id='grupo'>
     <option value=''>Grupo</option> <br/>";
@@ -70,9 +72,10 @@ if (isset($_POST['salir'])) {
     }
     //style='visibility:hidden
     echo "</select> </br>
-    <label>Selecciona un festival:</label></br>
 
- Si el grupo no aparece en la lista pulsa <a href='alta_grupos.php' style='text-decoration:none; '> aquí </a></span><br/>
+ <label class='informacion'>Si el grupo no aparece en la lista pulsa <a href='alta_grupos.php' style='text-decoration:none; '> aquí </a></label></span><br/>
+ <label class='tituloSelect'>Selecciona un festival:</label></br>
+
     <span id='festival' ;'><select  class='select' name='festival' id='festival' onchange='desactivarPrecio()'><option value=''>Festival</option> ";
     $query_festival = "SELECT id_festival, nombre_festival FROM festivales";
     $result_festival = mysqli_query($con, $query_festival) or die("Error " . mysqli_error($con));
@@ -80,7 +83,9 @@ if (isset($_POST['salir'])) {
         extract($row);
         echo "<option value='$id_festival'>$nombre_festival</option>";
     }
-    echo "</select> <br/> Si el festival no aparece en la lista pulsa  <a href='alta_festivales.php' style='text-decoration:none; '> aquí</a></span><br/>
+    echo "</select> <br/> <label class='informacion'> Si el festival no aparece en la lista pulsa  <a href='alta_festivales.php' style='text-decoration:none; '> aquí</a><label></label></span><br/>
+    <label class='tituloSelect'>Provincia:</label></br>
+
     <select class='select' name='provincia'><option value=''>Provincia</option>";
     $query_provincia = "SELECT * FROM provincias";
     $result_provincia = mysqli_query($con, $query_provincia) or die("Error " . mysqli_error($con));
@@ -89,25 +94,33 @@ if (isset($_POST['salir'])) {
         echo "<option value='$id_provincia'>$provincia</option>";
     }
     echo "</select><br/>
-    <label for='ubicacion' title='Indica coordenadas'>Ubicación:</label><br/>
+    <div >
+    <label  class='tituloSelect' for='ubicacion' title='Indica coordenadas'>Ubicación:</label><br/>
     <input type='text' name='ubicacion' placeholder='ejemplo: {lat:42.54992, lng:-6.59791}'><br/>
-    <input type='checkbox' id='varios_dias' onchange='marcar()'>Marca esta opción si el evento tiene una duración de varios días (no disponible para conciertos)<br/>
-    <label for='fecha_inicio'>Fecha/hora evento:</label></br>
+    <input  type='checkbox' id='varios_dias' onchange='marcar()'><label class='informacion'>Marca esta opción si el evento tiene una duración de varios días (no disponible para conciertos) </label><br/>
+</div>
+<div>
+    <label class='tituloSelect' for='fecha_inicio'>Fecha/hora evento:</label><br/>
     <input type='datetime-local' name='fecha_inicio'>
-    <span id='fecha_fin'style='visibility: hidden;'>
+    <span id='fecha_fin' '>
         <label for='fecha_fin'>Fecha fin:</label>
         <input type='date' name='fecha_fin'>
-    </span></br>
-    <label for='precio'>Precio:</label></br>
+    </span><br/>
+</div>
+<div>
+    <label class='tituloSelect'  for='precio'>Precio:</label><br/>
     <input type='number' name='precio' id='precio' step='0.01' min='0' value='0'><br/>
-    <label for='web'>Web:</label></br>
+    <label  class='tituloSelect' for='web'>Web:</label><br/>
     <input type='url' name='web_festival' placeholder='URL evento'><br/>
-    <label for='imagen'>Imagen:</label></br>
+    <label class='tituloSelect'  for='imagen'>Imagen:</label><br/>
     <input type='url' name='imagen_festival' placeholder='URL imagen'><br/>
-    <label for='info'>Otra información:</label><br/>
+    <label class='tituloSelect'  for='info'>Otra información:</label><br/>
     <textarea name='info' id='info_festival' cols='60' rows='7'></textarea><br/>
-    <div class='text-center'>
-    <input  type='submit' class='botonEnviar btn btn-primary btn-sm' id='enviar' value='Enviar'>
+</div>
+<div class= 'text-center'>
+    <input type='submit' class='botonEnviar btn btn-primary btn-sm' id='enviar' value='Enviar'>
+</div>
+
 </div>
 
 </form>";
