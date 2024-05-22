@@ -34,5 +34,3 @@ seleccionEvento();
 document.getElementById("tipo_evento").addEventListener("change", seleccionEvento);
 document.getElementById("enviar").addEventListener("click",function(event){event.preventDefault(),location.reload()});
 document.getElementById("varios_dias").addEventListener("change", marcar);
-
-

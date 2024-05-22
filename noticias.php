@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="css/styleNavbar.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <?php
+session_start();
 require("database/datos.php");
-$con = mysqli_connect($host, $user, $pass, $db_name);
 echo "<head>
   <meta charset='utf-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -36,7 +36,7 @@ echo "</div>
           </div>
       </li>
       <li>
-          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          <a class='nav-link' href='noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
             Noticias
           </a>
       </li>
@@ -64,12 +64,12 @@ if (isset($_SESSION['usuario'])) {
     </div>";
   if (isset($_POST['salir'])) {
     session_destroy();
-    header("Location: conciertos.php");
+    header("Location: index.php");
   }
 } else {
   echo "<div class='login' id='login-form'>
     <div class='login-triangle'></div>
-    <form class='login-container' action='../../login/login.php' method='post'>
+    <form class='login-container' action='login/login.php' method='post'>
     <h2 class='login-header'>Iniciar Sesion</h2>
     <p><input type='email' id='correo' name='correo' placeholder='Correo'></p>
     <p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p>
@@ -78,18 +78,41 @@ if (isset($_SESSION['usuario'])) {
     <hr>
     <p>¿Aún no tienes cuenta?</p>
     <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-    <p><input type='button' class='registro' onclick='window.location.href = \"../../login/registro.php\"' value='Regístrate'></p></form>
+    <p><input type='button' class='registro' onclick='window.location.href = \"login/registro.php\"' value='Regístrate'></p></form>
   </div>";
 }
 $query_noticias="SELECT * FROM noticias";
 $result_noticias = mysqli_query($con, $query_noticias) or die("Error en la consulta: ".mysqli_error($con));
-while($noticias = mysqli_fetch_assoc($result_noticias)){
-    extract($noticias);
-    echo"<article>
-    <h3>$titulo</h3>
-    <div>$fecha_publicacion</div>
-    <div>$texto</div>
-    </article>";
+$numNoticias=mysqli_num_rows($result_noticias);
+if($numNoticias>0){
+  echo"<section style='margin-top: 10px; margin-bottom: 10px; padding: 5px'>";
+  while($noticias = mysqli_fetch_assoc($result_noticias)){
+      extract($noticias);
+      echo"<article><div class='card' style='max-width: 40%;); border: none'>
+      <div class='card-body' border: none'>
+      <h3>$titular</h3>
+      <div>$fecha_publicacion</div>";
+      $query_autor = "SELECT nombre, apellidos FROM usuarios WHERE id_usuario = $id_usuario";
+      $result_autor = mysqli_query($con, $query_autor) or die("Error en la consulta: ".mysqli_error($con));
+      $autor = mysqli_fetch_assoc($result_autor);
+      echo"<div style='font-style: italic'>$autor[nombre] $autor[apellidos]</div>
+      <div>$texto</div>";
+      //Solo en el caso del usuario administrador se muestra el botón para borrar o editar las noticias
+      if(isset($_SESSION['usuario']) && $_SESSION['tipoUsuario']==0){
+        echo "<div class='d-flex justify-content-end'><form action='admin/editor.php' method='post'><input type='hidden' name='id_noticia' value='$id_noticia'><button type='submit' name='editar' style='border: none; background: none;'><img  src='img/pencil-square.svg' alt='editar'/> Editar entrada</button><button type='submit' name='borrar' style='border: none; background: none;'><img  src='img/trash.svg' alt='borrar'/> Borrar entrada</button></div>";
+      }
+      echo"</div></div></article>";
+  }
+}
+echo"</section>";
+if(isset($_POST['editar'])){
+    //Se redirecciona al administrador al editor del blog de noticias si pulsa en la opción editar
+
+  echo"<script>window.location.href = 'admin/editor.php';</script>";
+}
+if(isset($_POST['borrar'])){
+  $query="DELETE FROM noticias WHERE id_noticia = $_POST[id_noticia]";
+  echo"<script>window.confirm('¿Seguro que quieres borrar esta entrada?');if(window.confirm){".mysqli_query($con, $query)."; window.location.reload();}</script>";
 }
 mysqli_close($con);
 ?>

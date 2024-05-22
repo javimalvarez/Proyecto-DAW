@@ -9,7 +9,7 @@ $con = mysqli_connect($host, $user, $pass, $db_name);
 date_default_timezone_set('Europe/Madrid');
 $fecha = date("Y-m-d");
 $coste = "";
-$categoria=[1];
+$categoria = [1];
 setlocale(LC_TIME, 'es_ES.UTF-8');
 echo "<head>
   <meta charset='utf-8' />
@@ -44,23 +44,16 @@ echo "</div>
           </div>
       </li>
       <li>
-          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
             Noticias
           </a>
       </li>
-      <li>
-          <a class='nav-link' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            Acerca de nosotros
-          </a>
-      </li>
-      <li>
-        <form class='d-flex' role='search' >
-          <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
-          <button class='btn btn-outline-success' type='submit'>
-            Search
-          </button>
-        </form>
-      </li>
+    </ul>
+    <form class='d-flex mx-auto  col-md-4'>
+        <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
+        <button class='btn btn-outline-success' type='submit'>
+            Search</button>
+    </form>
   </div>
   
     <div class='nav-item'>
@@ -122,7 +115,7 @@ echo "</select><input type='checkbox' id='precio' name='precio' value='0'>
 <input type='date' id ='f_fin' name='f_fin' id='f_fin' value='2024-12-31'>
 <input class='btn btn-primary' type='submit' id='consultar' name='consultar' value='Consultar'/>
 <button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form></details>
-<div id='eventos' style='border: 2 solid black; padding: 10px'>";
+<div id='eventos'>";
 //Mostrará una lista de conciertos
 $result = categoria($con, $categoria);
 $numEventos = mysqli_num_rows($result);
@@ -135,26 +128,37 @@ if ($numEventos > 0) {
     } else {
       $coste = $precio . "€";
     }
-    echo "<div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'>
-            <div><img src='$imagen_evento'></div>
-            <div><img src='$imagen_festival'></div>
-            <div>
-                <h3>$evento</h3>
-                <span>Provincia: $provincia</span>
-                <div>
-                    <span><a href='$web_grupo'>$nombre_grupo</a></span>
-                    <span>$info_grupo</span>
-                    <span><a href='$web_festival'>$nombre_festival</a></span>
-                    <span>$info_festival</span>
-                </div>
-                <div>
-                    <span>Fecha: $fecha_inicio</span>
-                </div>
-                <div><a href='$web_evento'>$web_evento</a></div>";
-    echo "<span>Entrada: $coste</span>
-                <div>$info_evento</div>   
-            </div>
-      </div>";
+    echo "<div class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'>
+      <div class='row g-0'>
+        <div class='col-md-4'>
+          <div><img src='$imagen_evento'></div>
+        </div>
+        <div class='col-md-8'>
+          <div class='card-body'>
+              <h3>$nombre_evento</h3>
+              <div>Provincia: $provincia</div>
+              <div>
+                  <span><a href='$web_grupo'>$nombre_grupo</a></span>
+              </div>
+              <div>
+                  <span>Fecha: $fecha_inicio</span>
+                  <span>$fecha_fin</span>
+              </div>";
+              if ($web_evento != '') {
+                echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
+              }
+              echo"<div>Entrada: $coste</div>";
+              if ($info_evento != '') {
+                echo "<div>Otra información: $info_evento</div>";
+              }
+
+              if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
+                echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+              }
+          echo"</div>
+      </div>
+    </div>
+  </div>";
   }
 } else {
   echo "No se ha encontrado ninguna coincidencia";
@@ -172,7 +176,18 @@ if (isset($_POST['precio']) && isset($_POST['consultar'])) {
       } else {
         $coste = $precio . "€";
       }
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='row g-0'><div class='col-md-4'><div><img src='$imagen_evento'></div></div><div class='col-md-8'>< class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+      if ($web_evento != '') {
+        echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
+      }
+      echo"<div>Entrada: $coste</div>";
+      if ($info_evento != '') {
+        echo "<div>Otra información: $info_evento</div>";
+      }
+      if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
+        echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+      }
+      echo"</div></div></div></div>\";</script>";
     }
   } else {
     echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
@@ -192,7 +207,18 @@ if (isset($_POST['provincia']) && isset($_POST['precio']) && isset($_POST['consu
       } else {
         $coste = $precio . "€";
       }
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='row g-0'><div class='col-md-4'><div><img src='$imagen_evento'></div></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+      if ($web_evento != '') {
+        echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
+      }
+      echo"<div>Entrada: $coste</div>";
+      if ($info_evento != '') {
+        echo "<div>Otra información: $info_evento</div>";
+      }
+      if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
+        echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+      }
+      echo"</div></div></div></div>\";</script>";
     }
   } else {
     echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
@@ -212,12 +238,23 @@ else if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
         $coste = $precio . "€";
       }
       $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div style='border: 1px solid black; margin: 10px; padding: 10px; border-radius: 10px;'><div><img src='$imagen_evento'></div><div><img src='$imagen_festival'></div><div><h3>$evento</h3><span>Provincia: $provincia</span><div><span><a href='$web_grupo'>$nombre_grupo</a></span><span>$info_grupo</span><span><a href='$web_festival'>$nombre_festival</a></span><span>$info_festival</span></div><div><span>Fecha: $fecha_inicio</span></div><div><a href='$web_evento'>$web_evento</a></div><span>Entrada: $coste</span><div>Otra información: $info_evento</div>\" ;</script>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='row g-0'><div class='col-md-4'><div><img src='$imagen_evento'></div></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+      if ($web_evento != '') {
+        echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
+      }
+      echo"</div><div>Entrada: $coste</div>";
+      if ($info_evento != '') {
+        echo "<div>Otra información: $info_evento</div>";
+      }
+      if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
+        echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+      }
+      echo"</div></div></div></div>\";</script>";
     }
   } else {
     echo "<script>alert('No se ha encontrado ninguna coincidencia');</script>";
   }
-} 
+}
 echo "</div>";
 ?>
 <script src="../../script.js"></script>

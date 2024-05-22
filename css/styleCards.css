@@ -1,0 +1,61 @@
+.cardGeneral{
+    border-radius: 100%;
+    width: 80%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+text-align: center;
+cursor:pointer;
+
+}
+.col-md-4.cardDiv div {
+    width: 100%;   /* O el ancho que prefieras */
+    height: auto; /* O una altura específica si lo necesitas */
+    overflow: hidden; /* Para asegurarte de que la imagen no se desborde */
+
+  }
+  
+  .responsive-img {
+    width: 100%;     /* La imagen tomará el ancho completo del contenedor */
+    height: 100%;    /* La imagen tomará la altura completa del contenedor */
+    object-fit: cover; /* Escala la imagen para cubrir completamente el contenedor sin distorsionarse */
+  }
+section{
+    background-color: white;
+}
+.divFondo {
+    position: relative; /* Necesario para el posicionamiento del pseudoelemento */
+    width: 100%;
+    height: 200px;
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    margin-bottom: 2%;
+  }
+
+  .divFondo::before {
+    content: '';
+    background-image: url('https://a.cdn-hotels.com/gdcs/production199/d1583/66ba1bf9-17d4-4e57-bf31-0ac6712a9b84.jpg?impolicy=fcrop&w=800&h=533&q=medium');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 1; /* Asegura que el pseudoelemento esté detrás del contenido */
+  }
+
+  .divFondo > div {
+    position: relative;
+    z-index: 2; /* Asegura que el contenido esté encima del pseudoelemento */
+    color: white; /* Ajusta el color del texto según sea necesario */
+    padding: 20px; /* Añade espacio alrededor del texto */
+  }
+  .divFondoTexto{
+    width: 80%;
+    color: black !important;
+    font-size: 3rem;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

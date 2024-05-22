@@ -91,15 +91,15 @@ INSERT INTO grupos (nombre_grupo, id_genero, web_grupo, info_grupo) VALUES ('Dep
   CREATE TABLE IF NOT EXISTS festivales(
   id_festival INT NOT NULL AUTO_INCREMENT,
   nombre_festival VARCHAR(45) NOT NULL,
-  fecha_inicio DATE NOT NULL,
+  fecha_inicio DATETIME NOT NULL,
   fecha_fin DATE NOT NULL,
-  abono DECIMAL(10,2) NOT NULL DEFAULT 0,
+  abono DECIMAL(10,2) NOT NULL DEFAULT O,
   web_festival VARCHAR(100) NULL,
   imagen_festival VARCHAR(100) NULL,
   info_festival VARCHAR(400) NULL,
   PRIMARY KEY (id_festival));
 
-INSERT INTO festivales (nombre_festival, fecha_inicio, fecha_fin, web_festival, imagen_festival, info_festival) VALUES ('Sonar 2024', '2024-07-01', '2024-07-31', 'https://sonar.es/es', NULL, NULL);
+INSERT INTO festivales (nombre_festival, fecha_inicio, fecha_fin, abono, web_festival, imagen_festival, info_festival) VALUES ('Sonar 2024', '2024-07-01', '2024-07-31', 210, 'https://sonar.es/es', NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS usuarios(
     id_usuario INT NOT NULL AUTO_INCREMENT,
@@ -125,7 +125,7 @@ SELECT * FROM usuarios;
 
 CREATE TABLE IF NOT EXISTS eventos(
     id_evento INT NOT NULL AUTO_INCREMENT,
-    evento VARCHAR(200) NOT NULL,
+    nombre_evento VARCHAR(200) NOT NULL,
     id_tipo INT NOT NULL, -- 1 = Festival, 2 = Conciertos, 3 = Otros, ...
     id_grupo INT NULL,
     id_festival INT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS eventos(
     FOREIGN KEY (id_festival) REFERENCES festivales (id_festival)ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo)ON DELETE CASCADE ON UPDATE CASCADE);
 
-INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, precio, web_evento, imagen_evento, info_evento, id_usuario)
+INSERT INTO eventos (nombre_evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, precio, web_evento, imagen_evento, info_evento, id_usuario)
 VALUES
 ('Al aire', 3, NULL, NULL, 8, '{"lat": 41.4114, "lng": 2.225}', '2024-07-04 19:00:00', NULL, 0,'https://cinedeverano.es/entrada', NULL, 'Cine de verano (al aire libre) todos los Jueves de Julio a Agosto. Entradas limitadas', 2),
 ('Vermut', 5, NULL, NULL, 20, '{"lat": 43.32554, "lng": -1.98662}', '2024-05-26 11:30:00', NULL, 0,NULL, NULL, 'Quedada para tomar unos Vermuts.', 2),
@@ -157,8 +157,8 @@ CREATE TABLE usuarios_eventos (
     id_usuario INT NOT NULL,
     id_evento INT NOT NULL,
     PRIMARY KEY (id_usuario, id_evento),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
-    FOREIGN KEY (id_evento) REFERENCES eventos (id_evento)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_evento) REFERENCES eventos (id_evento) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS noticias (
 
 select * from usuarios_eventos;
 
-SELECT u.id_usuario, u.nombre, e.id_evento, e.evento, e.id_tipo, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.info_evento
+SELECT u.id_usuario, u.nombre, e.id_evento, e.nombre_evento, e.id_tipo, e.ubicacion, e.fecha_inicio, e.fecha_fin, e.info_evento
 FROM usuarios u
 JOIN usuarios_eventos ue ON u.id_usuario = ue.id_usuario
 JOIN eventos e ON ue.id_evento = e.id_evento

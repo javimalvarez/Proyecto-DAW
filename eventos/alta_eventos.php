@@ -38,7 +38,11 @@ echo "<nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light
         </a>
     </li>
     <li class='nav-item'>
-        <a class='nav-link' href='../admin/alta_noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+    <a class='nav-link' href='../admin/gestion_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+Modificar eventos    </a>
+</li>
+    <li class='nav-item'>
+        <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
             Publicar noticia
         </a>
     </li>

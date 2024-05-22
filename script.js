@@ -96,6 +96,15 @@ function reemplazoLogin() {
     document.getElementById("atras").addEventListener("click", mostrarAnterior);
 }
 
+
+//ESTO ES PARA LAS CARDS
+function redirectToEvent(idEvento) {
+    // Redirige a la página del evento específico
+    setTimeout(function() {
+        location.href = './eventos/informacionEvento.php?id_evento=' + idEvento;
+    }, 0);
+}
+
 //document.getElementById("enlaceContraseña").addEventListener("click", reemplazoLogin);
 
 

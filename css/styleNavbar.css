@@ -5,7 +5,8 @@ html {
 
 body {
   font-family: "Segoe IU", sans-serif!important;
-  background: rgb(34, 193, 195);
+  background-color: #CBE3E4!important;
+ /* background: rgb(34, 193, 195);
   background: linear-gradient(
     135deg,
     rgba(34, 193, 195, 1) 23%,
@@ -16,7 +17,7 @@ body {
   background-position: center center;
   background-attachment: fixed;
   font-family: Arial, sans-serif;
-  background-color: aquamarine;
+  background-color: aquamarine;*/
   padding-left: 10%;
   padding-right: 10%;
   margin: 0;
@@ -25,7 +26,12 @@ body {
   display: flex;
   flex-direction: column; /* Ajusta el valor según la altura del footer */
 }
-
+.tituloIndex {font-weight: bold;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
 
 .ocultar-div{
   display:none;
@@ -58,6 +64,7 @@ body {
 }
 
 .footer {
+  background-color: #343a40!important;
   width: 100%;
   margin-top: auto; 
 }
