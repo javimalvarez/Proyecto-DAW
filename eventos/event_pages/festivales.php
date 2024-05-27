@@ -213,7 +213,7 @@ if (isset($_POST['festival']) && isset($_POST['consultar'])) {
   $query_festival = "SELECT * FROM festivales WHERE id_festival = $_POST[festival]";
   extract(mysqli_fetch_array(mysqli_query($con, $query_festival)));
   echo "<script>document.getElementById('eventos').innerHTML = ''</script>";
-  echo "<script>document.getElementById('eventos').innerHTML += \"<div class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='col-md-4'><img style='border-radius: 10px; padding: 5px' width='270px' height='auto' src='$imagen_festival' alt='cartel'></div><div class='col-md-8'><div class='card-body'>";
+  echo "<script>document.getElementById('eventos').innerHTML += \"<div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToFestival($id_festival)'><div class='row g-0'><div class='col-md-4 cardDiv'><div><img src='$imagen_festival' class='responsive-img'></div></div><div class='col-md-8'><div class='card-body'>";
   echo "<h3>$nombre_festival</h3>";
   if ($abono == 0) {
     $coste = "Gratuito";
@@ -230,17 +230,18 @@ if (isset($_POST['festival']) && isset($_POST['consultar'])) {
   if ($num_conciertos > 0) {
     //Solo se muestra información de la provincia si hay conciertos asociados al festival
     $provincia =consulta_provincia($con, $id_festival);
-    echo "<div>Provincia: $provincia</div><div><details><summary>Conciertos:</summary><table>";
-    while ($row = mysqli_fetch_array($result_festival)) {
-      extract($row);
-      if ($web_grupo != "") {
-        echo "<tr><td><a href='$web_grupo'>$nombre_grupo</a></td>";
-      } else {
-        echo "<tr><td><a href='#'>$nombre_grupo</a></td>";
-      }
-      echo "<td>$f_concierto</td></tr>";
-    }
-    echo "</table></details></div>";
+    echo "<div>Provincia: $provincia</div>";
+    // <div><details><summary>Conciertos:</summary><table>";
+    // while ($row = mysqli_fetch_array($result_festival)) {
+    //   extract($row);
+    //   if ($web_grupo != "") {
+    //     echo "<tr><td><a href='$web_grupo'>$nombre_grupo</a></td>";
+    //   } else {
+    //     echo "<tr><td><a href='#'>$nombre_grupo</a></td>";
+    //   }
+    //   echo "<td>$f_concierto</td></tr>";
+    // }
+    // echo "</table></details></div>";
   }else {
     echo "<div>No consta información para este festival</div>";
   }
@@ -264,7 +265,7 @@ if (isset($_POST['f_inicio']) && isset($_POST['f_fin']) && isset($_POST['consult
     echo "<script>document.getElementById('eventos').innerHTML = ''</script>";
     while ($row = mysqli_fetch_array($query_festivales)) {
       extract($row);
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='col-md-4'><img style='border-radius: 10px; padding: 5px' width='270px' height='auto' src='$imagen_festival' alt='cartel'></div><div class='col-md-8'><div class='card-body'>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToFestival($id_festival)'><div class='row g-0'><div class='col-md-4 cardDiv'><div><img src='$imagen_festival' class='responsive-img'></div></div><div class='col-md-8'><div class='card-body'>";
       if ($abono == 0) {
         $coste = "Gratuita";
       } else {
@@ -277,17 +278,18 @@ if (isset($_POST['f_inicio']) && isset($_POST['f_fin']) && isset($_POST['consult
       $num_conciertos = mysqli_num_rows($result_festival);
       if ($num_conciertos > 0) {
         $provincia =consulta_provincia($con, $id_festival);
-        echo "<div>Provincia: $provincia</div><div><details><summary>Conciertos:</summary><table>";
-        while ($row = mysqli_fetch_array($result_festival)) {
-          extract($row);
-          if ($web_grupo != "") {
-            echo "<tr><td><a href='$web_grupo'>$nombre_grupo</a></td>";
-          } else {
-            echo "<tr><td><a href='#'>$nombre_grupo</a></td>";
-          }
-          echo "<td>$f_concierto</td></tr>";
-        }
-        echo "</table></details></div>";
+        echo "<div>Provincia: $provincia</div>";
+        // <div><details><summary>Conciertos:</summary><table>";
+        // while ($row = mysqli_fetch_array($result_festival)) {
+        //   extract($row);
+        //   if ($web_grupo != "") {
+        //     echo "<tr><td><a href='$web_grupo'>$nombre_grupo</a></td>";
+        //   } else {
+        //     echo "<tr><td><a href='#'>$nombre_grupo</a></td>";
+        //   }
+        //   echo "<td>$f_concierto</td></tr>";
+        // }
+        // echo "</table></details></div>";
       }else {
         echo "<div>No consta información para este festival'</div>";
       }
@@ -315,7 +317,7 @@ if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
     echo "<script>document.getElementById('eventos').innerHTML = ''</script>";
     while ($row = mysqli_fetch_array($query_festivales)) {
       extract($row);
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='col-md-4'><img style='border-radius: 10px; padding: 5px' width='270px' height='auto' src='$imagen_festival' alt='cartel'></div><div class='col-md-8'><div class='card-body'>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToFestival($id_festival)'><div class='row g-0'><div class='col-md-4 cardDiv'><div><img src='$imagen_festival' class='responsive-img'></div></div><div class='col-md-8'><div class='card-body'>";
       if ($abono == 0) {
         $coste = "Gratuita";
       } else {
@@ -328,18 +330,19 @@ if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
       $num_conciertos = mysqli_num_rows($result_festival);
       if ($num_conciertos > 0) {
         $provincia =consulta_provincia($con, $id_festival);
-        echo "<div>Provincia: $provincia</div><div><details><summary>Conciertos:</summary><table>";
-        echo "<div><span>Conciertos:</span><ul>";
-        while ($row = mysqli_fetch_array($result_festival)) {
-          extract($row);
-          if ($web_grupo != "") {
-            echo "<tr><td><a href='$web_grupo'>$nombre_grupo</a></td>";
-          } else {
-            echo "<tr><td><a href='#'>$nombre_grupo</a></td>";
-          }
-          echo "<td>$f_concierto</td></tr>";
-        }
-        echo "</table></details></div>";
+        echo "<div>Provincia: $provincia</div>";
+        // <div><details><summary>Conciertos:</summary><table>";
+        // echo "<div><span>Conciertos:</span><ul>";
+        // while ($row = mysqli_fetch_array($result_festival)) {
+        //   extract($row);
+        //   if ($web_grupo != "") {
+        //     echo "<tr><td><a href='$web_grupo'>$nombre_grupo</a></td>";
+        //   } else {
+        //     echo "<tr><td><a href='#'>$nombre_grupo</a></td>";
+        //   }
+        //   echo "<td>$f_concierto</td></tr>";
+        // }
+        // echo "</table></details></div>";
       } else {
         echo "<div>No consta información para este festival'</div>";
       }
