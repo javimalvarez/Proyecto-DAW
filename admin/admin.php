@@ -22,41 +22,46 @@ echo"<head>
 </div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-  <a class='navbar-brand mr-auto' href='../index.php'>
+    <a class='navbar-brand mr-auto' href='../index.php'>
     <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
     <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
-  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
     <span class='navbar-toggler-icon'></span>
-  </button>
+    </button>
 
-  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-  <ul class='navbar-nav mr-auto'>
-      <li class='nav-item'>
-          <a class='nav-link' href='../admin/admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-              Gestionar usuarios
-          </a>
-      </li>
-      <li class='nav-item'>
-          <a class='nav-link' href='../eventos/alta_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-              Gestionar eventos
-          </a>
-      </li>
-      <li class='nav-item'>
-      <a class='nav-link' href='../admin/gestion_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-  Modificar eventos    </a>
-  </li>
-      <li class='nav-item'>
-          <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-              Publicar noticia
-          </a>
-      </li>
-  </ul>
-</div>
+    <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+        <ul class='navbar-nav mr-auto'>
+         <li class='nav-item'>
+            <a class='nav-link' href='../index.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                Inicio
+            </a>
+            </li>
+            <li class='nav-item'>
+                <a class='nav-link' href='admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                    Gestión de usuarios
+                </a>
+            </li>
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                Eventos
+              </a>
+              <div class='dropdown-menu' aria-labelledby='navbarEventos'>
+                <a class='dropdown-item' href='alta_eventos.php'>Alta de eventos</a>
+                <a class='dropdown-item' href='gestion_eventos.php'>Gestión de eventos</a>
+              </div>
+            </li>
+            <li class='nav-item'>
+                <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                    Publicar noticia
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class='nav-item'>
-   <a  href='../login/logout.php'>
-      <img id='profile-icon' src='../img/box-arrow-right.svg' />
-      <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
-      </a>
+        <a  href='../login/logout.php'>
+            <img id='profile-icon' src='../img/box-arrow-right.svg' />
+            <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
+        </a>
     </div>
 </nav>
 ";

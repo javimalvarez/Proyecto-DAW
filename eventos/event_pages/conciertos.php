@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="../../css/styleNavbar.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="../../css/styleCards.css" />
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 <?php
 session_start();
 require("../../database/datos.php");
@@ -10,91 +12,142 @@ date_default_timezone_set('Europe/Madrid');
 $fecha = date("Y-m-d");
 $coste = "";
 $categoria = [1];
+//Título de la página de eventos
+$title=["Conciertos","Teatro","Cine","Ferias","Otros"];
 setlocale(LC_TIME, 'es_ES.UTF-8');
 echo "<head>
   <meta charset='utf-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
-  <title>City Planner</title>
+  <title>$title[0]</title>
 </head>";
 
 echo "</div>
 <!-- Popup de inicio de sesión -->
-<nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-  <a class='navbar-brand mr-auto' href='../../index.php'>
+<nav id='barra_navegacion main-navbar' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
+<div class='container-fluid'>
+<a class='navbar-brand mr-auto' href='../../index.php'>
     <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
-    <img src='../../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
-  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-    <span class='navbar-toggler-icon'></span>
-  </button>
+    <img src='../../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' />
+</a>
+<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+  <span class='navbar-toggler-icon'></span>
+</button>
+<div class='collapse navbar-collapse' id='navbarSupportedContent'>
+  <ul class='navbar-nav ml-4'><!-- mx-auto mb-2 mb-lg-0   ml-auto o ml- te da un margen a la izquierda y mr- a la derecha si offset-1-->
 
-  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-    <ul class='navbar-nav mr-auto'>
-      <li class='nav-item dropdown'>
-          <a class='nav-link dropdown-toggle' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            Eventos
-          </a>
-          <div class='dropdown-menu' aria-labelledby='navbarEventos'>
-            <a class='dropdown-item' href='festivales.php'>Festivales</a>
-            <a class='dropdown-item' href='conciertos.php'>Conciertos</a>
-            <a class='dropdown-item' href='teatro.php'>Teatro</a>
-            <a class='dropdown-item' href='cine.php'>Cine</a>
-            <a class='dropdown-item' href='ferias.php'>Ferias</a>
-            <div class='dropdown-divider'></div>
-            <a class='dropdown-item' href='otros.php'>Otros</a>
-          </div>
-      </li>
-      <li>
-          <a class='nav-link' href='../../noticias.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-            Noticias
-          </a>
-      </li>
-    </ul>
-    <form class='d-flex mx-auto  col-md-4'>
-        <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
-        <button class='btn btn-outline-success' type='submit'>
-            Search</button>
-    </form>
-  </div>
-  
-    <div class='nav-item'>
-      <img id='profile-icon' src='../../img/person.svg' />
-      <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
-    </div>
-</nav>";
-if (isset($_SESSION['usuario'])) {
-  echo " <div class='login'>
-      <div class='login-triangle'></div>
-      <img src='../../img/user.svg'/>
-      <div>" . $_SESSION['nombre'] . "(" . $_SESSION['usuario'] . ")</div>
-      <form action='" . $_SERVER['PHP_SELF'] . "' method='post' class='form-container'>
-        <input type='submit' class='exit' name='salir' value='Salir'></form>
-      </form>
-    </div>";
-  if (isset($_POST['salir'])) {
-    session_destroy();
-    header("Location: conciertos.php");
+      <a class='nav-link' href='../../noticias.php' id='navbarLugar' role='button' aria-haspopup='true' aria-expanded='false'>
+        Noticias
+      </a>
+    </li>
+    </li class='nav-item'>
+   
+  </li>
+  </li class='nav-item'>
+  <a class='nav-link' href='../../map.php' id='navbarLugar' role='button' aria-haspopup='true' aria-expanded='false'>
+    Mapa
+  </a>
+</li>";
+
+echo"
+  </ul>
+  <form class='d-flex mx-auto  col-md-4'>
+    <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
+    <button class='btn btn-outline-success' type='submit'>
+      Search</button>
+  </form>";
+  if(isset($_SESSION['usuario'])) {
+    if($_SESSION['tipoUsuario'] == 0){
+      echo "<li class='nav-item'>
+      <a class='nav-link navlink' href='../../admin/admin.php' role='button' aria-haspopup='true' aria-expanded='false'>Panel administrador
+      </a>
+    </li>";
+    }else{
+      echo "<li class='nav-item'>
+      <a class='nav-link navlink' href='../../user.php' role='button' aria-haspopup='true' aria-expanded='false' style='font-weight: bold;'>".$_SESSION['nombre']." ".$_SESSION['apellidos']."
+      </a>
+    </li>";
+    }
   }
+  //ml-auto
+  echo"  <ul class='navbar-nav  align-items-center'>
+    <li class='nav-item'>
+      <div class='profile-icon-container'>
+        <img id='profile-icon' src='../../img/person.svg' alt='Profile' />
+        <div class='login' id='login-form'>
+          <div class='login-triangle'></div>";
+            //Cambio se muestra login del usuario administrador en index.php
+  if (isset($_SESSION['usuario'])) {
+    echo "<div class='login-container' style='min-width: 200px;'>
+    <div class='row justify-content-center align-items-center'><img src='../../img/person.png' alt='profile_image'/></div>";
+          if(isset($_SESSION['usuario'])){
+            if($_SESSION['tipoUsuario'] == 0){
+              echo"<div class='row justify-content-center align-items-center'><a href='../../admin/admin.php' target='_blank'><div class='row justify-content-center align-items-center' style='margin-top: 10px;'><a href='../../user.php' target='_blank'><div class='row justify-content-center align-items-center'>".$_SESSION['nombre']." ".$_SESSION['apellidos']."</div><div class='row justify-content-center align-items-center'>(".$_SESSION['usuario'].")</div></a></div></a></div>
+              <div class='row justify-content-center align-items-center' style='margin-top: 10px;'>Administrador</div>";
+            }else{
+              //Solo se muestra enlace al perfil de usuario si no es administrador
+              echo"<div class='row justify-content-center align-items-center' style='margin-top: 10px;'><a href='../../user.php' target='_blank'><div class='row justify-content-center align-items-center'>".$_SESSION['nombre']." ".$_SESSION['apellidos']."</div><div class='row justify-content-center align-items-center'>(".$_SESSION['usuario'].")</div></a></div>";
+            }
+          }
+          if (isset($_SESSION['usuario']) && $_SESSION['tipoUsuario'] == 2) {
+            echo"<div class='	row justify-content-center align-items-center' style='margin-top: 10px;'>Accede desde a aquí a la gestión de eventos</div>
+            <div class='row justify-content-center align-items-center' style='margin-top: 10px;'><button type='button' style='border: none; background: none;'><a href='../../eventos/alta_eventos.php' target='_blank' style='text-decoration: none; color: black'><img src='../../img/journal-text.svg' alt='alta eventos'/> Alta de eventos</div>
+            <div class='row justify-content-center align-items-center' style='margin-top: 10px;'><button type='button' style='border: none; background: none;'><a href='../../admin/gestion_eventos.php' target='_blank' style='text-decoration: none; color: black'><img src='../../img/pencil.svg' alt='editar eventos'/> Editar eventos</a></button></div>";
+          }
+          echo"<div class='row justify-content-center align-items-center' style='margin-top: 10px;'>
+          <a href='login/logout.php'><button type='button' class='btn btn-primary'>Salir</button></a></div>
+          </div>";
 } else {
-  echo "<div class='login' id='login-form'>
-    <div class='login-triangle'></div>
-    <form class='login-container' action='../../login/login.php' method='post'>
-    <h2 class='login-header'>Iniciar Sesion</h2>
-    <p><input type='email' id='correo' name='correo' placeholder='Correo'></p>
-    <p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p>
-    <p><input class='botonLogin' type='submit' value='Acceder'></p>
-    <a id='enlaceContraseña' href='#'>No recuerdo mi contraseña</a>
-    <hr>
-    <p>¿Aún no tienes cuenta?</p>
-    <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-    <p><input type='button' class='registro' onclick='window.location.href = \"../../login/registro.php\"' value='Regístrate'></p></form>
-  </div>";
+echo "<form class='login-container' action='login/login.php' method='post'>
+        <h2 class='login-header'>Iniciar Sesion</h2>
+        <p><input type='email' id='correo' name='correo' placeholder='Correo'></p>
+        <p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p>
+        <p><input class='botonLogin' type='submit' value='Acceder'></p>
+        <a id='enlaceContraseña' href=\"#\" onclick=\"reemplazoLogin()\">No recuerdo mi contraseña</a>
+        <hr>
+        <p>¿Aún no tienes cuenta?</p>
+        <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
+        <p><input type='button' class='registro' onclick='window.location.href = '../../login/registro.php'' value='Regístrate'></p>
+      </form>";
 }
+echo "</div>
+  </div>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<nav class='navbarEventos navbar navbar-expand-lg    navbar-dark bg-dark'>
+  <div class='container-fluid'>  
+  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation'>
+  <span class='navbar-toggler-icon'></span>
+</button>
+    <div class='collapse navbar-collapse' id='navbarText'>
+      <ul class='ulnavbarEventos navbar-nav mx-auto'>
+        <li class='nav-item'>
+          <a class='nav-link'  href='../../eventos/event_pages/festivales.php'>Festivales</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='../../eventos/event_pages/conciertos.php'>Conciertos</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='../../eventos/event_pages/teatro.php'>Teatro</a>
+        </li>
+        <li class='nav-item'>
+        <a class='nav-link' href='../../eventos/event_pages/cine.php'>Cine</a>
+      </li>   <li class='nav-item'>
+      <a class='nav-link' href='../../eventos/event_pages/ferias.php'>Ferias</a>
+    </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>";
 
 echo "</div>";
+//Aplicados estilos Bootstrap 4 a los controles del formulario
 //Filtros
-echo "<details><summary>Búsqueda avanzada</summary><div><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
-<label for='provincia'>Eventos en</label>
-<select class='form-select' id='provincia' name='provincia' id='provincia'>
+echo "<div style='margin:10px; padding:10px'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
+<select class='custom-select w-25' id='provincia' name='provincia' id='provincia'>
 <option value='' disabled selected>Provincia</option>";
 //Consulta de las provincias a la base de datos
 $query_provincia = "SELECT * FROM provincias";
@@ -107,14 +160,13 @@ while ($row = mysqli_fetch_array($result_provincia)) {
   }
 }
 
-echo "</select><input type='checkbox' id='precio' name='precio' value='0'>
-<label for='precio'>Gratis</label><br/>
-<label for='f_inicio'>Fecha inicio:</label>
+echo "</select>&nbsp<input type='checkbox' id='precio' name='precio' value='0' data-toggle='toggle' data-on='Gratis' data-off='Todos' data-onstyle='primary' data-offstyle='secondary'>
+<label for='f_inicio'>Desde:</label>
 <input type='date' id='f_inicio' name='f_inicio' id='f_inicio' value='$fecha'>
-<label for='f_fin'>Fecha fin:</label>
+<label for='f_fin'>Hasta:</label>
 <input type='date' id ='f_fin' name='f_fin' id='f_fin' value='2024-12-31'>
 <input class='btn btn-primary' type='submit' id='consultar' name='consultar' value='Consultar'/>
-<button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form></details>
+<button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form>
 <div id='eventos'>";
 //Mostrará una lista de conciertos
 $result = categoria($con, $categoria);
@@ -128,40 +180,38 @@ if ($numEventos > 0) {
     } else {
       $coste = $precio . "€";
     }
-    echo "<div class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'>
+    echo "
+    <div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEventGeneral($id_evento)'>
       <div class='row g-0'>
-        <div class='col-md-4'>
-          <div><img src='$imagen_evento'></div>
+        <div class='col-md-4 cardDiv'>
+          <div><img src='$imagen_evento' class='responsive-img'></div>
         </div>
         <div class='col-md-8'>
           <div class='card-body'>
-              <h3>$nombre_evento</h3>
-              <div>Provincia: $provincia</div>
-              <div>
-                  <span><a href='$web_grupo'>$nombre_grupo</a></span>
-              </div>
-              <div>
-                  <span>Fecha: $fecha_inicio</span>
-                  <span>$fecha_fin</span>
-              </div>";
-              if ($web_evento != '') {
-                echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
-              }
-              echo"<div>Entrada: $coste</div>";
-              if ($info_evento != '') {
-                echo "<div>Otra información: $info_evento</div>";
-              }
-
-              if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
-                echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
-              }
-          echo"</div>
+            <h3>$nombre_evento</h3>
+            <div>Provincia: $provincia</div>
+            <div>
+              <span><a href='$web_grupo'>$nombre_grupo</a></span>
+            </div>
+            <div>
+              <span>Fecha: $fecha_inicio</span>
+              <span>$fecha_fin</span>
+            </div>";
+    if (!empty($web_evento)) {
+      echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
+    }
+    echo "<div>Entrada: $coste</div>";
+    if ($info_evento != '') {
+      echo "<div>Otra información: $info_evento</div>";
+    }
+    if (isset($_SESSION['usuario']) && $_SESSION['tipoUsuario'] != 0) {
+      echo "<div class='d-flex justify-content-end'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'><input type='hidden' name='id_evento' value='$id_evento'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='../../img/star.svg' alt='Star'/></button></div>";
+    }
+    echo "</div>
+        </div>
       </div>
-    </div>
-  </div>";
+    </div>";
   }
-} else {
-  echo "No se ha encontrado ninguna coincidencia";
 }
 if (isset($_POST['precio']) && isset($_POST['consultar'])) {
   $result = conciertosGratis($con, $_POST['precio']);
@@ -176,7 +226,7 @@ if (isset($_POST['precio']) && isset($_POST['consultar'])) {
       } else {
         $coste = $precio . "€";
       }
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='row g-0'><div class='col-md-4'><div><img src='$imagen_evento'></div></div><div class='col-md-8'>< class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEventGeneral($id_evento) ><div class='row g-0'><div class='col-md-4 cardDiv'><img src='$imagen_evento' class='responsive-img'></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
       if ($web_evento != '') {
         echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
       }
@@ -184,8 +234,8 @@ if (isset($_POST['precio']) && isset($_POST['consultar'])) {
       if ($info_evento != '') {
         echo "<div>Otra información: $info_evento</div>";
       }
-      if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
-        echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+      if (isset($_SESSION['usuario']) && $_SESSION['tipoUsuario'] != 0) {
+        echo "<div class='d-flex justify-content-end'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'><button type='submit' name='favorito' value='$id_evento' style='border: none; background: none;'><img id='star-icon' src='../../img/star.svg' alt='Star'/></button></div>";
       }
       echo"</div></div></div></div>\";</script>";
     }
@@ -207,7 +257,7 @@ if (isset($_POST['provincia']) && isset($_POST['precio']) && isset($_POST['consu
       } else {
         $coste = $precio . "€";
       }
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='row g-0'><div class='col-md-4'><div><img src='$imagen_evento'></div></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class=''card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEventGeneral($id_evento) ><div class='row g-0'><div class='col-md-4 cardDiv''><img src='$imagen_evento' class='responsive-img'></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
       if ($web_evento != '') {
         echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
       }
@@ -215,8 +265,8 @@ if (isset($_POST['provincia']) && isset($_POST['precio']) && isset($_POST['consu
       if ($info_evento != '') {
         echo "<div>Otra información: $info_evento</div>";
       }
-      if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
-        echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+      if (isset($_SESSION['usuario']) && $_SESSION['tipoUsuario'] != 0) {
+        echo "<div class='d-flex justify-content-end'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'><button type='submit' name='favorito' value='$id_evento' style='border: none; background: none;'><img id='star-icon' src='../../img/star.svg' alt='Star'/></button></div>";
       }
       echo"</div></div></div></div>\";</script>";
     }
@@ -238,7 +288,8 @@ else if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
         $coste = $precio . "€";
       }
       $fecha_inicio = date("j F Y H:i", strtotime($fecha_inicio));
-      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div  class='card mb-3 mx-auto' style='max-width: 40%; border-radius: 10px'><div class='row g-0'><div class='row g-0'><div class='col-md-4'><div><img src='$imagen_evento'></div></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+      echo "<script>document.getElementById('eventos').innerHTML += \"<div id='eventos'><div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEventGeneral($id_evento)'><div class='row g-0'><div class='col-md-4 cardDiv'><div><img src='$imagen_evento' class='responsive-img'></div></div><div class='col-md-8'><div class='card-body'><h3>$nombre_evento</h3><div>Provincia: $provincia</div><div><span><a href='$web_grupo'>$nombre_grupo</a></span></div><div><span>Fecha: $fecha_inicio</span><span>$fecha_fin</span></div>";
+
       if ($web_evento != '') {
         echo "<div>Web: <a href='$web_evento'>$web_evento</a></div>";
       }
@@ -246,8 +297,8 @@ else if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
       if ($info_evento != '') {
         echo "<div>Otra información: $info_evento</div>";
       }
-      if(isset($_SESSION['usuario'])&&$_SESSION['tipoUsuario']!=0){
-        echo "<div class='d-flex justify-content-end'><button type='submit' name='add_favorito' style='border: none; background: none;'><img id='star-icon' src='img/star.svg' alt='Star'/></button></div>";
+      if (isset($_SESSION['usuario']) && $_SESSION['tipoUsuario'] != 0) {
+        echo "<div class='d-flex justify-content-end'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'><button type='submit' name='favorito' value='$id_evento' style='border: none; background: none;'><img id='star-icon' src='../../img/star.svg' alt='Star'/></button></div>";
       }
       echo"</div></div></div></div>\";</script>";
     }
@@ -256,9 +307,22 @@ else if (isset($_POST['provincia']) && isset($_POST['consultar'])) {
   }
 }
 echo "</div>";
+if(isset($_POST['favorito'])&&isset($_SESSION['id_usuario'])&&!empty($_POST['favorito'])) {
+  $result=mysqli_query($con, "SELECT * FROM usuarios_eventos WHERE id_evento=" . $_POST['favorito'] . " AND id_usuario=" . $_SESSION['id_usuario']);
+  $num_eventos=mysqli_num_rows($result);
+  //Comprobamos si existe el registro en la base de datos
+  if($num_eventos==0){
+    $query_fav="INSERT INTO usuarios_eventos (id_usuario, id_evento) VALUES (".$_SESSION['id_usuario'].",". $_POST['favorito'].")";
+    mysqli_query($con, $query_fav);
+    echo"<script>alert('Favorito añadido');</script;>";
+  }else{
+    echo"<script>alert('Favorito ya añadido');</script>";
+  }
+ }
 ?>
 <script src="../../script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>

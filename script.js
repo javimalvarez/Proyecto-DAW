@@ -104,7 +104,24 @@ function redirectToEvent(idEvento) {
         location.href = './eventos/informacionEvento.php?id_evento=' + idEvento;
     }, 0);
 }
-
+function redirectToEventGeneral(idEvento) {
+    // Redirige a la página del evento específico
+    setTimeout(function() {
+        location.href = '../../eventos/informacionEvento.php?id_evento=' + idEvento;
+    }, 0);
+}
+function redirectToFestival(idFestival) {
+    // Redirige a la página del evento específico
+    setTimeout(function() {
+        location.href = '../../eventos/informacionFestival.php?id_festival=' + idFestival;
+    }, 0);
+}
+function redirectToFestivales(idFestival) {
+    // Redirige a la página del evento específico
+    setTimeout(function() {
+        location.href = './eventos/informacionFestival.php?id_festival=' + idFestival;
+    }, 0);
+}
 //document.getElementById("enlaceContraseña").addEventListener("click", reemplazoLogin);
 
 

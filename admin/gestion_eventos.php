@@ -30,20 +30,24 @@ echo "<head>
 
     <div class='collapse navbar-collapse' id='navbarSupportedContent'>
         <ul class='navbar-nav mr-auto'>
-            <li class='nav-item'>
-                <a class='nav-link' href='../admin/admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-                    Gestionar usuarios
-                </a>
+         <li class='nav-item'>
+            <a class='nav-link' href='../index.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                Inicio
+            </a>
             </li>
             <li class='nav-item'>
-                <a class='nav-link' href='../eventos/alta_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-                    Alta eventos
+                <a class='nav-link' href='admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
+                    Gestión de usuarios
                 </a>
             </li>
-            <li class='nav-item'>
-                <a class='nav-link' href='..admin/gestion_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-                    Modificar eventos
-                </a>
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle' href='#' id='navbarEventos' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                Eventos
+              </a>
+              <div class='dropdown-menu' aria-labelledby='navbarEventos'>
+                <a class='dropdown-item' href='alta_eventos.php'>Alta de eventos</a>
+                <a class='dropdown-item' href='gestion_eventos.php'>Gestión de eventos</a>
+              </div>
             </li>
             <li class='nav-item'>
                 <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>

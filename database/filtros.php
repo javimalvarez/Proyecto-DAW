@@ -1,4 +1,5 @@
 <?php
+
 function conciertosProvinciaGratis($con, $provincia, $precio, $f_inicio, $f_fin)
 {
     $query = "SELECT e.*, g.web_grupo, g.info_grupo, f.web_festival, f.info_festival, p.provincia FROM eventos e INNER JOIN tipo_eventos t ON e.id_tipo = t.id_tipo LEFT JOIN grupos g ON e.id_grupo = g.id_grupo LEFT JOIN festivales f ON f.id_festival = e.id_festival INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE  e.id_tipo=1 AND e.id_provincia = $provincia AND e.precio = $precio AND e.fecha_inicio BETWEEN '$f_inicio' AND '$f_fin' AND e.id_festival = NULL";
@@ -75,7 +76,8 @@ function festivales($con, $id_festival)
 //Devuelve información de todos los festivales por fecha
 function festivalesFecha($con, $f_inicio, $f_fin)
 {
-    $query = "SELECT e.fecha_inicio AS f_concierto, f.*, g.Nombre_grupo, g.web_grupo FROM eventos e LEFT JOIN festivales f ON e.id_festival = f.id_festival LEFT JOIN grupos g ON e.id_grupo = g.id_grupo WHERE e.id_tipo = 1 AND f.f_inicio BETWEEN '$f_inicio' AND '$f_fin' GROUP BY e.id_festival ORDER BY e.fecha_inicio ASC";
+    
+    $query = "SELECT e.fecha_inicio AS f_concierto, f.*, g.Nombre_grupo, g.web_grupo FROM eventos e LEFT JOIN festivales f ON e.id_festival = f.id_festival LEFT JOIN grupos g ON e.id_grupo = g.id_grupo WHERE e.id_tipo = 1 AND f.fecha_inicio BETWEEN '$f_inicio' AND '$f_fin' GROUP BY e.id_festival ORDER BY e.fecha_inicio ASC";
     $result = mysqli_query($con, $query) or die("Error en la consulta: " . mysqli_error($con));
     return $result;
 }

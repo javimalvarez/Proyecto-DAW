@@ -41,49 +41,80 @@
         Noticias
       </a>
     </li>
-    <li class='nav-item ocultar-div'>
-      <a class='nav-link' href='login/loginResponsive.php'>Login <span class='sr-only'>(current)</span></a>
-    </li>
+    </li class='nav-item'>
+   
+  </li>
+  </li class='nav-item'>
+  <a class='nav-link' href='map.php' id='navbarLugar' role='button' aria-haspopup='true' aria-expanded='false'>
+    Mapa
+  </a>
+</li>";
+
+echo"
   </ul>
   <form class='d-flex mx-auto  col-md-4'>
     <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' />
     <button class='btn btn-outline-success' type='submit'>
       Search</button>
-  </form>
-  <ul class='navbar-nav ml-auto align-items-center'>
+  </form>";
+  if(isset($_SESSION['usuario'])) {
+    if($_SESSION['tipoUsuario'] == 0){
+      echo "<li class='nav-item'>
+      <a class='nav-link navlink' href='admin/admin.php' role='button' aria-haspopup='true' aria-expanded='false'>Panel administrador
+      </a>
+    </li>";
+    }else{
+      echo "<li class='nav-item'>
+      <a class='nav-link navlink' href='user.php' role='button' aria-haspopup='true' aria-expanded='false' style='font-weight: bold;'>".$_SESSION['nombre']." ".$_SESSION['apellidos']."
+      </a>
+    </li>";
+    }
+  }
+  //ml-auto
+  echo"  <ul class='navbar-nav  align-items-center'>
     <li class='nav-item'>
       <div class='profile-icon-container'>
         <img id='profile-icon' src='img/person.svg' alt='Profile' />
         <div class='login' id='login-form'>
           <div class='login-triangle'></div>";
-          if (isset($_SESSION['usuario'])) {
-            echo "<img src='img/user.svg'/>
-                  <div>" . $_SESSION['nombre'] . "(" . $_SESSION['usuario'] . ")</div>
-                  <div><a href='user.php' target='_blank'>Ir al perfil</a></div> <div>".$_SESSION['id_usuario'] . "</div>
-                  <form action='" . $_SERVER['PHP_SELF'] . "' method='post' class='form-container'>
-                    <input type='submit' class='exit' name='salir' value='Salir'>
-                  </form>";
-      } else {
-        echo "<form class='login-container' action='login/login.php' method='post'>
-                <h2 class='login-header'>Iniciar Sesion</h2>
-                <p><input type='email' id='correo' name='correo' placeholder='Correo'></p>
-                <p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p>
-                <p><input class='botonLogin' type='submit' value='Acceder'></p>
-                <a id='enlaceContraseña' href=\"#\" onclick=\"reemplazoLogin()\">No recuerdo mi contraseña</a>
-                <hr>
-                <p>¿Aún no tienes cuenta?</p>
-                <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
-                <p><input type='button' class='registro' onclick='window.location.href = 'login/registro.php'' value='Regístrate'></p>
-              </form>";
-      }
-      echo "</div>";
-      if (isset($_POST['salir'])) {
-        session_destroy();
-        header("Location: index.php");
-      }
-          echo"</div>
-    </li>
-  </ul>
+            //Cambio se muestra login del usuario administrador en index.php
+  if (isset($_SESSION['usuario'])) {
+    echo "<div class='login-container' style='min-width: 200px;'>
+    <div class='row justify-content-center align-items-center'><img src='img/person.png' alt='profile_image'/></div>";
+          if(isset($_SESSION['usuario'])){
+            if($_SESSION['tipoUsuario'] == 0){
+              echo"<div class='row justify-content-center align-items-center'><a href='admin/admin.php' target='_blank'><div class='row justify-content-center align-items-center' style='margin-top: 10px;'><a href='user.php' target='_blank'><div class='row justify-content-center align-items-center'>".$_SESSION['nombre']." ".$_SESSION['apellidos']."</div><div class='row justify-content-center align-items-center'>(".$_SESSION['usuario'].")</div></a></div></a></div>
+              <div class='row justify-content-center align-items-center' style='margin-top: 10px;'>Administrador</div>";
+            }else{
+              //Solo se muestra enlace al perfil de usuario si no es administrador
+              echo"<div class='row justify-content-center align-items-center' style='margin-top: 10px;'><a href='user.php' target='_blank'><div class='row justify-content-center align-items-center'>".$_SESSION['nombre']." ".$_SESSION['apellidos']."</div><div class='row justify-content-center align-items-center'>(".$_SESSION['usuario'].")</div></a></div>";
+            }
+          }
+          if (isset($_SESSION['usuario']) && $_SESSION['tipoUsuario'] == 2) {
+            echo"<div class='	row justify-content-center align-items-center' style='margin-top: 10px;'>Accede desde a aquí a la gestión de eventos</div>
+            <div class='row justify-content-center align-items-center' style='margin-top: 10px;'><button type='button' style='border: none; background: none;'><a href='eventos/alta_eventos.php' target='_blank' style='text-decoration: none; color: black'><img src='img/journal-text.svg' alt='alta eventos'/> Alta de eventos</div>
+            <div class='row justify-content-center align-items-center' style='margin-top: 10px;'><button type='button' style='border: none; background: none;'><a href='admin/gestion_eventos.php' target='_blank' style='text-decoration: none; color: black'><img src='img/pencil.svg' alt='editar eventos'/> Editar eventos</a></button></div>";
+          }
+          echo"<div class='row justify-content-center align-items-center' style='margin-top: 10px;'>
+          <a href='login/logout.php'><button type='button' class='btn btn-primary'>Salir</button></a></div>
+          </div>";
+} else {
+echo "<form class='login-container' action='login/login.php' method='post'>
+        <h2 class='login-header'>Iniciar Sesion</h2>
+        <p><input type='email' id='correo' name='correo' placeholder='Correo'></p>
+        <p><input type='password' id='pass' name='pass' placeholder='Contraseña'></p>
+        <p><input class='botonLogin' type='submit' value='Acceder'></p>
+        <a id='enlaceContraseña' href=\"#\" onclick=\"reemplazoLogin()\">No recuerdo mi contraseña</a>
+        <hr>
+        <p>¿Aún no tienes cuenta?</p>
+        <!-- Tenemos que poner type button porque si ponemos type submit necesitamos el rellenar el email y pass -->
+        <p><input type='button' class='registro' onclick='window.location.href = 'login/registro.php'' value='Regístrate'></p>
+      </form>";
+}
+echo "</div>
+  </div>
+</li>
+</ul>
 </div>
 </div>
 </nav>
@@ -119,8 +150,24 @@
 <p class='tituloIndex'>Festivales, conciertos, teatro y más...</p></div></div>
 ";
   //Mostrará una lista de eventos
-  $query_eventos = "SELECT e.*, g.nombre_grupo, g.web_grupo, g.info_grupo, p.provincia FROM eventos e LEFT JOIN grupos g ON e.id_grupo = g.id_grupo  INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE id_festival IS NULL AND e.fecha_inicio BETWEEN '$fecha' AND '" . date('Y-m-d', strtotime('+4 months')) . "' ORDER BY e.fecha_inicio ASC";  $result_eventos = mysqli_query($con, $query_eventos);
-  while ($row = mysqli_fetch_array($result_eventos)) {
+  echo"<section>
+  <!--Cambiados filtros formulario -->
+    <div style='padding: 10px; margin: 10px'>
+      <form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
+        <label for='f_inicio'>Desde:</label>
+        <input type='date' id='f_inicio' name='f_inicio' id='f_inicio' value='$fecha'>
+        <label for='f_fin'>hasta:</label>
+        <input type='date' id ='f_fin' name='f_fin' id='f_fin' value='" . date('Y-m-d', strtotime('+4 months')) . "'>
+        <input type='checkbox' id='gratis' name='gratis' value='0' data-toggle='toggle' data-on='Gratis' data-off='Todos' data-onstyle='primary' data-offstyle='secondary'>
+        <input class='btn btn-primary' type='submit' id='consultar' name='consultar' value='Consultar'/>
+        <button class='btn btn-secondary' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button>
+      </form></div>";
+
+  //Añadido div eventos para poder modificar consulta según filtros
+  echo "<div id='eventos'>";
+  //Mostrará una lista de eventos
+  $query_eventos = "SELECT DISTINCT e.id_evento, e.nombre_evento, e.fecha_inicio, e.fecha_fin, e.precio, e.web_evento, e.imagen_evento, e.info_evento, g.nombre_grupo, g.web_grupo, g.info_grupo, p.provincia FROM eventos e LEFT JOIN grupos g ON e.id_grupo = g.id_grupo  INNER JOIN provincias p ON p.id_provincia = e.id_provincia WHERE id_festival IS NULL AND e.fecha_inicio BETWEEN '$fecha' AND '" . date('Y-m-d', strtotime('+4 months')) . "' ORDER BY e.fecha_inicio ASC";
+  $result_eventos = mysqli_query($con, $query_eventos);  while ($row = mysqli_fetch_array($result_eventos)) {
     extract($row);
     if ($precio == 0) {
       $coste = "Gratuita";
@@ -173,7 +220,7 @@
     $fecha_inicio = date("j F, Y", strtotime($fecha_inicio));
     $fecha_fin = date("j F, Y", strtotime($fecha_fin));
     extract($row);
-    echo "<div class='card mb-3 mx-auto cardGeneral' > 
+    echo "<div class='card mb-3 mx-auto cardGeneral' onclick='redirectToFestivales($id_festival)' > 
       <div class='row g-0'>
         <div class='col-md-4'>
           <img class='responsive-img' src='$imagen_festival'>
@@ -181,30 +228,31 @@
         <div class='col-md-8'>
           <div class='card-body'>
           <h3>$nombre_festival</h3>
-          <div>Provincia: $provincia</div>
-          <div>
-          <details><summary>Conciertos:</summary>
-          <table>";
-          $query_conciertos="SELECT e.fecha_inicio AS f_concierto, g.* FROM eventos e LEFT JOIN grupos g ON e.id_grupo = g.id_grupo WHERE id_festival = $id_festival";
-          $result_conciertos = mysqli_query($con, $query_conciertos);
-          while ($concierto = mysqli_fetch_array($result_conciertos)) {
-            extract($concierto);
-            if (!empty($f_concierto)) {
-              $f_concierto = date("j F, Y H:i", strtotime($f_concierto));
-            } else {
-              $f_concierto = "Sin fecha";
-            }
-            echo"<tr>";
-              if ($web_grupo != "") {
-                echo "<td><a href='$web_grupo'>$nombre_grupo</a></td>";
-              } else {
-                echo "<td><a href='#'>$nombre_grupo</a></td>";
-              }
-              echo "<td>$f_concierto</td>
-            </tr>";
-          }
-          echo"</table></details>
-          </div>
+          <div>Provincia: $provincia</div>";
+          // <div>
+          // <details><summary>Conciertos:</summary>
+          // <table>";
+          // $query_conciertos="SELECT e.fecha_inicio AS f_concierto, g.* FROM eventos e LEFT JOIN grupos g ON e.id_grupo = g.id_grupo WHERE id_festival = $id_festival";
+          // $result_conciertos = mysqli_query($con, $query_conciertos);
+          // while ($concierto = mysqli_fetch_array($result_conciertos)) {
+          //   extract($concierto);
+          //   if (!empty($f_concierto)) {
+          //     $f_concierto = date("j F, Y H:i", strtotime($f_concierto));
+          //   } else {
+          //     $f_concierto = "Sin fecha";
+          //   }
+          //   echo"<tr>";
+          //     if ($web_grupo != "") {
+          //       echo "<td><a href='$web_grupo'>$nombre_grupo</a></td>";
+          //     } else {
+          //       echo "<td><a href='#'>$nombre_grupo</a></td>";
+          //     }
+          //     echo "<td>$f_concierto</td>
+          //   </tr>";
+          // }
+          // echo"</table></details>
+          // </div>
+          echo"
           <div>
             <span>Fecha: $fecha_inicio</span>
             <span>- $fecha_fin</span>
@@ -273,23 +321,24 @@
       $query_conciertos="SELECT e.fecha_inicio AS f_concierto, g.* FROM eventos e LEFT JOIN grupos g ON e.id_grupo = g.id_grupo WHERE id_festival = $id_festival";
       $result_conciertos = mysqli_query($con, $query_conciertos);
       //Conciertos festival
-      echo "<div><details><summary>Conciertos:</summary><table>";
-      while ($concierto = mysqli_fetch_array($result_conciertos)) {
-        extract($concierto);
-        if (!empty($f_concierto)) {
-          $f_concierto = date("j F, Y H:i", strtotime($f_concierto));
-        } else {
-          $f_concierto = "Sin fecha";
-        }
-        echo"<tr>";
-          if ($web_grupo != "") {
-            echo "<td><a href='$web_grupo'>$nombre_grupo</a></td>";
-          } else {
-            echo "<td><a href='#'>$nombre_grupo</a></td>";
-          }
-          echo "<td>$f_concierto</td></tr'>";
-      }
-      echo "</table></details></div><div><span>Fecha: $fecha_inicio</span><span>- $fecha_fin</span></div><div>Precio abono: $abono</div><div>Web: <a href='$web_festival'>$web_festival</a></div>";
+      // echo "<div><details><summary>Conciertos:</summary><table>";
+      // while ($concierto = mysqli_fetch_array($result_conciertos)) {
+      //   extract($concierto);
+      //   if (!empty($f_concierto)) {
+      //     $f_concierto = date("j F, Y H:i", strtotime($f_concierto));
+      //   } else {
+      //     $f_concierto = "Sin fecha";
+      //   }
+      //   echo"<tr>";
+      //     if ($web_grupo != "") {
+      //       echo "<td><a href='$web_grupo'>$nombre_grupo</a></td>";
+      //     } else {
+      //       echo "<td><a href='#'>$nombre_grupo</a></td>";
+      //     }
+      //     echo "<td>$f_concierto</td></tr'>";
+      // }
+      // echo "</table></details>
+      echo"</div><div><span>Fecha: $fecha_inicio</span><span>- $fecha_fin</span></div><div>Precio abono: $abono</div><div>Web: <a href='$web_festival'>$web_festival</a></div>";
       if ($info_festival != '') {
         echo "<div>Otra información: $info_festival</div>";
       }
@@ -381,8 +430,8 @@
       <!--Grid row-->
       <div class='row'>
         <!--Grid column-->
-        <div class='col-lg-8 col-md-12 mb-4 mb-md-0'>
-          <h5 class='text-uppercase'>Sobre Nosotros</h5>
+        <div class='col-lg-8 col-md-12  md-0'>
+          <h5 class='text-uppercase tituloFooter'>Sobre Nosotros</h5>
 
           <p>
             Somos un equipo de cuatro estudiantes apasionados por la tecnología y el desarrollo web. Actualmente, estamos cursando el ciclo formativo de Desarrollo de Aplicaciones Web (DAW) y este proyecto es una oportunidad para aplicar nuestros conocimientos y habilidades en un entorno real.
@@ -392,8 +441,8 @@
 
        
         <!--Grid column-->
-        <div class='col-lg-4 col-md-6 mb-4 mb-md-0'>
-          <h5 class='text-uppercase mb-0'>Nosotros  </h5>
+        <div class='col-lg-4 col-md-6  md-0'>
+          <h5 class='text-uppercase tituloFooter md-0'>Nosotros  </h5>
 
           <ul class='list-unstyled'>
             <li>

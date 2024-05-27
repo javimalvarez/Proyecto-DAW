@@ -28,7 +28,9 @@ section{
     overflow: hidden; /* Asegura que el contenido no se desborde */
     margin-bottom: 2%;
   }
-
+  .tituloFooter{
+    margin-bottom: 1%;
+  }
   .divFondo::before {
     content: '';
     background-image: url('https://a.cdn-hotels.com/gdcs/production199/d1583/66ba1bf9-17d4-4e57-bf31-0ac6712a9b84.jpg?impolicy=fcrop&w=800&h=533&q=medium');
