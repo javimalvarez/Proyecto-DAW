@@ -8,15 +8,16 @@
 session_start();
 require("../../database/datos.php");
 require("../../database/filtros.php");
+$con = mysqli_connect($host, $user, $pass, $db_name);
 date_default_timezone_set('Europe/Madrid');
 $coste = "";
-$categoria = [1];
+$categoria = [3];
 $title=["Conciertos","Teatro","Cine","Ferias","Otros eventos"];
 setlocale(LC_TIME, 'es_ES.UTF-8');
 echo "<head>
   <meta charset='utf-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
-  <title>$title[0]</title>
+  <title>$title[2]</title>
 </head>";
 
 echo "</div>

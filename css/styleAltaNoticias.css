@@ -1,0 +1,61 @@
+/* Estilos para el formulario de alta de noticias */
+form {
+    margin-top: 2%;
+text-align: center;
+    width: 100%; /* Ancho máximo del formulario */
+    padding: 20px; /* Añadir espacio interno */
+    border: 1px solid #ccc; /* Añadir borde */
+    border-radius: 8px; /* Añadir bordes redondeados */
+    background-color: #f9f9f9; /* Color de fondo */
+}
+.footerAdmin{  
+    background-color: #a2b6b6;
+  color: black;
+  position: fixed;
+  bottom: 0;
+  width: 80%!important;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+.tituloNoticias{   
+    text-align: center;
+     font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    margin-top: 2%;
+
+margin-bottom: 2%;
+}
+
+input[type="text"],
+textarea {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Añadir espacio interno */
+    margin-bottom: 20px; /* Añadir espacio entre elementos */
+    border: 1px solid #ccc; /* Añadir borde */
+    border-radius: 4px; /* Añadir bordes redondeados */
+    box-sizing: border-box; /* Incluir padding y border en el tamaño total */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+.botonoticias{
+    width: 15%;
+    margin-top: 2%;
+    background: #46989b; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Quitar borde del botón */
+    border-radius: 4px; /* Añadir bordes redondeados */
+    padding: 11px 20px; /* Añadir espacio interno al botón */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+}
+input[type="submit"] {
+   
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Cambiar color de fondo al pasar el cursor */
+}

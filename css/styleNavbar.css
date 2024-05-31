@@ -4,7 +4,9 @@ html {
 }
 
 body {
-  background: rgb(34, 193, 195);
+  font-family: "Segoe IU", sans-serif!important;
+  background-color: #CBE3E4!important;
+ /* background: rgb(34, 193, 195);
   background: linear-gradient(
     135deg,
     rgba(34, 193, 195, 1) 23%,
@@ -15,7 +17,7 @@ body {
   background-position: center center;
   background-attachment: fixed;
   font-family: Arial, sans-serif;
-  background-color: aquamarine;
+  background-color: aquamarine;*/
   padding-left: 10%;
   padding-right: 10%;
   margin: 0;
@@ -24,6 +26,13 @@ body {
   display: flex;
   flex-direction: column; /* Ajusta el valor según la altura del footer */
 }
+.tituloIndex {font-weight: bold;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
 .ocultar-div{
   display:none;
 }
@@ -45,12 +54,65 @@ body {
   .footerCopyright{
     display: block;
   }
+
+  
 }
-.footer {
+
+@media screen and (max-width:1550px) {
+  .ulnavbarEventos .nav-item {
+    margin: 0 12%!important; 
+  }
+}
+
+@media screen and (max-width:1450px) {
+  .ulnavbarEventos .nav-item {
+    margin: 0 10%!important; 
+  }
+}
+
+@media screen and (max-width:1250px) {
+  .ulnavbarEventos .nav-item {
+    margin: 0 7%!important; 
+  }
+}
+
+@media screen and (max-width:1150px) {
+  .ulnavbarEventos .nav-item {
+    margin: 0 5%!important; 
+  }
+}
+
+
+
+.btn-primary {
+  background-color: #275354!important;
+ 
+}
+.toggle-group .toggle-on,
+.toggle-group .toggle-off {
+    line-height: 1.5em; /* Ajusta esto según la altura del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footerIndex {
+  background-color: #343a40!important;
   width: 100%;
   margin-top: auto; 
 }
 
+.footerCards {
+  background-color: #a2b6b6;
+  color: black;
+  position: fixed;
+  bottom: 0;
+  width: 80%!important;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 10px 0!important;
+  box-sizing: border-box;
+}
 .login {
   display: none;
   position: absolute;
@@ -71,7 +133,7 @@ body {
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-bottom: 15px solid #28d;
+  border-bottom: 15px solid #46989b;
   position: absolute;
   top: -15px; /* Posición vertical ajustada para que esté debajo del navbar */
   right: 15px;/* Ajusta la posición horizontal para que esté alineado con el perfil */
@@ -114,31 +176,60 @@ body {
 .login input[type="password"]:focus {
   border-color: #888;
 }
-
+.botonSearch:hover{
+  background:#46989b !important;
+  color:white !important;
+}
 .registro {
-  background: pink;
+  background: #275354;
   border-color: transparent;
   color: #fff;
   cursor: pointer;
 }
 .botonLogin {
-  background: #28d;
+  background: #46989b;
   border-color: transparent;
   color: #fff;
   cursor: pointer;
 }
+.botonConsulta{
+  background: #46989b;
+  color: white;
+}
 
 .login input[type="submit"]:hover {
-  background: #17c;
+  background: #a1d4d5;
 }
 .login input[type="button"]:hover {
-  background: #17c;
+  background: #a1d4d5;
 }
 
 /* Buttons' focus effect */
 .login input[type="button"]:focus {
-  border-color: #05a;
+  border-color: #35b5b8;
 }
+.navbarEventos {
+  background-color: #555;
+  color: #fff!important;
+}
+.navbarEventos .container-fluid .collapse .navbar-nav .nav-item .nav-link{
+  color: #fff !important;
+}
+.ulnavbarEventos{
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  height: 100%; 
+  font-size: 1.2rem;
+  text-transform: capitalize; /* Convierte la primera letra de cada palabra en mayúscula */
+}
+.navbarEventos .container-fluid .collapse .navbar-nav .nav-item  .nav-link:hover {
+  color: #888 !important; /* Cambia el color del texto al pasar el ratón por encima a rojo y asegura que tenga prioridad con !important */
+}
+.ulnavbarEventos .nav-item {
+  margin: 0 15%; /* Añade margen entre los elementos de navegación */
+}
+
 
 .fotoNavbar {
   cursor: pointer;
@@ -158,6 +249,13 @@ body {
   align-items: center;
 
   list-style-type: none;
+}
+.navlink{
+  color: rgba(0,0,0,.5);
+
+}
+.nav-link:hover{
+  color: black;
 }
 
 .nav-item {

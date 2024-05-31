@@ -1,0 +1,147 @@
+.container {
+    width: 200px; /* Ancho del div */
+    margin: 0 auto;
+
+
+}
+
+  /* footer {
+    position: fixed;
+    bottom: 0;
+    width: 80%;
+} */
+
+h2{
+    text-align: center;
+}
+.btn-outline-primary:hover{
+    background-color: #46989b!important;
+    color: white!important;
+}
+.dropEventos:active {
+    background-color: #46989b!important;
+    } 
+input[type=submit] {
+    margin-top: 2%;
+    background-color: #46989b;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size:1rem ;
+
+}
+input[type=submit]:hover{
+background-color: #275354;
+color: white;
+
+}
+
+.footerAdmin{  
+    background-color: #a2b6b6;
+  color: black;
+  position: fixed;
+  bottom: 0;
+  width: 80%!important;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif; /* Cambiamos la tipografía */
+    background-color: #f8f9fa; /* Cambiamos el color de fondo */
+}
+
+.container {
+    background-color: #fff;
+    width: 80%; 
+    padding: 20px 2% !important; /* Añadimos espacio interno */
+    border-radius: 8px; /* Añadimos bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadimos sombra */
+    margin-bottom: 2%;
+    margin: 20px 20px;
+
+
+}
+.tituloEventos{
+font-weight: bold;
+font-family: "Playfair Display", serif;
+font-optical-sizing: auto;
+font-weight: 700;
+font-style: normal;
+margin-top:3% !important;
+margin-bottom:2% !important;
+
+
+}
+.tituloSelect{
+font-size: 19px;
+font-weight: bold;
+font-family: "Playfair Display", serif;
+font-optical-sizing: auto;
+font-weight: 700;
+font-style: normal;
+margin-bottom: 2%;
+margin-top: 1%;
+
+
+}
+.informacion {
+    font-size: 14px;
+    margin-bottom: 1%;
+
+}
+
+
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+input[type="url"],
+select ,
+textarea {
+    width: 100%;
+    padding: 10px;
+   
+
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+ 
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+label{
+    margin-top:0.5%;
+    margin-bottom: 1.2%;
+}
+
+.botonEnviar {
+    display: inline-block;
+
+    margin-top: 20px; /* Ajustamos el margen superior */
+    padding: 10px 10px!important; /* Añadimos espacio interno al botón */
+    font-size: 15px!important; /* Ajustamos el tamaño de la fuente */
+    border: none; /* Quitamos el borde del botón */
+    border-radius: 4px; /* Añadimos bordes redondeados */
+    background-color: #007bff; /* Cambiamos el color de fondo del botón */
+    color: #fff; /* Cambiamos el color del texto del botón */
+    cursor: pointer; /* Cambiamos el cursor al pasar sobre el botón */
+    transition: background-color 0.3s; /* Agregamos una transición suave */
+    width: 15%;
+
+}
+
+.botonEnviar:hover {
+    background-color: #0056b3;
+}
+.text-center {
+    text-align: center;
+}

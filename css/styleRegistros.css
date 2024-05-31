@@ -36,14 +36,14 @@ input{
 .botonRegistro{
     margin-top: 7%;
     margin-bottom: 7%;
-    background: #28d;
+    background: #46989b;
     border-color: transparent;
     color: #fff;
     cursor: pointer;
 
 }
 .botonRegistro:hover {
-    background:red;
+    background:275354;
   }
   .col-md-8 input{
     margin-top: 2%;

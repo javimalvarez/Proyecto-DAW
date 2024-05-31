@@ -18,17 +18,18 @@ if (isset($_POST['correo']) && isset($_POST['pass']) && !empty($_POST['correo'])
 
             if ($numUsers > 0 && password_verify($_POST['pass'], $contraseña)) {
                 //Se recupera el tipo de usuario mediante una consulta a la base de datos
-                $query_typeUser = "SELECT id_usuario, nombre, id_provincia, email, tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
+                $query_typeUser = "SELECT id_usuario, nombre, apellidos, id_provincia, email, tipo FROM usuarios WHERE email = '" . $_POST['correo'] . "'";
                 $result = mysqli_query($con, $query_typeUser);
                 extract(mysqli_fetch_array($result));
                 $_SESSION['tipoUsuario'] = $tipo;
                 $_SESSION['usuario'] = $email;
                 $_SESSION['nombre'] = $nombre;
+                $_SESSION['apellidos'] = $apellidos;
                 $_SESSION['id_usuario'] = $id_usuario;
                 $_SESSION['provincia_usuario'] = $id_provincia;
                 //Usuario registrado y validado. Se comprueba tipo de usuario
                 if ($_SESSION['tipoUsuario'] == 0) {
-                    echo "<script>let confirmar=confirm('Estas accediendo al área de administrador " . $_SESSION['nombre'] . " ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
+                    echo "<script>let confirmar=confirm('Estas accediendo al panel de administrador " . $_SESSION['nombre'] . " ¿Deseas continuar?');if(!confirmar){window.location.href='../index.php'}</script>";
                     header("refresh:0; url=../admin/admin.php");
                 } else {
                     //Se mostrará la página del perfil de usuario

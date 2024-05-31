@@ -7,68 +7,36 @@
 
 session_start();
 //Requiere que el usuario haya iniciado sesion y en caso de haber iniciado sesión solo puede ser usuario administrador o con permisos alta eventos
-// if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] != 0 || $_SESSION['tipoUsuario'] != 2) {
-//     header("Location: ../index.php");
-// }
+if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario']==1) {
+     header("Location: ../index.php");
+}
 require_once("../database/datos.php");
 
 $con = mysqli_connect($host, $user, $pass, $db_name) or die("Error " . mysqli_error($con));
 echo"<head>
-  <meta charset='utf-8' />
+  <meta charset='utf-8'/>
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>City Planner</title>
 </head>
 </div>
 <!-- Popup de inicio de sesión -->
 <nav id='barra_navegacion' class='nav navbar navbar-expand-lg navbar-light bg-light'id='main-navbar'>
-<a class='navbar-brand mr-auto' href='../index.php'>
-    <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
-    <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
-  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-    <span class='navbar-toggler-icon'></span>
-  </button>
-
-<div class='collapse navbar-collapse' id='navbarSupportedContent'>
-    <ul class='navbar-nav mr-auto'>
-        <li class='nav-item'>
-            <a class='nav-link' href='../admin/admin.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-                Gestionar usuarios
-            </a>
-        </li>
-        <li class='nav-item'>
-            <a class='nav-link' href='../eventos/alta_eventos.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-                Gestionar eventos
-            </a>
-        </li>
-        <li class='nav-item'>
-            <a class='nav-link' href='../admin/editor.php' id='navbarEventos' role='button' aria-haspopup='true' aria-expanded='false'>
-                Publicar noticia
-            </a>
-        </li>
-    </ul>
-</div>
-<div class='nav-item'>
-    <img id='profile-icon' src='../img/person.svg' />
-    <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
-</div>
+    <a class='navbar-brand mr-auto' href='../index.php'>
+        <!-- Esto hay que programarlo mas adelante por si estamos en otro sitio -->
+        <img src='../img/LogoSinFondo.png' alt='Logo' width='80' class='d-inline-block align-text-top fotoNavbar' /></a>
+    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+        <span class='navbar-toggler-icon'></span>
+    </button>
+    <div class='nav-item'>
+        <a  href='".$_SERVER["HTTP_REFERER"]."'>
+            <img id='profile-icon' src='../img/box-arrow-right.svg' />
+            <!-- Aquí puedes agregar lógica para mostrar el formulario de inicio de sesión -->
+        </a>
+    </div>
 </nav>
-<div class='login'>
-    <div class='login-triangle'></div>
-    <img src='../img/user.svg'/>";
-    if($_SESSION['tipoUsuario'] == 0){
-    echo"<div>Administrador</div>";
-  }
-  echo "<div>".$_SESSION['nombre'] ."(" . $_SESSION['usuario'] .")</div>
-  <form action='".$_SERVER['PHP_SELF']."' method='post' class='form-container'>
-    <input type='submit' class='exit' name='salir' value='Salir'></form>
-  </form>
-</div>";
-if (isset($_POST['salir'])) {
-    session_destroy();
-    header("Location: ../index.php");
-}
 
-echo"<div class='cem col-md-9' style='margin-top: 10px;'>
+
+<div class='cem col-md-9' style='margin-top: 10px;'>
 <div class='card cardEvento' >
 <div class='card-header'>Desde aquí puedes gestionar el alta de eventos</div>
 <div class='card-body'>
@@ -109,7 +77,7 @@ echo"<div class='cem col-md-9' style='margin-top: 10px;'>
         echo "<option value='$id_provincia'>$provincia</option>";
     }
     echo "</select><br/>
-    <label for='ubicacion' title='Indica coordenadas'>Ubicación:</label>
+    <label for='ubicacion' title='Indica coordenadas'>Ubicación:</label> 
     <input type='text' name='ubicacion' placeholder='ejemplo: {lat:42.54992, lng:-6.59791}'><br/>
     <input type='checkbox' id='varios_dias' onchange='marcar()'>Marca esta opción si el evento tiene una duración de varios días (no disponible para conciertos)<br/>
     <label for='fecha_inicio'>Fecha/hora evento:</label>
@@ -117,7 +85,9 @@ echo"<div class='cem col-md-9' style='margin-top: 10px;'>
     <span id='fecha_fin'style='visibility: hidden;'>
         <label for='fecha_fin'>Fecha fin:</label>
         <input type='date' name='fecha_fin'>
-    </span>
+    </span><br/>
+    <label for='duracion'>Duracion:</label>
+    <input type='text' name='duracion'><br/>
     <label for='precio'>Precio:</label>
     <input type='number' name='precio' id='precio' step='0.01' min='0' value='0'><br/>
     <label for='web'>Web:</label>
@@ -129,7 +99,7 @@ echo"<div class='cem col-md-9' style='margin-top: 10px;'>
     <input type='submit' class='btn btn-primary btn-sm' id='enviar' value='Enviar'>
 </form>";
 if (isset($_POST['enviar'])) {
-    $query = "INSERT INTO eventos (evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, precio, web_festival, imagen_festival, info_festival, id_usuario) VALUES($_POST[evento], $_POST[grupo], $_POST[festival], $_POST[provincia], $_POST[ubicacion], $_POST[fecha_inicio], $_POST[fecha_fin], $_POST[precio],$_POST[web], $_POST[imagen], $_POST[info]," . $_SESSION['id_usuario'] . ")";
+    $query = "INSERT INTO eventos (nombre_evento, id_tipo, id_grupo, id_festival, id_provincia, ubicacion, fecha_inicio, fecha_fin, duracion, precio, web_evento, imagen_evento, info_evento, id_usuario) VALUES($_POST[evento], $_POST[grupo], $_POST[festival], $_POST[provincia], $_POST[ubicacion], $_POST[fecha_inicio], $_POST[fecha_fin], $_POST[precio],$_POST[web], $_POST[imagen], $_POST[info]," . $_SESSION['id_usuario'] . ")";
     mysqli_query($con, $query) or die("Error " . mysqli_error($con));
     mysqli_close($con);
     echo "<script>(alert('Alta evento realizada correctamente'))</script>";
@@ -140,7 +110,7 @@ if (isset($_POST['enviar'])) {
 
 </div>
 <footer>
-    <div class="text-center p-3 footerCopyright" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="text-center p-3 footerAdmin" style="background-color: rgba(0, 0, 0, 0.2)">
         © 2024 Copyright:
         <a class="text-white" href="">ApePlanner</a>
     </div>
