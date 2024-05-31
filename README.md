@@ -1,6 +1,6 @@
 # Proyecto-DAW
 Creación de una aplicación web para gestión de eventos de ocio.
-Este código corresponde al proyecto de fin de grado del desarrollo de aplicaciones web
+Este código corresponde al proyecto de fin de grado del ciclo de desarrollo de aplicaciones web
 
 #### Miembros del proyecto
 + Aranzazu Ordoyo Orozco
