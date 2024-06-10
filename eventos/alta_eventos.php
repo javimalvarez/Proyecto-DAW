@@ -36,7 +36,7 @@ echo"<head>
 </nav>
 
 
-<div class='cem col-md-9' style='margin-top: 10px;'>
+<div class=' main-content cem col-md-9' style='margin-top: 10px;'>
 <div class='card cardEvento' >
 <div class='card-header'>Desde aquí puedes gestionar el alta de eventos</div>
 <div class='card-body'>
@@ -110,7 +110,7 @@ if (isset($_POST['enviar'])) {
 
 </div>
 <footer>
-    <div class="text-center p-3 footerAdmin" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="text-center p-3 footerCards" style="background-color: rgba(0, 0, 0, 0.2)">
         © 2024 Copyright:
         <a class="text-white" href="">ApePlanner</a>
     </div>

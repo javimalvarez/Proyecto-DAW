@@ -1,0 +1,6 @@
+Se incluyen un script para poder generar la base de datos, este script está dentro de la carpeta database
+
+Es posible utilizar estos usuarios que está incluidos en la base de datos para las pruebas:
+aordoyo@msn.com contraseña: 1234 (administrador)
+iesteban@yahoo.com contraseña: 1234 (permiso alta de eventos)
+drgz@hotmail.com contraseña: 1234 (usuario default)

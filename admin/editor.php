@@ -76,7 +76,7 @@ echo"<head>
 ";
 
 echo"<h2 class='tituloNoticias' >Noticias</h2>
-<div id='editor' style='height: 500px; max-width: 70%; margin-left: 15%'>
+<div class='main-content' id='editor' style='height: 500px; max-width: 70%; margin-left: 15%'>
 <div><form action='".$_SERVER['PHP_SELF']."' method='post'>
     <div class='mb-1'>
         <input type='text' class='form-control' name='titular' placeholder='Título' required>
@@ -123,7 +123,7 @@ echo"</div>";
 mysqli_close($con);
 ?>
 <footer>
-      <div class="text-center p-3 footerAdmin" style="background-color: rgba(0, 0, 0, 0.2)">
+      <div class="text-center p-3 footerCards" style="background-color: rgba(0, 0, 0, 0.2)">
           © 2024 Copyright:
           <a class="text-white" href="">City Planner</a>
       </div>

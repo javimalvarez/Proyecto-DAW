@@ -68,7 +68,7 @@ echo"<head>
     }
     
 echo"</nav>";
-echo"<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+echo"<form class='main-content' method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <h2 class='tituloEventos ' >Dar de alta un grupo</h2>
 <div class='container' >
 <label  class='tituloSelect' for='nombre_grupo' >Nombre grupo:</label>
@@ -108,7 +108,12 @@ if(isset($_POST['enviar'])){
 }
 
 ?>
-
+  <footer>
+      <div class="text-center p-3 footerCards" >
+          © 2024 Copyright:
+          <a class="text-white" href="">City Planner</a>
+      </div>
+  </footer>
 <script src="../script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

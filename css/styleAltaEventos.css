@@ -5,11 +5,7 @@
 
 }
 
-  /* footer {
-    position: fixed;
-    bottom: 0;
-    width: 80%;
-} */
+
 
 h2{
     text-align: center;
@@ -38,18 +34,7 @@ color: white;
 
 }
 
-.footerAdmin{  
-    background-color: #a2b6b6;
-  color: black;
-  position: fixed;
-  bottom: 0;
-  width: 80%!important;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  padding: 10px 0;
-  box-sizing: border-box;
-}
+
 body {
     font-family: Arial, sans-serif; /* Cambiamos la tipografía */
     background-color: #f8f9fa; /* Cambiamos el color de fondo */

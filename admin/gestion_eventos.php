@@ -71,7 +71,7 @@ if (isset($_POST['salir'])) {
 }
 $resultado = mostrar_eventos($con);
 $num_filas = obtener_num_filas($resultado);
-echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+echo "<form class='main-content' method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 <h2 class='tituloUsuarios' >Modificar eventos</h2>";
 if ($num_filas == 0) {
     echo "No hay eventos registrados";
@@ -211,9 +211,9 @@ mysqli_close($con);
 
 ?>
 <footer>
-    <div class='text-center p-3 footerAdmin' style='background-color: rgba(0, 0, 0, 0.2);'>
+    <div class='text-center p-3 footerCards' >
         © 2024 Copyright:
-        <a class='text-white' href=''>City€Planner</a>
+        <a class='text-white' href=''>City Planner</a>
     </div>
     <!-- Copyright -->
 </footer>
@@ -251,12 +251,7 @@ function obtener_resultados($resultado)
     return mysqli_fetch_array($resultado);
 }
 ?>
-<footer>
-    <div class="text-center p-3 footerCards" >
-        © 2024 Copyright:
-        <a class="text-white" href="">City Planner</a>
-    </div>
-</footer>
+
 <script src="../script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -140,7 +140,7 @@ echo "</div>
     </div>
   </div>
 </nav>
-<section>
+<section class'main-content'>
 <div style='padding:20px'><h2>¡Hola ". $_SESSION['nombre'] ." ". $_SESSION['apellidos']."!</h2></div>
 <p style='padding:20px'>Este es tu calendario de eventos</p>
 <div class='row justify-content-center align-items-center' >
@@ -196,8 +196,13 @@ while($evento_fav = mysqli_fetch_array($result_eventos_fav)) {
     if ($info_evento != '') {
       echo "<div>Otra información: $info_evento</div>";
     }
-    echo"<div class='d-flex justify-content-end' onclick='event.stopPropagation()'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'><button type='submit' name='eliminarF' value='$id_favorito' style='border: none; background: none;'><img src='img/trash.svg' alt='Papelera'/></button></div>
-    
+    echo "<div class='d-flex justify-content-end' onclick='event.stopPropagation()'>
+    <form action='". $_SERVER['PHP_SELF']. "' method='post'>
+    <button type='submit' name='eliminarF' value='$id_favorito' style='border: none; background: none; 'onclick='eliminar() '>
+    <img src='img/trash.svg' alt='Papelera'/>
+    </button>
+    </div>
+    </form>
           </div>
         </div>
       </div>
@@ -235,19 +240,32 @@ while($festival_fav = mysqli_fetch_array($result_festivales_fav)) {
       echo "<div>Otra información: $info_festival</div>";
     }
     
-    echo"<div class='d-flex justify-content-end'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'><button type='submit' name='eliminarF' value='$id_favorito' style='border: none; background: none;'><img src='img/trash.svg' alt='Papelera' onclick='eliminar($id_favorito)'/></button></div>
+    echo"<div class='d-flex justify-content-end' onclick='handleClick(event)'>
+
+    <form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
+    <button type='submit' name='eliminarF' value='$id_favorito' style='border: none; background: none;'>
+    <img src='img/trash.svg' alt='Papelera' onclick='eliminar()'/>
+    </button></div>
           </div>
         </div>
       </div>
     </div>";
   }
 }
-if(isset($_POST['eliminarF'])&&!empty($_POST['eliminarF'])) {
+
+
+ if (isset($_POST['eliminarF']) && !empty($_POST['eliminarF'])) {
   $query = "DELETE FROM usuarios_eventos WHERE id_favorito=".$_POST['eliminarF']."";
   mysqli_query($con, $query);
-  exit();
+  ?>
+  <script>
+    alert("Registro eliminado correctamente");
+    setTimeout(function() {
+      window.location.href = "<?php echo $_SERVER['PHP_SELF']; ?>";
+    }, 0); 
+  </script>
+  <?php
 }
-
 
 echo"<div class='d-flex justify-content-center'>Puedes volver a consultar todos los eventos desde la página de<a style='text-decoration: none; color: black' href='index.php'>&nbsp<img src='img/house-door-fill.svg' alt='Inicio'/> inicio</a></div>
 </div>";
@@ -259,16 +277,13 @@ echo"<div class='d-flex justify-content-center'>Puedes volver a consultar todos 
         <a class="text-white" href="">City Planner</a>
     </div>
   </footer>
-<script>
-  function eliminar(id_favorito) {
-      const xhttp = new XMLHttpRequest();
-      const eliminar = "eliminar=&id_favorito="+id_favorito;
-      xhttp.open("POST", "", true);
-      xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhttp.send(eliminar);
-      alert("Evento eliminado de favoritos");
-  }
-</script>
+  <script>
+        function handleClick(event) {
+        event.stopPropagation();
+    }
+  </script>
+
+
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {

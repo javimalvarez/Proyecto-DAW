@@ -137,7 +137,7 @@ echo "</div>
 </nav>";
 
 echo "</div>";
-echo "<div style='margin:10px; padding:10px'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
+echo "<div  style='margin:10px; padding:10px'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
 <select class='custom-select-sm w-15' id='provincia' name='provincia' id='provincia'>
 <option value='' disabled selected>Provincia</option>";
 //Consulta de las provincias a la base de datos
@@ -155,7 +155,7 @@ echo "</select>&nbsp<input type='checkbox' id='gratis' name='gratis' value='0'da
 <input type='date' id ='f_fin' name='f_fin' id='f_fin' style='font-size: .8em'>
 <input class='btn btn-primary btn-sm' type='submit' id='consultar' name='consultar' value='Consultar' style='font-size: .8em'/>
 <button class='btn btn-secondary btn-sm' type='reset' id='eliminar' name='eliminar' style='font-size: .8em'>Eliminar seleccion</button></form></div>
-<div id='eventos'>";
+<div class='main-content' id='eventos'>";
 // Se muestra información de todos los festivales que constan en la base de datos
 $result = categoria($con, $categoria);
 $numEventos = mysqli_num_rows($result);

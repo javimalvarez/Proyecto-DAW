@@ -112,34 +112,34 @@ echo "</div>
 </div>
 </div>
 </nav>
-<nav class='navbarEventos navbar navbar-expand-lg    navbar-dark bg-dark'>
-  <div class='container-fluid'>  
+<nav class='navbarEventos navbar navbar-expand-lg navbar-dark bg-dark'>
+<div class='container-fluid'>
   <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation'>
-  <span class='navbar-toggler-icon'></span>
-</button>
-    <div class='collapse navbar-collapse' id='navbarText'>
-      <ul class='ulnavbarEventos navbar-nav mx-auto'>
-        <li class='nav-item'>
-          <a class='nav-link'  href='eventos/event_pages/festivales.php'>Festivales</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='eventos/event_pages/conciertos.php'>Conciertos</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='eventos/event_pages/teatro.php'>Teatro</a>
-        </li>
-        <li class='nav-item'>
+    <span class='navbar-toggler-icon'></span>
+  </button>
+  <div class='collapse navbar-collapse' id='navbarText'>
+    <ul class='ulnavbarEventos navbar-nav mx-auto'>
+      <li class='nav-item'>
+        <a class='nav-link' href='eventos/event_pages/festivales.php'>Festivales</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='eventos/event_pages/conciertos.php'>Conciertos</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='eventos/event_pages/teatro.php'>Teatro</a>
+      </li>
+      <li class='nav-item'>
         <a class='nav-link' href='eventos/event_pages/cine.php'>Cine</a>
-      </li>   <li class='nav-item'>
-      <a class='nav-link' href='eventos/event_pages/ferias.php'>Ferias</a>
-    </li>
-    <li class='nav-item'>
-      <a class='nav-link' href='eventos/event_pages/otros_eventos.php'>Más</a>
-    </li>
-      </ul>
-
-    </div>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='eventos/event_pages/ferias.php'>Ferias</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='eventos/event_pages/otros_eventos.php'>Más</a>
+      </li>
+    </ul>
   </div>
+</div>
 </nav>
 <section>
 <div class='divFondo'>
@@ -523,7 +523,11 @@ echo "</div>
   </footer>
 
 
-  <script src="script.js"></script>
+
+  <!-- Incluir Bootstrap JS -->
+  <script src="./script.js"></script>
+
+  
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

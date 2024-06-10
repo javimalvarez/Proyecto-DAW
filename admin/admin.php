@@ -76,7 +76,7 @@ if ($num_filas == 0) {
 } else {
     echo "    <div class='content'>
 
-<div><form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+<div><form class='main-content' method='post' action='" . $_SERVER['PHP_SELF'] . "'>
     
     <h2 class='tituloUsuarios' >Gestión de usuarios</h2>
     <div  class='table-responsive tabla'>

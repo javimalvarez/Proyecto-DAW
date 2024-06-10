@@ -141,7 +141,7 @@
       </div>
     </div>
   </nav>
-  <section>
+  <section class='main-content'>
   ";
   // Conexión a la base de datos
 
@@ -197,7 +197,7 @@
       }
 
       echo "
-   <section class='main-content'>
+   <section >
    <div class='image-container'>
    <img src='$imagen_festival' class='imagenEventoInfo blur'>
    <img src='$imagen_festival' class='imagenEventoInfo clear'>
