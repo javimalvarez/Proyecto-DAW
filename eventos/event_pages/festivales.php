@@ -138,7 +138,7 @@ echo "</div>
 echo "</div>";
 //Aplicados estilos Bootstrap 4 a los controles del formulario y modificada presentación conciertos a formato tabla
 //Modificado desde aquí
-echo "<div style='margin: 10px; padding: 10px'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
+echo "<div  style='margin: 10px; padding: 10px'><form action='" . $_SERVER['PHP_SELF'] . "' method='post'>
 <select class='custom-select-sm w-15' id='festival' name='festival' style='font-size: .8em;'>
 <option value='' disabled selected>Festival</option>";
 $query_festival = "SELECT id_festival, nombre_festival FROM festivales";
@@ -167,7 +167,7 @@ echo "</select>
 <input class='btn btn-primary btn-sm' type='submit' id='consultar' name='consultar' value='Consultar'/>
 <button class='btn btn-secondary btn-sm' type='reset' id='eliminar' name='eliminar'>Eliminar seleccion</button></form></div>
 
-<div id='eventos'>";
+<div class='main-content' id='eventos'>";
 //Modificado hasta aqui
 
 // Se muestra información de todos los festivales que constan en la base de datos

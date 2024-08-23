@@ -69,8 +69,56 @@ document.addEventListener('click', function (event) {
     }
 
 });
+document.addEventListener("DOMContentLoaded", function() {
+    console.log('DOM fully loaded and parsed');
+    var navLinks = document.querySelectorAll('.nav-link');
+    console.log('navLinks:', navLinks);
 
+    function setActiveLink(link) {
+        // Añadir la clase 'active' al enlace
+        link.classList.add('active');
+        // Guardar el enlace activo en localStorage
+        localStorage.setItem('activeNavLink', link.getAttribute('href'));
+        console.log('activeNavLink set to:', link.getAttribute('href'));
+    }
 
+    // Restaurar el enlace activo de localStorage
+    var activeLink = localStorage.getItem('activeNavLink');
+    console.log('activeLink from localStorage:', activeLink);
+    if (activeLink) {
+        const url = new URL(activeLink, window.location.href);
+        const link = [...navLinks].find(link => {
+          const linkUrl = new URL(link.getAttribute('href'), window.location.href);
+          return linkUrl.href === url.href;
+        });
+        console.log('Found active link:', link);
+        if (link) {
+            setActiveLink(link);
+        } else {
+            // If no matching link is found, set the first link as active
+            setActiveLink(navLinks[0]);
+        }
+    } else {
+        // Agregar la clase active al primer enlace si no hay ninguno guardado en localStorage
+        console.log("No active link found in localStorage. Adding 'active' class to the first link.");
+        setActiveLink(navLinks[0]);
+    }
+    
+
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            console.log('Link clicked:', this.getAttribute('href'));
+            // Eliminar la clase 'active' de todos los enlaces
+            navLinks.forEach(function(otherLink) {
+                if (otherLink!== link && otherLink.classList.contains('active')) {
+                    otherLink.classList.remove('active');
+                }
+            });
+            // Establecer este enlace como activo
+            setActiveLink(link);
+        });
+    });
+});
 
 //Comprobacion campos vacios login
 /*function comprobarLogin(){
@@ -123,6 +171,4 @@ function redirectToFestivales(idFestival) {
     }, 0);
 }
 //document.getElementById("enlaceContraseña").addEventListener("click", reemplazoLogin);
-
-
 

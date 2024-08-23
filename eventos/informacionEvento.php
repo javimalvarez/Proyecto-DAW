@@ -142,7 +142,7 @@ echo "</div>
     </div>
   </div>
 </nav>
-<section>
+<section class='main-content'>
 ";
   // Conexión a la base de datos
 

@@ -68,9 +68,10 @@ echo"<head>
     </div>
     
 </nav>
+<div class='main-content'>
 <h2 class='tituloEventos'>Gestión de Eventos</h2>
-<div class='container' >
-<form id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
+<div class='container ' >
+<form  id='eventos' method='post' action='" . $_SERVER['PHP_SELF'] . "''>
     <label class='tituloSelect' for='evento' required>Nombre evento:</label></br>
 
     <input type='text' id='evento' name='evento' placeholder='Indica nombre del evento' required></br>
@@ -139,7 +140,8 @@ echo"<head>
     <div class= 'text-center'>
     <input type='submit' class='btn btonEnviar btn-sm' id='enviar' name='enviar' value='Enviar'>
     </div>
-</form>";
+</form>
+</div>";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $web = $_SERVER['HTTP_REFERER'];
@@ -178,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </div>
 <footer>
-    <div class="text-center p-3 footerCopyright" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="text-center p-3 footerCards" >
         © 2024 Copyright:
         <a class="text-white" href="">City Planner</a>
     </div>

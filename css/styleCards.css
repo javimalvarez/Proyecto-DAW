@@ -44,18 +44,7 @@ section{
     opacity: 0.5;
     z-index: 1; /* Asegura que el pseudoelemento esté detrás del contenido */
   }
-  .footerCards {
-    background-color: #a2b6b6;
-    color: black;
-    position: fixed;
-    bottom: 0;
-    width: 80%!important;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    padding: 10px 0;
-    box-sizing: border-box;
-  }
+
   .btn-primary {
     background-color: #275354!important;
    
