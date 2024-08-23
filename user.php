@@ -172,7 +172,7 @@ while($evento_fav = mysqli_fetch_array($result_eventos_fav)) {
     if (!empty($fecha_fin)) {
         $fecha_fin = date("j F, Y", strtotime($fecha_fin));
     }
-    echo "<div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEvent($id_evento)'>
+    echo "<div id='favorito_$id_favorito' class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEvent($id_evento)'>
         <div class='row g-0'>
           <div class='col-md-4'>
             <div><img src='$imagen_evento'style='border-radius: 10px; padding: 5px' width='240px'></div>
@@ -216,7 +216,7 @@ while($festival_fav = mysqli_fetch_array($result_festivales_fav)) {
     $fecha_inicio = date("j F, Y", strtotime($fecha_inicio));
     $fecha_fin = date("j F, Y", strtotime($fecha_fin));
     extract($row);
-    echo "<div class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEvent($id_festival)'>
+    echo "<div id='favorito_$id_favorito' class='card mb-3 mx-auto cardGeneral shadow-sm p-3 mb-5 bg-white rounded' onclick='redirectToEvent($id_festival)'>
       <div class='row g-0'>
         <div class='col-md-4'>
           <img style='border-radius: 10px; padding: 5px' width='240px' height='auto' src='$imagen_festival'>
@@ -261,12 +261,21 @@ echo"<div class='d-flex justify-content-center'>Puedes volver a consultar todos 
   </footer>
 <script>
   function eliminar(id_favorito) {
-      const xhttp = new XMLHttpRequest();
-      const eliminar = "eliminar=&id_favorito="+id_favorito;
-      xhttp.open("POST", "", true);
-      xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhttp.send(eliminar);
-      alert("Evento eliminado de favoritos");
+    const xhttp = new XMLHttpRequest();
+    const eliminar = "eliminar=&id_favorito="+id_favorito;
+    xhttp.open("POST", "", true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send(eliminar);
+
+    // Agregar evento de éxito
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // Eliminar el elemento de la lista
+        document.getElementById("favorito_"+id_favorito).remove();
+        $('#calendar').fullCalendar('rerender');
+        alert("Evento eliminado de favoritos");
+      }
+    };
   }
 </script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>

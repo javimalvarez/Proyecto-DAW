@@ -113,7 +113,7 @@ echo "</div>
     <div class='collapse navbar-collapse' id='navbarText'>
       <ul class='ulnavbarEventos navbar-nav mx-auto'>
         <li class='nav-item'>
-          <a class='nav-link'  href='../../eventos/event_pages/festivales.php'>Festivales</a>
+          <a class='nav-link active' style='font-weight:bold;'  href='../../eventos/event_pages/festivales.php'>Festivales</a>
         </li>
         <li class='nav-item'>
           <a class='nav-link' href='../../eventos/event_pages/conciertos.php'>Conciertos</a>

@@ -125,7 +125,7 @@ echo "</div>
         <li class='nav-item'>
         <a class='nav-link' href='../../eventos/event_pages/cine.php'>Cine</a>
       </li>   <li class='nav-item'>
-      <a class='nav-link' href='../../eventos/event_pages/ferias.php'>Ferias</a>
+      <a class='nav-link active' style='font-weight: bold;' href='../../eventos/event_pages/ferias.php'>Ferias</a>
     </li>
     <li class='nav-item'>
     <a class='nav-link' href='../../eventos/event_pages/otros_eventos.php'>Más</a>

@@ -28,7 +28,7 @@ echo "</div>
   </a>
   </li>
   <li class='nav-item'>
-      <a class='nav-link' href='noticias.php' id='navbarLugar' role='button' aria-haspopup='true' aria-expanded='false'>
+      <a class='nav-link active' style='font-weight: bold; color:gray;' href='noticias.php' id='navbarLugar' role='button' aria-haspopup='true' aria-expanded='false'>
         Noticias
       </a>
     </li>";

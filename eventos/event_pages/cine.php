@@ -107,7 +107,7 @@ echo "</div>
 </div>
 </div>
 </nav>
-<nav class='navbarEventos navbar navbar-expand-lg    navbar-dark bg-dark'>
+<nav class='navbarEventos navbar navbar-expand-lg   navbar-dark bg-dark'>
   <div class='container-fluid'>  
   <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation'>
   <span class='navbar-toggler-icon'></span>
@@ -124,7 +124,7 @@ echo "</div>
           <a class='nav-link' href='../../eventos/event_pages/teatro.php'>Teatro</a>
         </li>
         <li class='nav-item'>
-        <a class='nav-link' href='../../eventos/event_pages/cine.php'>Cine</a>
+        <a class='nav-link active' style='font-weight: bold;' href='../../eventos/event_pages/cine.php'>Cine</a>
       </li>   <li class='nav-item'>
       <a class='nav-link' href='../../eventos/event_pages/ferias.php'>Ferias</a>
     </li>
